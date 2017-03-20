@@ -1,0 +1,9 @@
+.gitignore
+config/ranger/bookmarks
+emacs/.emacs.d/ac-comphist.dat
+emacs/.emacs.d/elpa/
+emacs/.emacs.d/projectile-bookmarks.eld
+emacs/.emacs.d/undohist/
+tmux/.tmux.d/digests
+vim/.vim/bundle/
+vim/.vim/undo/
