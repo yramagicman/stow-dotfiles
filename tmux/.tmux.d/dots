@@ -7,11 +7,15 @@ if tmux has-session -t dots 2> /dev/null; then
   exit
 fi
 
-tmux new-session -d -s dots -n ranger
+tmux new-session -d -s dots -n dotfiles
 
-tmux send-keys -t dots:ranger "ranger  .ranger/" Enter
+
+tmux send-keys -t dots:dotfiles "cd ~/Gits/stow-dotfiles" Enter
+tmux send-keys -t dots:dotfiles "vim ." Enter
+tmux new-window -t dots -c "$HOME/.config/ranger" -n ranger
+tmux send-keys -t dots:ranger "ranger ." Enter
 tmux new-window -t dots -c "$HOME/.zprezto/runcoms/" -n shellrc
 tmux send-keys -t dots:shellrc "ranger ." Enter
 tmux new-window -t dots -c "$HOME/.zprezto/modules/zsh-aliases/" -n aliases
 tmux send-keys -t dots:aliases "ranger ." Enter
-$HOME/bin/switch_or_attach dots:ranger.left
+$HOME/bin/switch_or_attach dots:dotfiles.left
