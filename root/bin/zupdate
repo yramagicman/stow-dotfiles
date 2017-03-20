@@ -7,4 +7,4 @@ git rebase master upstream/master
 git checkout master
 git pull
 git submodule update --init --recursive
-git push
+git push origin upstream/master
