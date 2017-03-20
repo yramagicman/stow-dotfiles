@@ -1,4 +1,6 @@
 /home/jonathan/Sites/rcportal/portal/
+/home/jonathan/Sites/TheBestSchools/wp-content/themes/tbs-v3
+/home/jonathan/Gits/stow-dotfiles
 /usr/share/webapps/wordpress/wp-content/themes/tc_redo
 /home/jonathan/Gits/zsh-aliases/
 /home/jonathan/.zprezto/
@@ -6,7 +8,6 @@
 /home/jonathan/.password-store/
 /home/jonathan/.mutt/
 /home/jonathan/Projects/gup/
-/home/jonathan/
 /home/jonathan/Sites/tbs_django
 #/home/jonathan/Gits/arch-update-server/
 #/home/jonathan/Gits/django_authentication/
@@ -19,4 +20,3 @@
 #/home/jonathan/Gits/vim-minimap/
 #/home/jonathan/Gits/VundleHelper/
 #/home/jonathan/Sites/awesome/
-/home/jonathan/Sites/TheBestSchools/wp-content/themes/tbs-v3
