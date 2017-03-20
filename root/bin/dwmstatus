@@ -1,0 +1,31 @@
+#!/usr/bin/python
+
+import time
+import psutil
+import subprocess
+
+
+def bytes_to_gb(value):
+    return round(value / 1024 / 1024 / 1024, 2)
+
+
+def bytes_to_mb(value):
+    return round(value / 1024 / 1024, 2)
+
+
+def humanize(bytes):
+    bytes_str = str(bytes)
+    if len(bytes_str) < 10:
+        return str(bytes_to_mb(bytes)) + ' MB'
+    else:
+        return str(bytes_to_gb(bytes)) + ' GB'
+
+while True:
+    mem = psutil.virtual_memory()
+    used = humanize(mem[3])
+    free = humanize(mem[1])
+    t = time.strftime('%I:%M %p # %a %m/%d/%y')
+    status = '# Ram: free: ' + \
+        str(free) + ' used: ' + str(used) + ' # ' + t + ' #'
+    subprocess.call(['xsetroot', '-name', status])
+    time.sleep(1)

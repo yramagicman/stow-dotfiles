@@ -1,0 +1,19 @@
+#! /bin/zsh
+# ~/.scripts/ch_wallpaper.sh
+#unset EQUALS
+hn=$(hostname)
+if [[ "$hn" == "k-nine" ]];
+    then
+    WALLPAPERS="/home/jonathan/Dropbox/Photos/DesktopPictures/"
+else
+    WALLPAPERS="/home/jonathan/Dropbox/Photos/dualMonitor/"
+fi
+find $WALLPAPERS -name ' (*.last' -delete
+find $WALLPAPERS -name '(*.last' -delete
+ALIST=( `ls -w1 $WALLPAPERS` )
+RANGE=${#ALIST[@]}
+let "number = $RANDOM"
+let LASTNUM="`cat $WALLPAPERS/.last` + $number"
+let "number = $LASTNUM % $RANGE"
+echo $number > $WALLPAPERS/.last
+nitrogen --set-scaled --save $WALLPAPERS/${ALIST[$number]}

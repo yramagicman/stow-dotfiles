@@ -1,0 +1,8 @@
+#!/usr/bin/zsh
+
+
+if [[ $(tmux switch-client -t $1  > /dev/null 2>&1) -eq 1 ]]; then
+    tmux switch-client -t $1
+else
+    tmux attach -t $1
+fi

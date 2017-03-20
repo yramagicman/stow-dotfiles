@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+if tmux has-session -t $(hostname) 2> /dev/null; then
+  $HOME/bin/switch_or_attach  $(hostname)
+  exit
+fi
+
+tmux new-session -d -s $(hostname) -c '$HOME'
+$HOME/bin/switch_or_attach $(hostname)

@@ -1,0 +1,91 @@
+#!/usr/bin/zsh
+
+hn=$(hostname)
+function my_date () {
+    date +"%a %b %d %Y %I:%M:%S"
+}
+function my_bat() {
+    cat /sys/class/power_supply/BAT1/capacity
+}
+
+function my_bat_stat() {
+    cat /sys/class/power_supply/BAT1/status
+}
+function my_wifi(){
+    nmcli | head -n 1 | awk -F ' ' '{print $4}'
+}
+function wifi_strength() {
+    cat /proc/net/wireless | tail -n 1 | awk -F ' ' '{print $3}'
+}
+function current_window() {
+    xpropstr=$(xprop -root _NET_ACTIVE_WINDOW)
+    id=("${(@s/ /)xpropstr}")
+    $id[-1]
+    window=$(xprop -id $id[-1] WM_NAME)
+    wind_name=("${(@s/=/)window}")
+    name=$wind_name[-1]
+    echo $name[3,-2]
+
+}
+
+function my_load() {
+    load=$(uptime)
+    average=("${(@s/ /)load}")
+
+    if [[ "$hn" == "k-nine" ]];
+    then
+        echo "Load: "$average[12,-1]
+    else
+        echo $average[9,-1]
+    fi
+
+}
+
+function updates() {
+    updates=$(pacman -Qu | wc -l)
+        if [[ $updates -gt 0 ]]
+        then
+            echo "$updates updates available | "
+        fi
+}
+
+function my_mail() {
+
+    if [[ $(date +'%S') -eq 0 ]]
+    then
+        /usr/bin/rm $HOME/.config/mail
+        $HOME/bin/mailmon > $HOME/.config/mail
+        if [[ $(cat $HOME/.config/mail) -gt 0 ]]
+        then
+            echo "$(cat $HOME/.config/mail) emails | "
+        fi
+    else
+
+        if [[ $(cat $HOME/.config/mail) -gt 0 ]]
+        then
+            echo "$(cat $HOME/.config/mail) emails | "
+        fi
+    fi
+}
+function my_weather() {
+    if [[ $(date +'%M') -eq 0 ]]
+    then
+        rm $HOME/.config/weather
+        $HOME/bin/weather.py > $HOME/.config/weather
+    else
+        weather=$(cat $HOME/.config/weather)
+    fi
+    echo $weather
+}
+if [[ "$hn" == "k-nine" ]];
+then
+    while; do
+        echo "$(my_mail)$(updates) $(current_window) | Current Temp: $(my_weather) | Bat: $(my_bat)% $(my_bat_stat) | WIFI: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date)"
+        sleep 0.01s
+    done
+else
+    while; do
+        echo "$(my_mail)$(updates) $(current_window) | Current Temp: $(my_weather) | $(my_load) | WIFI: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date)"
+        sleep 0.01s
+    done
+fi

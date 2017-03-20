@@ -1,0 +1,31 @@
+#!/bin/sh
+
+set -e
+
+if tmux has-session -t django 2> /dev/null; then
+  $HOME/bin/switch_or_attach django
+  exit
+fi
+
+tmux new-session -d -s django -n ranger
+tmux send-keys -t django:ranger "workon tbs-django" Enter
+tmux send-keys -t django:ranger "ranger ." Enter
+
+tmux new-window -t django -n http
+tmux send-keys -t django:http "workon tbs-django" Enter
+tmux send-keys -t django:http "manage.py runserver" Enter
+tmux split-window -h -t django:http
+tmux send-keys -t django:http.right "workon tbs-django" Enter
+tmux send-keys -t django:http.right "manage.py shell" Enter
+
+tmux new-window -t django -n compass
+tmux send-keys -t django:compass "workon tbs-django" Enter
+tmux send-keys -t django:compass "cd /home/jonathan/Sites/tbs_django/best_schools/static" Enter
+tmux send-keys -t django:compass "compass watch" Enter
+
+tmux new-window -t django -n shell
+tmux send-keys -t django:shell "workon tbs-django" Enter
+tmux send-keys -t django:shell "nohup google-chrome-beta --incognito http://127.0.0.1:8000 &" Enter
+tmux send-keys -t django:shell "nohup google-chrome-beta --incognito http://127.0.0.1:8000/admin &" Enter
+tmux send-keys -t django:shell "clear" Enter
+$HOME/bin/switch_or_attach django:1

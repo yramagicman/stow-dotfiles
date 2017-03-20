@@ -1,0 +1,19 @@
+Library/
+VirtualBox\ VMs/
+Applications*
+.dropbox
+*cache*
+*Cache*
+.cache*
+.atom/
+.cups/
+.DS_Store
+.gem/
+.adobe/
+.emacs.d/
+.git/
+.npm/
+.node-gyp/
+.cabal/
+.PyCharm30/
+.thumbnails/

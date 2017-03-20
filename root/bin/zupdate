@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+cd ~/.zprezto/
+git checkout master
+git fetch upstream
+git pull --rebase
+git rebase master upstream/master
+git checkout master
+git pull
+git submodule update --init --recursive
+git push

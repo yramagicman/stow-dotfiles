@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Unique string to identify your keyboard. You can get it using lsusb
+kbname="Holtek"
+
+# You can have the script play a sound when your keyboard is plugged in and out
+# Put the location of these files here
+insound="/.soundeffects/usbin.mp3"
+outsound="/.soundeffects/usbout.mp3"
+firstrun=1
+lastaction=0
+enkb='xinput enable "AT Translated Set 2 keyboard"'
+diskb='xinput disable "AT Translated Set 2 keyboard"'
+
+plugged=$( lsusb | grep -ic "$kbname" )
+if (( $plugged == 1 )); then
+        lastaction=1
+        firstrun=0
+        eval $diskb
+elif (( $plugged == 0 )); then
+        lastaction=2
+        firstrun=0
+        eval $enkb
+fi

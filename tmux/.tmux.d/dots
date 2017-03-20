@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+if tmux has-session -t dots 2> /dev/null; then
+  $HOME/bin/switch_or_attach dots
+  exit
+fi
+
+tmux new-session -d -s dots -n ranger
+
+tmux send-keys -t dots:ranger "ranger  .ranger/" Enter
+tmux new-window -t dots -c "$HOME/.zprezto/runcoms/" -n shellrc
+tmux send-keys -t dots:shellrc "ranger ." Enter
+tmux new-window -t dots -c "$HOME/.zprezto/modules/zsh-aliases/" -n aliases
+tmux send-keys -t dots:aliases "ranger ." Enter
+$HOME/bin/switch_or_attach dots:ranger.left

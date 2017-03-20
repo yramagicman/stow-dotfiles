@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+fetchmail -c 2>/dev/null | sed 's/(//g' | awk -F ' ' '{print int($1) - int($3)}'

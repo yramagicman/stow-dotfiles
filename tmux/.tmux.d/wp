@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -e
+
+if tmux has-session -t wp 2> /dev/null; then
+  $HOME/bin/switch_or_attach wp
+  exit
+fi
+
+tmux new-session -c "$HOME/Sites/TheBestSchools/wp-content/themes" -d -s wp -n theme
+tmux send-keys -t wp:theme "ranger ." Enter
+
+tmux new-window -t wp -c "$HOME/Sites/TheBestSchools/wp-content/plugins/" -n plugins
+tmux send-keys -t wp:plugins "ranger ." Enter
+
+tmux new-window -t wp -c "$HOME/Sites" -n shell
+tmux send-keys -t wp:shell "server-up" Enter
+
+tmux new-window -t wp -c "$HOME/Sites/TheBestSchools/wp-content/themes/tbs-v3" -n sass
+tmux send-keys -t wp:sass "compass watch" Enter
+
+tmux new-window -t wp -c "$HOME/Sites" -n chrome
+tmux send-keys -t wp:chrome "nohup google-chrome-beta --incognito http://tbs.local &" Enter
+tmux send-keys -t wp:chrome "nohup google-chrome-beta --incognito http://tbs.local/wp-admin &" Enter
+tmux send-keys -t wp:chrome "exit" Enter
+$HOME/bin/switch_or_attach wp:shell.left

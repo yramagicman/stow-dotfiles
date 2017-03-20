@@ -1,0 +1,7 @@
+#!/bin/env zsh
+
+while
+    do
+        $HOME/bin/rotate-wallpaper
+        /bin/sleep 15m
+        done

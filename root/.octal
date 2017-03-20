@@ -1,0 +1,5 @@
+Octal Permissions
+----------	0000	no permissions
+---x--x--x	0111	execute
+--w--w--w-	0222	write
+-r--r--r--	0444	read

@@ -1,0 +1,17 @@
+#!/bin/zsh
+
+if [ "$(uname)" = "Darwin" ] ; then
+    while true; do
+        if test -n "`tmux showb 2> /dev/null`"; then
+            tmux saveb -| pbcopy && tmux deleteb > /dev/null
+        fi
+        sleep 0.5
+    done
+else
+     while true; do
+        if test -n "`tmux showb 2> /dev/null`"; then
+            tmux saveb -| clipboard && tmux deleteb > /dev/null
+        fi
+        sleep 0.5
+    done
+fi
