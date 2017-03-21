@@ -3,6 +3,6 @@ cd ~/.zprezto/
 git pull
 git checkout master
 git fetch upstream
-git merge master upstream/master
+git merge master upstream/master -m 'sync with zsh-users/prezto'
 git submodule update --init --recursive
 git push -u origin master
