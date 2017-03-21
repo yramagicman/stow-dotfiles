@@ -1,10 +1,8 @@
 #!/usr/bin/env zsh
 cd ~/.zprezto/
+git pull
 git checkout master
 git fetch upstream
-git pull --rebase
-git rebase master upstream/master
-git checkout master
-git pull
+git merge master upstream/master
 git submodule update --init --recursive
-git push origin upstream/master
+git push -u origin master
