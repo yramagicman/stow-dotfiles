@@ -42,7 +42,7 @@ function my_load() {
 }
 
 function updates() {
-    updates=$(pacman -Qu | wc -l)
+    updates=$(wc -l ~/.config/updates_avaliable)
         if [[ $updates -gt 0 ]]
         then
             echo "$updates updates available | "
@@ -81,11 +81,11 @@ if [[ "$hn" == "k-nine" ]];
 then
     while; do
         echo "$(my_mail)$(updates) $(current_window) | Current Temp: $(my_weather) | Bat: $(my_bat)% $(my_bat_stat) | WIFI: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date)"
-        sleep 0.01s
+        sleep 1s
     done
 else
     while; do
         echo "$(my_mail)$(updates) $(current_window) | Current Temp: $(my_weather) | $(my_load) | WIFI: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date)"
-        sleep 0.01s
+        sleep 1s
     done
 fi
