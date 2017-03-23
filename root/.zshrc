@@ -40,7 +40,7 @@ local unstaged_format="${_prompt_lime_colors[2]}*%f"
 local staged_format="${_prompt_lime_colors[5]}+%f"
 
 # Set vcs_info parameters.
-zstyle ':vcs_info:*' enable bzr git hg svn
+zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*:prompt:*' check-for-changes true
 zstyle ':vcs_info:*:prompt:*' unstagedstr "${unstaged_format}"
 zstyle ':vcs_info:*:prompt:*' stagedstr "${staged_format}"
@@ -74,21 +74,27 @@ PROMPT='
 RPROMPT='${_prompt_lime_colors[6]}[ %D{%I:%M %P} ]%f'
 #}}}
 #{{{ source and load aliases and plugins
-source $HOME/.zprofile
-source ~/Gits/zsh-aliases/init.zsh
-if [[ -a ~/Gits/z/z.sh ]]; then
-    source ~/Gits/z/z.sh
+
+function source_or_clone() {
+
+if [[ -a $1 ]]; then
+    source $1
 else
-    echo "z not found "
+    echo "$1 not found "
     read -k 1 -r \
         'REPLY?Do you want to clone it into ~/Gits/ '
     if [[ $REPLY =~ ^[yY]$ ]]; then
+        mkdir -p $HOME/Gits/
         builtin cd ~/Gits/
-        git clone https://github.com/rupa/z.git
-        source ~/Gits/z/z.sh
+        git clone $2
+        source $1
         builtin cd
     fi
 fi
+}
+source $HOME/.zprofile
+source_or_clone ~/Gits/z/z.sh 'https://github.com/rupa/z.git'
+source_or_clone ~/Gits/zsh-aliases/init.zsh 'https://github.com/yramagicman/zsh-aliases.git'
 #}}}
 #{{{ completion
 #{{{ options
