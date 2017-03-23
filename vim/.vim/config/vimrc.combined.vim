@@ -108,7 +108,6 @@ if has('folding')
   if has('windows')
     set fillchars=vert:┃              " BOX DRAWINGS HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
   endif
-  set foldlevelstart=99               " start unfolded
 endif
 set nojoinspaces
 if v:version > 703 || v:version == 703 && has('patch541')

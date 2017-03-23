@@ -1,4 +1,3 @@
-.gitignore
 config/ranger/bookmarks
 emacs/.emacs.d/ac-comphist.dat
 emacs/.emacs.d/elpa/
