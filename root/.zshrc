@@ -194,7 +194,6 @@ export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
 export XDG_CONFIG_HOME=$HOME/.config
 export PATH=$PATH:$HOME/bin/
 export BROWSER=chromium
-export GREP_OPTIONS='--color=auto'
 #}}}
 # {{{cdr, persistent cd
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
