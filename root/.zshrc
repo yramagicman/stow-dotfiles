@@ -5,6 +5,7 @@ unsetopt CASE_GLOB
 setopt autocd
 setopt extendedglob
 
+CONFIG_DIR="$HOME/Gits"
 # {{{ colors
 if [[ $TERM = *256color* || $TERM = *rxvt* ]]; then
   _prompt_lime_colors=(
@@ -82,10 +83,10 @@ if [[ -a $1 ]]; then
 else
     echo "$1 not found "
     read -k 1 -r \
-        'REPLY?Do you want to clone it into ~/Gits/ '
+        "REPLY?Do you want to clone it into $CONFIG_DIR"
     if [[ $REPLY =~ ^[yY]$ ]]; then
-        mkdir -p $HOME/Gits/
-        builtin cd ~/Gits/
+        mkdir -p $CONFIG_DIR
+        builtin cd  $CONFIG_DIR
         git clone $2
         source $1
         builtin cd
@@ -93,8 +94,11 @@ else
 fi
 }
 source $HOME/.zprofile
-source_or_clone ~/Gits/z/z.sh 'https://github.com/rupa/z.git'
-source_or_clone ~/Gits/zsh-aliases/init.zsh 'https://github.com/yramagicman/zsh-aliases.git'
+
+source_or_clone $CONFIG_DIR/z/z.sh 'https://github.com/rupa/z.git'
+source_or_clone $CONFIG_DIR/zsh-completions/zsh-completions.plugin.zsh 'git://github.com/zsh-users/zsh-completions.git'
+source_or_clone $CONFIG_DIR/zsh-aliases/init.zsh 'https://github.com/yramagicman/zsh-aliases.git'
+
 #}}}
 #{{{ completion
 #{{{ options
