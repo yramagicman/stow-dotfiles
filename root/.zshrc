@@ -83,10 +83,11 @@ if [[ -a $1 ]]; then
 else
     echo "$1 not found "
     read -k 1 -r \
-        "REPLY?Do you want to clone it into $CONFIG_DIR"
+        "REPLY?Do you want to clone it into $CONFIG_DIR "
     if [[ $REPLY =~ ^[yY]$ ]]; then
         mkdir -p $CONFIG_DIR
         builtin cd  $CONFIG_DIR
+        echo "\n"
         git clone $2
         source $1
         builtin cd
