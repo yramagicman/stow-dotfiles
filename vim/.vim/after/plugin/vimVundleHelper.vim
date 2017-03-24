@@ -65,8 +65,8 @@ endfunction
 function! VundleHelper_update()
     if exists('g:VundleHelper_Update_Frequency')
         let oneday = 24 * 60 * 60
+        let today = split( system('date +%s') )[0]
         if filereadable($HOME.'/.vim/lastupdate')
-            let today = system('date +%s')
             let updatetime = readfile($HOME.'/.vim/lastupdate')[1]
             if today > updatetime
                 autocmd VimLeave * PluginUpdate
@@ -75,6 +75,7 @@ function! VundleHelper_update()
                 let nextupdate = today + (oneday * g:VundleHelper_Update_Frequency)
                 call writefile([today], $HOME.'/.vim/lastupdate')
                 call writefile([nextupdate], $HOME.'/.vim/lastupdate', "a")
+                return
             endif
         else
             autocmd VimLeave * PluginUpdate
@@ -82,10 +83,14 @@ function! VundleHelper_update()
             let nextupdate = today + (oneday * g:VundleHelper_Update_Frequency)
             call writefile([today], $HOME.'/.vim/lastupdate')
             call writefile([nextupdate], $HOME.'/.vim/lastupdate', "a")
+            return
         endif
+    else
+        let g:VundleHelper_Update_Frequency = 30
+        call VundleHelper_update()
     endif
 endfunction
 
 call VundleHelper_update()
-" call VundleHelper_install_plugins()
-" call VundleHelper_clean_plugins()
+call VundleHelper_install_plugins()
+call VundleHelper_clean_plugins()
