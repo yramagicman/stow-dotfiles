@@ -42,7 +42,7 @@ function my_load() {
 }
 
 function updates() {
-    updates=$(wc -l ~/.config/updates_avaliable)
+    updates=$(wc -l ~/.config/updates_avaliable | cut -d ' ' -f 1)
         if [[ $updates -gt 0 ]]
         then
             echo "$updates updates available | "
