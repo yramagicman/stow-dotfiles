@@ -6,9 +6,9 @@ if ! type "stow" > /dev/null; then
 fi
 
 for f in $(find ./ -maxdepth 1 -type d | grep -Ev '.git|config' | cut -d '/' -f 2 )
-    stow -R $f -t ~/
+    stow -Rv $f -t ~/
 
-stow -R config -t ~/.config
+stow -Rv config -t ~/.config
 
 
 split=("${(@s#/#)SHELL}")
