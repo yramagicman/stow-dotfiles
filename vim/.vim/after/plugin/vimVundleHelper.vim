@@ -62,5 +62,30 @@ function! VundleHelper_clean_plugins()
     endfor
 endfunction
 
-call VundleHelper_install_plugins()
-call VundleHelper_clean_plugins()
+function! VundleHelper_update()
+    if exists('g:VundleHelper_Update_Frequency')
+        let oneday = 24 * 60 * 60
+        if filereadable($HOME.'/.vim/lastupdate')
+            let today = system('date +%s')
+            let updatetime = readfile($HOME.'/.vim/lastupdate')[1]
+            if today > updatetime
+                autocmd VimLeave * PluginUpdate
+                autocmd CursorHold * echom 'updating on close'
+
+                let nextupdate = today + (oneday * g:VundleHelper_Update_Frequency)
+                call writefile([today], $HOME.'/.vim/lastupdate')
+                call writefile([nextupdate], $HOME.'/.vim/lastupdate', "a")
+            endif
+        else
+            autocmd VimLeave * PluginUpdate
+            autocmd CursorHold * echom 'updating on close'
+            let nextupdate = today + (oneday * g:VundleHelper_Update_Frequency)
+            call writefile([today], $HOME.'/.vim/lastupdate')
+            call writefile([nextupdate], $HOME.'/.vim/lastupdate', "a")
+        endif
+    endif
+endfunction
+
+call VundleHelper_update()
+" call VundleHelper_install_plugins()
+" call VundleHelper_clean_plugins()
