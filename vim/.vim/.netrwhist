@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/home/jonathan/.zprezto/modules/zsh-aliases'
-let g:netrw_dirhist_2='/home/jonathan/.vim/config'
-let g:netrw_dirhist_3='/home/jonathan/.vim/config/extensions'

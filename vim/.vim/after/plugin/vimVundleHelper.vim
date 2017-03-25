@@ -46,23 +46,32 @@ endfunction
 
 function! VundleHelper_install_plugins()
     echom "installing plugins"
+    let added = []
     let installed = VundleHelper_read_plugin_dir()
     let listed = VundleHelper_read_plugins()
     for l in listed
         if index(installed, l) == -1
-            execute 'PluginInstall'
+            call add(added, l)
         endif
     endfor
+    if len(added) > 0
+        execute 'PluginInstall'
+    endif
 endfunction
 
 function! VundleHelper_clean_plugins()
     let installed = VundleHelper_read_plugin_dir()
     let listed = VundleHelper_read_plugins()
+    let removed = []
     for l in installed
         if index(listed, l) == -1
-            execute 'PluginClean'
+            call add(removed, l)
         endif
     endfor
+
+    if len(removed) > 0
+        execute 'PluginClean'
+    endif
 endfunction
 
 function! VundleHelper_update()
@@ -90,12 +99,11 @@ function! VundleHelper_update()
         endif
     else
         let g:VundleHelper_Update_Frequency = 30
-        call VundleHelper_update()
     endif
 endfunction
 
-autocmd CursorHold * VundleHelper_sanity_check()
-autocmd CursorHold * VundleHelper_install_vundle()
-autocmd CursorHold * VundleHelper_update()
-autocmd CursorHold * VundleHelper_install_plugins()
-autocmd CursorHold * VundleHelper_clean_plugins()
+autocmd VimEnter * call VundleHelper_sanity_check()
+autocmd VimEnter * call VundleHelper_install_vundle()
+autocmd VimEnter * call VundleHelper_update()
+autocmd VimEnter * call VundleHelper_install_plugins()
+autocmd VimEnter * call VundleHelper_clean_plugins()
