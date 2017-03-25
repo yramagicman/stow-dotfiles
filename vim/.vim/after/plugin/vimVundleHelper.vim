@@ -99,6 +99,7 @@ function! VundleHelper_update()
         endif
     else
         let g:VundleHelper_Update_Frequency = 30
+        call VundleHelper_update()
     endif
 endfunction
 
