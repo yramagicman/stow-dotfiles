@@ -91,6 +91,8 @@ function! VundleHelper_update()
     endif
 endfunction
 
+call VundleHelper_sanity_check()
+call VundleHelper_install_vundle()
 call VundleHelper_update()
 call VundleHelper_install_plugins()
 call VundleHelper_clean_plugins()
