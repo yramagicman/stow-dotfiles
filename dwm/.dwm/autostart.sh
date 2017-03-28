@@ -2,7 +2,7 @@
 xbacklight -set 25
 check_process(){
     #PROCESS_NUM => get the process number regarding the given thread name
-    PROCESS_NUM=$(ps -ef | grep "$1" | grep -v "grep" | wc -l)
+    PROCESS_NUM=$(pgrep $1)
     if [ $PROCESS_NUM -eq 0 ];
     then
        $1 &

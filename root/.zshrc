@@ -1,11 +1,40 @@
+#{{{ Set defaults
+CONFIG_DIR="$HOME/Gits"
 autoload -Uz compinit promptinit
 compinit
 promptinit
 unsetopt CASE_GLOB
 setopt autocd
 setopt extendedglob
+#
+# Smart URLs
+#
 
-CONFIG_DIR="$HOME/Gits"
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+
+#
+# General
+#
+
+setopt BRACE_CCL          # Allow brace character class list expansion.
+setopt COMBINING_CHARS    # Combine zero-length punctuation characters (accents)
+                          # with the base character.
+setopt RC_QUOTES          # Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'.
+unsetopt MAIL_WARNING     # Don't print a warning message if a mail file has been accessed.
+
+#
+# Jobs
+#
+
+setopt LONG_LIST_JOBS     # List jobs in the long format by default.
+setopt AUTO_RESUME        # Attempt to resume existing job before creating a new process.
+setopt NOTIFY             # Report status of background jobs immediately.
+unsetopt BG_NICE          # Don't run all background jobs at a lower priority.
+unsetopt HUP              # Don't kill jobs on shell exit.
+unsetopt CHECK_JOBS       # Don't report on jobs when shell exit.
+
+ #}}}
 # {{{ colors
 if [[ $TERM = *256color* || $TERM = *rxvt* ]]; then
   _prompt_lime_colors=(
@@ -155,18 +184,11 @@ setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
 setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
 
-#
-# Aliases
-#
-
-# Lists the ten most used commands.
-
-
 #}}}
 # {{{ lazy load stuff
 if [[ "$TMUX" != '' ]]; then
 
-    if [[ -z "$(pg tmuxcopy )" ]];
+    if [[ -z "$(pgrep tmuxcopy )" ]];
     then
         tmuxcopy &
     fi
