@@ -7,11 +7,8 @@ if tmux has-session -t wp 2> /dev/null; then
   exit
 fi
 
-tmux new-session -c "$HOME/Sites/TheBestSchools/wp-content/themes" -d -s wp -n theme
+tmux new-session -c "$HOME/Sites/" -d -s wp -n dev
 tmux send-keys -t wp:theme "ranger ." Enter
-
-tmux new-window -t wp -c "$HOME/Sites/TheBestSchools/wp-content/plugins/" -n plugins
-tmux send-keys -t wp:plugins "ranger ." Enter
 
 tmux new-window -t wp -c "$HOME/Sites" -n shell
 tmux send-keys -t wp:shell "server-up" Enter
