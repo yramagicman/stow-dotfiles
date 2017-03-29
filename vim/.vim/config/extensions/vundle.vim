@@ -1,6 +1,7 @@
 "vundle.vim
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+    Plugin 'VundleVim/Vundle.vim'
     Plugin 'bronson/vim-visual-star-search'
     Plugin 'dzeban/vim-log-syntax'
     Plugin 'editorconfig/editorconfig-vim'
@@ -21,5 +22,4 @@ call vundle#begin()
     Plugin 'tpope/vim-surround'
     Plugin 'vim-indent-object'
     Plugin 'vim-scripts/taglist.vim'
-    Plugin 'VundleVim/Vundle.vim'
 call vundle#end()

@@ -18,7 +18,6 @@ function! VundleHelper_install_vundle()
 endfunction
 
 function! VundleHelper_read_plugins()
-    echom "read plugins file"
     if exists("g:VundleHelper_Plugin_File")
         let names = []
         for l in readfile($HOME.g:VundleHelper_Plugin_File)
@@ -40,12 +39,10 @@ function! VundleHelper_read_plugins()
 endfunction
 
 function! VundleHelper_read_plugin_dir()
-    echom "read installed plugins"
     return systemlist('ls $HOME/.vim/bundle')
 endfunction
 
 function! VundleHelper_install_plugins()
-    echom "installing plugins"
     let added = []
     let installed = VundleHelper_read_plugin_dir()
     let listed = VundleHelper_read_plugins()
@@ -103,8 +100,8 @@ function! VundleHelper_update()
     endif
 endfunction
 
-autocmd VimEnter * call VundleHelper_sanity_check()
-autocmd VimEnter * call VundleHelper_install_vundle()
-autocmd VimEnter * call VundleHelper_update()
-autocmd VimEnter * call VundleHelper_install_plugins()
-autocmd VimEnter * call VundleHelper_clean_plugins()
+autocmd VimEnter * silent! call VundleHelper_sanity_check()
+autocmd VimEnter * silent! call VundleHelper_install_vundle()
+autocmd VimEnter * silent! call VundleHelper_update()
+autocmd VimEnter * silent! call VundleHelper_install_plugins()
+autocmd VimEnter * silent! call VundleHelper_clean_plugins()
