@@ -127,7 +127,7 @@ source $HOME/.zprofile
 
 source_or_clone $CONFIG_DIR/z/z.sh 'https://github.com/rupa/z.git'
 source_or_clone $CONFIG_DIR/zsh-completions/zsh-completions.plugin.zsh 'git://github.com/zsh-users/zsh-completions.git'
-source_or_clone $CONFIG_DIR/zsh-aliases/init.zsh 'https://github.com/yramagicman/zsh-aliases.git'
+source_or_clone $CONFIG_DIR/zsh-aliases/init.zsh 'git@github.com:yramagicman/zsh-aliases.git'
 
 #}}}
 #{{{ completion
