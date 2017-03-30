@@ -8,7 +8,7 @@ if tmux has-session -t wp 2> /dev/null; then
 fi
 
 tmux new-session -c "$HOME/Sites/" -d -s wp -n dev
-tmux send-keys -t wp:theme "ranger ." Enter
+tmux send-keys -t wp:dev "ranger ." Enter
 
 tmux new-window -t wp -c "$HOME/Sites" -n shell
 tmux send-keys -t wp:shell "server-up" Enter
