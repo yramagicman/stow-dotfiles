@@ -250,7 +250,8 @@ setopt PUSHD_IGNORE_DUPS
 ## This reverts the +/- operators.
 setopt PUSHD_MINUS
 # }}}
-
+#{{{ start tmux
 if [[ -z $TMUX ]]; then
     s prezto
 fi
+#}}}
