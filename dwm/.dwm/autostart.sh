@@ -1,12 +1,13 @@
-#!/bin/bash
+#!/usr/bin/env zsh
+
 xbacklight -set 25
-check_process(){
-    #PROCESS_NUM => get the process number regarding the given thread name
-    PROCESS_NUM=$(pgrep $1)
-    if [ $PROCESS_NUM -eq 0 ];
+function check_process(){
+
+    if [[ -z "$(pgrep $1 )" ]];
     then
-       $1 &
+        $1 &
     fi
+
 }
 
 i3-msg workspace 'term'
@@ -19,7 +20,7 @@ xset -dpms; xset s off &
 (sleep 1s && /usr/bin/xscreensaver -no-splash) &
 (sleep 10s && xfce4-power-manager) &
 (sleep 3s && check_process volumeicon) &
-(sleep 4s && nm-applet) &
+(sleep 4s && check_process nm-applet) &
 
 ## Set keyboard settings - 250 ms delay and 25 cps (characters per
 ## second) repeat rate.  Adjust the values according to your
