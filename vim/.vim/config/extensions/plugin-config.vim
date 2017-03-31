@@ -102,3 +102,8 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
 let g:seiya_auto_enable=1
+
+
+map / <Plug>(incsearch-forward)
+map ? <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
