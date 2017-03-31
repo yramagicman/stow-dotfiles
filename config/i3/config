@@ -30,7 +30,7 @@ font pango:Souce Code Pro 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id ~/bin/urxvtc
+bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+q kill
