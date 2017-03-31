@@ -251,7 +251,7 @@ setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_MINUS
 # }}}
 #{{{ start tmux
-if [[ -z $TMUX ]]; then
+if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$SSH_TTY" ]]; then
     s prezto
 fi
 #}}}
