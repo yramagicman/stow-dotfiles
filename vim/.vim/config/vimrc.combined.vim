@@ -21,8 +21,10 @@ colorscheme muttclone
 set t_Co=256
 " Make Vim more useful
 set nocompatible
-"text-width
-set textwidth=82
+" text-width
+" For some reason this doesn't work on everything. I've hacked around it with an
+" autocmd further down the file.
+set textwidth=80
 " set color column to 0
 set cc=0
 " highlight long lines
@@ -100,6 +102,7 @@ set synmaxcol=300
 " break
 set scrolloff=2
 set nolist wrap linebreak sidescrolloff=15
+set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
 set showbreak=....
 if exists('+breakindent')
     set breakindent
@@ -325,6 +328,7 @@ if has("autocmd")
         autocmd BufWritePost * call functions#CheckErrorFn()
         autocmd BufLeave,CursorHold * silent! if @% != ''| silent! w
         "}}}
+
     augroup end
     augroup js
         "{{{ Treat Leave files as .js
@@ -379,6 +383,7 @@ if has("autocmd")
         autocmd FocusLost,BufLeave * :silent! wall
         " leave insert mode on focus lost
         autocmd FocusLost,BufLeave * call feedkeys("\<ESC>")
+        autocmd FileType * set textwidth=80
         " }}}
     augroup end
 endif
@@ -564,7 +569,9 @@ vnoremap <LocalLeader>p "+p
 nnoremap <leader>D d0
 inoremap <leader>D <ESC>d0xi
 "repeat last command
-nnoremap <leader>. @:
+nnoremap <leader>! @:
+" repeat last macro
+nnoremap <CR> @@
 "}}}
 "{{{ Formatting, TextMate-style
 nnoremap Q gqip
