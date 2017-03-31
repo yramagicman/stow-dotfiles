@@ -22,4 +22,5 @@ call vundle#begin()
     Plugin 'tpope/vim-surround'
     Plugin 'vim-indent-object'
     Plugin 'vim-scripts/taglist.vim'
+    Plugin 'haya14busa/incsearch.vim'
 call vundle#end()
