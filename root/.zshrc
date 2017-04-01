@@ -250,8 +250,8 @@ setopt PUSHD_IGNORE_DUPS
 ## This reverts the +/- operators.
 setopt PUSHD_MINUS
 # }}}
-#{{{ start tmux
+#{{{ start tmux,
 if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$SSH_TTY" ]]; then
-    s prezto
+    s tmux
 fi
 #}}}

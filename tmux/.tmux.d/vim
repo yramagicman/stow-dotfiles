@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -e
+
+if tmux has-session -t $(hostname) 2> /dev/null; then
+    if ! tmux list-windows | grep -q vim ; then
+        tmux new-window -t $(hostname) -n vim -c '$HOME'
+    fi
+    tmux send-keys -t $(hostname):vim "vim" Enter
+    tmux send-keys -t $(hostname):vim "<esc>:e $@" Enter
+
+    $HOME/bin/switch_or_attach $(hostname):vim.left
+    exit
+fi
+
+tmux new-session -d -s $(hostname) -c '$HOME'
+tmux new-window -t $(hostname) -n vim -c '$HOME'
+tmux send-keys -t $(hostname):vim "vim $@" Enter
+$HOME/bin/switch_or_attach $(hostname):vim.left
