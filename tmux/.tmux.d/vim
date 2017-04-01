@@ -1,19 +1,26 @@
 #!/bin/sh
 
 set -e
+if  [ "$(echo "$@" | cut -d '.' -f 1)" = '' ]; then
+    pane=$(echo "$@" | cut -d '.' -f 2)
+else
+    pane=$(echo "$@" | cut -d '.' -f 1)
+fi
 
 if tmux has-session -t $(hostname) 2> /dev/null; then
-    if ! tmux list-windows | grep -q vim ; then
-        tmux new-window -t $(hostname) -n vim -c '$HOME'
+    if ! tmux list-windows | grep -q $pane ; then
+        tmux new-window -t $(hostname) -n "$pane" -c '$HOME'
     fi
-    tmux send-keys -t $(hostname):vim "vim" Enter
-    tmux send-keys -t $(hostname):vim "<esc>:e $@" Enter
+    tmux send-keys -t $(hostname):"$pane" "vim $@" Enter
 
-    $HOME/bin/switch_or_attach $(hostname):vim.left
+    $HOME/bin/switch_or_attach $(hostname):"$pane".left 2>/dev/null
     exit
 fi
 
 tmux new-session -d -s $(hostname) -c '$HOME'
-tmux new-window -t $(hostname) -n vim -c '$HOME'
-tmux send-keys -t $(hostname):vim "vim $@" Enter
-$HOME/bin/switch_or_attach $(hostname):vim.left
+if ! tmux list-windows | grep -q $pane ; then
+    tmux new-window -t $(hostname) -n "$pane" -c '$HOME'
+fi
+tmux send-keys -t $(hostname):"$pane" "vim $@" Enter
+
+$HOME/bin/switch_or_attach $(hostname):"$pane".left
