@@ -9,10 +9,9 @@ function! VundleHelper_sanity_check()
 endfunction
 
 function! VundleHelper_install_vundle()
-    if !isdirectory($HOME.'/.vim/bundle/Vundle.vim')
-        chdir $HOME/.vim/bundle/
-        pwd
-        let message =  system('git clone https://github.com/gmarik/Vundle.vim.git')
+    if !filereadable($HOME.'/.vim/autoload/plug.vim')
+        let message =  system('curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+        echom message
         source $HOME/.vimrc
     endif
 endfunction
@@ -21,7 +20,7 @@ function! VundleHelper_read_plugins()
     if exists("g:VundleHelper_Plugin_File")
         let names = []
         for l in readfile($HOME.g:VundleHelper_Plugin_File)
-            if split(l)[0] == 'Plugin'
+            if split(l)[0] == 'Plug'
                 let plugin = split(l)[1]
                 if len(split(plugin, '/')) == 2
                     let n = split(plugin, '/')[1]
@@ -39,7 +38,7 @@ function! VundleHelper_read_plugins()
 endfunction
 
 function! VundleHelper_read_plugin_dir()
-    return systemlist('ls $HOME/.vim/bundle')
+    return systemlist('ls $HOME/.vim/plugged')
 endfunction
 
 function! VundleHelper_install_plugins()
@@ -52,7 +51,7 @@ function! VundleHelper_install_plugins()
         endif
     endfor
     if len(added) > 0
-        execute 'PluginInstall'
+        execute 'PlugInstall'
     endif
 endfunction
 
@@ -67,7 +66,7 @@ function! VundleHelper_clean_plugins()
     endfor
 
     if len(removed) > 0
-        execute 'PluginClean'
+        execute 'PlugClean'
     endif
 endfunction
 
@@ -78,7 +77,7 @@ function! VundleHelper_update()
         if filereadable($HOME.'/.vim/lastupdate')
             let updatetime = readfile($HOME.'/.vim/lastupdate')[1]
             if today > updatetime
-                autocmd VimLeave * PluginUpdate
+                autocmd VimLeave * PlugUpdate
                 autocmd CursorHold * echom 'updating on close'
 
                 let nextupdate = today + (oneday * g:VundleHelper_Update_Frequency)
@@ -87,7 +86,7 @@ function! VundleHelper_update()
                 return
             endif
         else
-            autocmd VimLeave * PluginUpdate
+            autocmd VimLeave * PlugUpdate
             autocmd CursorHold * echom 'updating on close'
             let nextupdate = today + (oneday * g:VundleHelper_Update_Frequency)
             call writefile([today], $HOME.'/.vim/lastupdate')
