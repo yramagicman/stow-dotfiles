@@ -198,7 +198,7 @@ function workon() {
         source /usr/bin/virtualenvwrapper.sh  &> /dev/null
         workon "$@"
 }
-setopt nobeep
+setopt NO_BEEP
 xset b off
 #}}}
 #{{{ key bindings
@@ -232,6 +232,13 @@ export BROWSER=chromium
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
 DIRSTACKFILE="$HOME/.cache/zsh/dirs"
+
+# make DIRSTACKFILE if it's not there
+if [[ ! -a $DIRSTACKFILE ]]; then
+    mkdir -p $DIRSTACKFILE[0,-5]
+    touch $DIRSTACKFILE
+fi
+
 if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
     dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
 fi
