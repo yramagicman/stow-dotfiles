@@ -9,6 +9,7 @@ for f in $(find ./ -maxdepth 1 -type d | grep -Ev '.git|config' | cut -d '/' -f 
     stow -Rv $f -t ~/
 
 stow -Rv config -t ~/.config
+stow -Rv git_template -t ~/
 
 
 split=("${(@s#/#)SHELL}")
