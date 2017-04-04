@@ -216,6 +216,12 @@ zle -N run-again
 # bind widget to Ctrl+X in viins mode
 bindkey -e '^y' run-again
 
+# Allow command line editing in an external editor.
+autoload -Uz edit-command-line
+zle -N edit-command-line
+
+bindkey -M emacs "$key_info[Control]X$key_info[Control]E" edit-command-line
+
 #}}}
 #{{{ virtualenv stuff
 export WORKON_HOME=$HOME/.virtualenvs
