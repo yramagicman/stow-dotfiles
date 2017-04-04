@@ -8,9 +8,4 @@ if tmux has-session -t $(hostname) 2>/dev/null; then
 fi
 
 tmux new-session -d -s $(hostname) -c '$HOME'
-if ! tmux has-session -t proxy 2>/dev/null; then
-    tmux new-session -d -s proxy -c '$HOME'
-    tmux new-window -t proxy -n "pane" -c '$HOME'
-    tmux send-keys -t proxy:pane 'ssh -D 8080  thebes65@vps24418.inmotionhosting.com' Enter
-fi
 $HOME/bin/switch_or_attach $(hostname)

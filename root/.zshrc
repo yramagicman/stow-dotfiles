@@ -201,7 +201,7 @@ function workon() {
 setopt NO_BEEP
 xset b off
 #}}}
-#{{{ key bindings
+#{{{ key bindings,
 # define function that retrieves and runs last command
 function run-again {
     # get previous history item
@@ -220,7 +220,7 @@ bindkey -e '^y' run-again
 autoload -Uz edit-command-line
 zle -N edit-command-line
 
-bindkey -M emacs "$key_info[Control]X$key_info[Control]E" edit-command-line
+bindkey -M emacs "\C-X\C-E" edit-command-line
 
 #}}}
 #{{{ virtualenv stuff
