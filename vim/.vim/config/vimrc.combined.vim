@@ -269,6 +269,8 @@ cnoremap <C-e>  <End>
 nnoremap --r :%s/\<<C-r><C-w>\>//g<Left><Left>
 " ask for confirmation
 nnoremap -r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
+nnoremap -gd :grep -R <C-r><C-w> ./
+nnoremap -gl :grep <C-r><C-w> ./*
 "}}}
 "{{{ Substitute selection globally
 vnoremap --r y<Esc>:%s/<C-r>"//g<Left><Left>
@@ -314,6 +316,7 @@ if has("autocmd")
         autocmd FileType vim setlocal foldmethod=marker
         autocmd FileType zsh setlocal foldmethod=marker
         autocmd FileType lua setlocal foldmethod=marker
+        autocmd FileType muttrc setlocal foldmethod=marker
         "}}}
         "{{{ Saving
         autocmd BufEnter,BufWritePre * silent! checktime
@@ -325,8 +328,9 @@ if has("autocmd")
         autocmd BufLeave,BufWritePre *.py silent! %s/# #/# /g
         autocmd BufLeave,BufWritePre *.js silent! %s/\/\/\w/\/\/ &/g
         autocmd BufLeave,BufWritePre *.js silent! %s/\/\/ \/\//\/\/ /g
-        autocmd BufWritePost * call functions#CheckErrorFn()
         autocmd BufLeave,CursorHold * silent! if @% != ''| silent! w
+        autocmd BufEnter,FileType * if &ft != 'qf' | nnoremap <CR> @@ | else | nnoremap <CR> <CR> | endif
+       "autocmd BufLeave,FileType qf nnoremap <CR> @@ | e
         "}}}
 
     augroup end
@@ -488,7 +492,6 @@ inoremap <localleader><BS> <Esc>:call UnwrapParens()<CR>
 noremap <leader>x :call UnwrapParens()<CR>
 "}}}
 "}}}
-"{{{escape
 "{{{ remap escape for easier access
 nnoremap <leader>m <ESC>
 vnoremap <leader>m <ESC>
@@ -505,7 +508,6 @@ nnoremap <M <ESC>
 vnoremap <M <ESC>
 onoremap <M <ESC>
 cnoremap <M <ESC>
-"}}}
 "}}}
 "{{{saving
 "{{{ control whitespace and tabs on save
@@ -570,8 +572,6 @@ nnoremap <leader>D d0
 inoremap <leader>D <ESC>d0xi
 "repeat last command
 nnoremap <leader>! @:
-" repeat last macro
-nnoremap <CR> @@
 "}}}
 "{{{ Formatting, TextMate-style
 nnoremap Q gqip
@@ -650,8 +650,6 @@ cnoreabbrev ga !git add %
 cnoreabbrev gac !git add %
 cnoreabbrev ga% !git add %
 cnoreabbrev gcm !git commit -m
-cnoreabbrev gd !git diff
-cnoreabbrev git Git
 
 "}}}
 "{{{ autoload functions
