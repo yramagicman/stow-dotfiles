@@ -10,7 +10,6 @@ function check_process(){
 
 }
 
-rm $HOME/.config/rip
 i3-msg workspace 'term'
 xflux -z 45036
 ( /home/jonathan/.screenlayout/default.sh) &
