@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+ssid=$(nmcli -t -f active,ssid dev wifi | grep yes | cut -d ':' -f 2)
+echo $ssid
+
+if [[ $ssid == 'lugnuts' ]]; then
+    dig +short myip.opendns.com @resolver1.opendns.com > $HOME/.config/rip
+fi

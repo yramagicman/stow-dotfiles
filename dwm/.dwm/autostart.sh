@@ -10,6 +10,7 @@ function check_process(){
 
 }
 
+rm $HOME/.config/rip
 i3-msg workspace 'term'
 xflux -z 45036
 ( /home/jonathan/.screenlayout/default.sh) &
@@ -21,7 +22,7 @@ xset -dpms; xset s off &
 (sleep 10s && xfce4-power-manager) &
 (sleep 3s && check_process volumeicon) &
 (sleep 4s && check_process nm-applet) &
-
+(sleep 5s  && $HOME/bin/get_remote_ip) &
 ## Set keyboard settings - 250 ms delay and 25 cps (characters per
 ## second) repeat rate.  Adjust the values according to your
 ## preferances.
