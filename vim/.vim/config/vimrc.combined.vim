@@ -290,16 +290,15 @@ nnoremap <leader>dp [czt
 "}}}
 "{{{ Automatic commands
 if has("autocmd")
-    " Enable file type detection
+    "{{{Augroup VimStartup:
+    augroup VimStartup
+        au!
+        au VimEnter * if expand("%") == "" | e . | endif
+
+    augroup END
+    "}}}
     augroup general
         autocmd!
-
-        "{{{Augroup VimStartup:
-        augroup VimStartup
-          au!
-          au VimEnter * if expand("%") == "" | e . | endif
-        augroup END
-        "}}}
         "{{{ Status line
         autocmd BufEnter,BufWritePost,ShellCmdPost * let f=system('[[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && echo "*"')
         autocmd VimEnter,BufEnter,ShellCmdPost * let b=system('git branch 2>/dev/null | grep \* | sed "s/\*//g"')
