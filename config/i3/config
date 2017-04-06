@@ -170,13 +170,13 @@ bar {
 
 
 ## class                 border  backgr. text    indicator child_border
-client.focused          #3f516d #37455b #c6c6c6 #2e9ef4   #285577
-client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
-client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.focused          #43B448 #082F4E  #43B448 #2e9ef4   #43B448
+client.focused_inactive #082F4E #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #082F4E  #082F4E #888888 #292d2e   #082F4E
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
-client.background       #333333
+client.background       #082F4E
 new_window pixel 2
 new_float normal
 hide_edge_borders smart
