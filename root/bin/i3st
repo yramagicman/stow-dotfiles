@@ -80,12 +80,12 @@ function my_weather() {
 if [[ "$hn" == "k-nine" ]];
 then
     while; do
-        echo "$(my_mail)$(updates) $(current_window) | Current Temp: $(my_weather) | Bat: $(my_bat)% $(my_bat_stat) | WIFI: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date)"
+        echo "$(my_mail)$(updates) $(current_window) | Bat: $(my_bat)% $(my_bat_stat) | WIFI: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date)"
         sleep 1s
     done
 else
     while; do
-        echo "$(my_mail)$(updates) $(current_window) | Current Temp: $(my_weather) | $(my_load) | WIFI: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date)"
+        echo "$(my_mail)$(updates) $(current_window) | $(my_load) | WIFI: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date)"
         sleep 1s
     done
 fi
