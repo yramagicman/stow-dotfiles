@@ -6,7 +6,7 @@ if [[ "$hn" == "k-nine" ]];
     then
     WALLPAPERS="/home/jonathan/Dropbox/Photos/clif_moon_silhouette.jpg"
 else
-    WALLPAPERS="/home/jonathan/Dropbox/Photos/dualMonitor/"
+    WALLPAPERS="/home/jonathan/Dropbox/Photos/dualMonitor/tronlightcycles-3840x1080.jpg"
 fi
 # find $WALLPAPERS -name ' (*.last' -delete
 # find $WALLPAPERS -name '(*.last' -delete
