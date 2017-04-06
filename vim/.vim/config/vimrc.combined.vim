@@ -317,6 +317,7 @@ if has("autocmd")
         autocmd FileType zsh setlocal foldmethod=marker
         autocmd FileType lua setlocal foldmethod=marker
         autocmd FileType muttrc setlocal foldmethod=marker
+        autocmd FileType conf setlocal foldmethod=marker
         "}}}
         "{{{ Saving
         autocmd BufEnter,BufWritePre * silent! checktime
