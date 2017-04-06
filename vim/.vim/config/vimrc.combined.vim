@@ -339,7 +339,6 @@ if has("autocmd")
         autocmd BufEnter,FileType * if &ft != 'qf' | nnoremap <CR> @@ | else | nnoremap <CR> <CR> | endif
        "autocmd BufLeave,FileType qf nnoremap <CR> @@ | e
         "}}}
-
     augroup end
     augroup js
         "{{{ Treat Leave files as .js
