@@ -157,14 +157,12 @@ bar {
         status_command exec /home/jonathan/bin/i3st
 
         colors {
-                background #1c1c1c
-                statusline #777777
-                separator #666666
+                background #082F4E
+                statusline #43B448
 
-                #                  border  background text
-                focused_workspace  #3f516d #37455b    #c6c6c6
-                active_workspace   #333333 #2a2a2a    #888888
-                inactive_workspace #333333 #222222    #888888
+                focused_workspace  #43B448 #082F4E    #43B448
+                active_workspace   #333333 #082F4E    #43B448
+                inactive_workspace #333333 #082F4E    #43B448
                 urgent_workspace   #2f343a #900000    #ffffff
                 binding_mode       #2f343a #900000    #ffffff
             }
