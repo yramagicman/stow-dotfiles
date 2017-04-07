@@ -15,8 +15,8 @@ hi      SpecialKey       ctermbg=NONE     ctermfg=254
 hi      Boolean          ctermbg=NONE     ctermfg=50
 hi      Search           ctermbg=24       ctermfg=254
 hi      CursorLine       ctermbg=21       ctermfg=NONE     cterm=NONE
-hi      FoldColumn       ctermbg=NONE     ctermfg=254
-hi      Folded           ctermbg=NONE     ctermfg=254
+hi      FoldColumn       ctermbg=NONE     ctermfg=69
+hi      Folded           ctermbg=NONE     ctermfg=69
 hi      VisualNOS        ctermbg=25       ctermfg=254
 hi      Visual           ctermbg=25       ctermfg=254
 hi      WildMenu         ctermbg=NONE     ctermfg=254
@@ -30,7 +30,7 @@ hi      Identifier       ctermbg=NONE     ctermfg=202      cterm=NONE
 hi      Keyword          ctermbg=NONE     ctermfg=75
 hi      MatchParen       ctermbg=231      ctermfg=16
 hi      Cursor           ctermbg=NONE     ctermfg=254
-hi      ColorColumn      ctermbg=NONE     ctermfg=254
+hi      ColorColumn      ctermbg=54       ctermfg=NONE
 hi      Character        ctermbg=NONE     ctermfg=254
 hi      Number           ctermbg=NONE     ctermfg=214
 hi      Conditional      ctermbg=NONE     ctermfg=46
