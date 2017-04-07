@@ -43,7 +43,7 @@ if [[ $TERM = *256color* || $TERM = *rxvt* ]]; then
     "%F{135}" # Purple
     "%F{161}" # Hotpink
     "%F{40}" # Limegreen
-    "%F{241}" # dark grey
+    "%F{245}" # dark grey
   )
 else
   _prompt_lime_colors=(
@@ -81,6 +81,7 @@ autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
 #}}}
 #{{{ Prompt
+
 precmd() {
     if git rev-parse --git-dir > /dev/null 2>&1; then
         str=$( git rev-parse --show-toplevel)
@@ -93,6 +94,7 @@ precmd() {
     branch_format=" (${_prompt_lime_colors[1]}%b%f%u%c ${_prompt_lime_colors[1]}${git_root}%f)"
 
     zstyle ':vcs_info:*:prompt:*' formats "${branch_format}"
+
 
     vcs_info 'prompt'
 
