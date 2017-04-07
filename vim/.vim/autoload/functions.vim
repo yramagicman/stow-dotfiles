@@ -1,4 +1,3 @@
-"{{{functions
 "{{{ Strip trailing whitespace
 function! functions#StripWhitespace()
     let save_cursor = getpos(".")
@@ -141,5 +140,4 @@ function! functions#AutoHighlightToggle()
         return 1
     endif
 endfunction
-"}}}
 "}}}
