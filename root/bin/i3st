@@ -43,7 +43,7 @@ function my_load() {
 
 function updates() {
 
-    if [[ $(date +"%M") -eq 0 ]]
+    if [[ $(date +"%M") -eq 0 && $(date +"%S") -eq 0 ]]
     then
         pacman=$(checkupdates | wc -l)
         aur=$(cower -u | wc -l)
@@ -53,7 +53,7 @@ function updates() {
         echo "$updates updates available | "
     else
         updates=$(cat ~/.config/updates_avaliable)
-        if [[ $updates ]]
+        if [[ $updates > 0 ]]
         then
             echo "$updates updates available | "
         fi
@@ -62,7 +62,7 @@ function updates() {
 
 function my_mail() {
 
-    if [[ $(date +'%M') -eq 0 ]]
+    if [[ $(date +'%S') -eq 0 ]]
     then
         /usr/bin/rm $HOME/.config/mail
         $HOME/bin/mailmon > $HOME/.config/mail
@@ -79,7 +79,7 @@ function my_mail() {
     fi
 }
 function my_weather() {
-    if [[ $(date +'%M') -eq 0  && $(date +"%S") -eq 0]]
+    if [[ $(date +'%M') -eq 0 && $(date +'%S') -eq 0 ]]
     then
         rm $HOME/.config/weather
         $HOME/bin/weather.py > $HOME/.config/weather
