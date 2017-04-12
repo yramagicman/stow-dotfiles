@@ -43,7 +43,7 @@ hi      TabLineFill      ctermbg=NONE     ctermfg=254
 hi      StatusLine       ctermbg=NONE     ctermfg=NONE
 hi      StatusLineNC     ctermbg=NONE     ctermfg=NONE
 if      has("spell")
-hi      SpellBad         ctermbg=NONE     ctermfg=254
+hi      SpellBad         ctermbg=NONE     ctermfg=202     cterm=UNDERLINE
 hi      SpellCap         ctermbg=NONE     ctermfg=254
 hi      SpellLocal       ctermbg=NONE     ctermfg=254
 hi      SpellRare        ctermbg=NONE     ctermfg=254
