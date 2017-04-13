@@ -42,7 +42,7 @@ function my_load() {
 }
 
 function updates() {
-
+    updates=$(cat ~/.config/updates_avaliable)
     if [[ $(date +"%M") -eq 0  ]]
     then
         if [[ ! $(stat ~/.config/updates_avaliable | grep 'Modify' | cut -d ':' -f 3) -eq 0 ]]; then
@@ -50,14 +50,11 @@ function updates() {
             aur=$(cower -u | wc -l)
             echo $((pac + aur)) > ~/.config/updates_avaliable
         fi
-
-        updates=$(cat ~/.config/updates_avaliable)
         if [[ $updates > 0 ]]
         then
             echo "$updates updates available | "
         fi
     else
-        updates=$(cat ~/.config/updates_avaliable)
         if [[ $updates > 0 ]]
         then
             echo "$updates updates available | "
@@ -66,7 +63,6 @@ function updates() {
 }
 
 function my_mail() {
-
     if [[ $(date +'%S') -eq 0 ]]
     then
         /usr/bin/rm $HOME/.config/mail
