@@ -43,11 +43,13 @@ function my_load() {
 
 function updates() {
 
-    if [[ $(date +"%M") -eq 0 && $(date +"%S") -eq 0 ]]
+    if [[ $(date +"%M") -eq 0  ]]
     then
-        pacman=$(checkupdates | wc -l)
-        aur=$(cower -u | wc -l)
-        echo $((pacman + aur)) > ~/.config/updates_avaliable
+        if [[ ! $(stat ~/.config/updates_avaliable | grep 'Modify' | cut -d ':' -f 3) -eq 0 ]]; then
+            pac=$(checkupdates | wc -l)
+            aur=$(cower -u | wc -l)
+            echo $((pac + aur)) > ~/.config/updates_avaliable
+        fi
 
         updates=$(cat ~/.config/updates_avaliable)
         echo "$updates updates available | "
