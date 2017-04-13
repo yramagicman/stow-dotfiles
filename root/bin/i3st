@@ -52,7 +52,10 @@ function updates() {
         fi
 
         updates=$(cat ~/.config/updates_avaliable)
-        echo "$updates updates available | "
+        if [[ $updates > 0 ]]
+        then
+            echo "$updates updates available | "
+        fi
     else
         updates=$(cat ~/.config/updates_avaliable)
         if [[ $updates > 0 ]]
