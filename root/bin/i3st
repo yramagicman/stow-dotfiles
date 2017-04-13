@@ -43,9 +43,10 @@ function my_load() {
 
 function updates() {
     updates=$(cat ~/.config/updates_avaliable)
-    if [[ $(date +"%M") -eq 0  ]]
+    if [[ $(date +"%M") -eq 20  ]]
     then
-        if [[ ! $(stat ~/.config/updates_avaliable | grep 'Modify' | cut -d ':' -f 3) -eq 0 ]]; then
+        update_hour="$(stat ~/.config/updates_avaliable | grep 'Modify' | cut -d ':' -f 2)"
+        if [[  ! $update_hour[-2,-1] -eq $(date +"%H") ]]; then
             pac=$(checkupdates | wc -l)
             aur=$(cower -u | wc -l)
             echo $((pac + aur)) > ~/.config/updates_avaliable
