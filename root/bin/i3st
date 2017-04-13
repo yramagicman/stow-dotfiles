@@ -43,7 +43,7 @@ function my_load() {
 
 function updates() {
     updates=$(cat ~/.config/updates_avaliable)
-    if [[ $(date +"%M") -eq 20  ]]
+    if [[ $(date +"%M") -eq 0  ]]
     then
         update_hour="$(stat ~/.config/updates_avaliable | grep 'Modify' | cut -d ':' -f 2)"
         if [[  ! $update_hour[-2,-1] -eq $(date +"%H") ]]; then
