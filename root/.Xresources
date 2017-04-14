@@ -7,13 +7,9 @@ Xft.lcdfilter: lcddefault
 xterm*termName: xterm-256color
 xterm*faceName: Inconsolata:size=12:antialias=true
 xter*fontName:xft:Inconsolata:size=13:antialias=true:autohint=true
-xterm*background: #082F4E
-xterm*foreground: grey
 xterm*locale: true
 xterm*utf8: 1
 XTerm*VT100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
-URxvt*background: #082F4E
-URxvt*foreground: grey
 URxvt*font:xft:Inconsolata:size=13:antialias=true:autohint=true
 URxvt*boldFont:xft:Inconsolata:weight=bold:size=13:antialias=true:autohint=true
 URxvt*scrollBar: false
@@ -27,27 +23,40 @@ URxvt.secondaryWheel: 1
 !*******************************************************************************!
 !                                   Colors
 !*******************************************************************************!
-!black dark/light
-*color0:grey10
-*color8:grey50
-! red dark/light
-*color1:red3
-*color9:red
-! green dark/light
-*color2:green4
-*color10:green3
-! yellow dark/light
-*color3: yellow3
-*color11: yellow
-! blue dark/light
-*color4:blue
-*color12:#5c5cff
-! magenta dark/light
-*color5: magenta3
-*color13:magenta
-! cyan dark/light
-*color6:cyan4
-*color14:cyan3
-! white dark/light
-*color7:gray80
-*color15:gray90
+
+! special
+*.foreground:   #ffffff
+*.background:   #082f4e
+*.cursorColor:  #ffffff
+
+! black
+*.color0:       #000000
+*.color8:       #4d4d4d
+
+! red
+*.color1:       #cc0403
+*.color9:       #cc0403
+
+! green
+*.color2:       #19cb00
+*.color10:      #23fd00
+
+! yellow
+*.color3:       #cecb00
+*.color11:      #cecb00
+
+! blue
+*.color4:       #001cd1
+*.color12:      #5c5cff
+
+! magenta
+*.color5:       #cb1ed1
+*.color13:      #cb1ed1
+
+! cyan
+*.color6:       #0dcdcd
+*.color14:      #14ffff
+
+! white
+*.color7:       #e5e5e5
+*.color15:      #ffffff
