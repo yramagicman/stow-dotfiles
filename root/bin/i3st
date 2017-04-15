@@ -5,7 +5,22 @@ function my_date () {
     date +"%a %b %d %Y %I:%M:%S"
 }
 function my_bat() {
-    cat /sys/class/power_supply/BAT1/capacity
+    notify_when=$(echo "$(date +'%M') % 5" | bc)
+    bat_level=$( cat /sys/class/power_supply/BAT1/capacity )
+    if [[ $(date +'%S') -eq 30 ]]
+    then
+        if [[ ( $bat_level < 20 ) && (  $notify_when -eq 0 )  ]]
+        then
+            notify-send "Battery low: $bat_level remaining"
+        fi
+
+        if [[ ( $bat_level < 10 ) && (  $notify_when -eq 0 )  ]]
+        then
+            mplayer $HOME/.sounds/beep.mp3
+        fi
+    fi
+
+    echo $bat_level
 }
 
 function my_bat_stat() {
@@ -51,12 +66,12 @@ function updates() {
             aur=$(cower -u | wc -l)
             echo $((pac + aur)) > ~/.config/updates_avaliable
         fi
-        if [[ $updates > 0 ]]
+        if [[ $updates > 5 ]]
         then
             echo "$updates updates available | "
         fi
     else
-        if [[ $updates > 0 ]]
+        if [[ $updates > 5 ]]
         then
             echo "$updates updates available | "
         fi
@@ -64,7 +79,7 @@ function updates() {
 }
 
 function my_mail() {
-    if [[ $(date +'%S') -eq 0 ]]
+    if [[ $(date +'%S') -eq 15 ]]
     then
         /usr/bin/rm $HOME/.config/mail
         $HOME/bin/mailmon > $HOME/.config/mail
@@ -81,7 +96,7 @@ function my_mail() {
     fi
 }
 function my_weather() {
-    if [[ $(date +'%M') -eq 0 && $(date +'%S') -eq 0 ]]
+    if [[ $(date +'%M') -eq 0 && $(date +'%S') -eq 45 ]]
     then
         rm $HOME/.config/weather
         $HOME/bin/weather.py > $HOME/.config/weather
