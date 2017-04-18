@@ -13,6 +13,10 @@ tmux send-keys -t wp:dev "ranger ." Enter
 tmux new-window -t wp -c "$HOME/Sites" -n shell
 tmux send-keys -t wp:shell "server-up" Enter
 
+
+tmux new-window -t wp -c "$HOME/Sites" -n hangups
+tmux send-keys -t wp:hangups "$HOME/Sites/hangups/bin/hangups" Enter
+
 tmux new-window -t wp -c "$HOME/Sites/TheBestSchools/wp-content/themes/tbs-v3" -n sass
 tmux send-keys -t wp:sass "compass watch" Enter
 
