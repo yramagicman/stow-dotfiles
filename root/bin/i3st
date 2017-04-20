@@ -11,12 +11,7 @@ function my_bat() {
     then
         if [[ ( $bat_level < 20 ) && (  $notify_when -eq 0 )  ]]
         then
-            notify-send "Battery low: $bat_level remaining"
-        fi
-
-        if [[ ( $bat_level < 10 ) && (  $notify_when -eq 0 )  ]]
-        then
-            mplayer $HOME/.sounds/beep.mp3
+            notify-send "Battery low " "$bat_level remaining"
         fi
     fi
 

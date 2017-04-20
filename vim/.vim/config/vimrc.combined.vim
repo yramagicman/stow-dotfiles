@@ -656,7 +656,7 @@ cnoreabbrev ga !git add %
 cnoreabbrev gac !git add %
 cnoreabbrev ga% !git add %
 cnoreabbrev gcm !git commit -m
-cnoreabbrev :b ls<CR> :b
+cnoreabbrev b ls<CR> :b
 
 "}}}
 "{{{ autoload functions

@@ -8,7 +8,6 @@ if tmux has-session -t wp 2> /dev/null; then
 fi
 
 tmux new-session -c "$HOME/Sites/" -d -s wp -n dev
-tmux send-keys -t wp:dev "ranger ." Enter
 
 tmux new-window -t wp -c "$HOME/Sites" -n shell
 tmux send-keys -t wp:shell "server-up" Enter
@@ -17,8 +16,7 @@ tmux send-keys -t wp:shell "server-up" Enter
 tmux new-window -t wp -c "$HOME/Sites" -n hangups
 tmux send-keys -t wp:hangups "$HOME/Sites/hangups/bin/hangups" Enter
 
-tmux new-window -t wp -c "$HOME/Sites/TheBestSchools/wp-content/themes/tbs-v3" -n sass
-tmux send-keys -t wp:sass "compass watch" Enter
+tmux new-window -t wp -c "$HOME/Sites/" -n sass
 
 tmux new-window -t wp -c "$HOME/Sites" -n chrome
 tmux send-keys -t wp:chrome "nohup google-chrome-beta --incognito http://tbs.local &" Enter
