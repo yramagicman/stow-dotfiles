@@ -61,12 +61,12 @@ function updates() {
             aur=$(cower -u | wc -l)
             echo $((pac + aur)) > ~/.config/updates_avaliable
         fi
-        if [[ $updates > 5 ]]
+        if [[ $updates -gt 5 ]]
         then
             echo "$updates updates available | "
         fi
     else
-        if [[ $updates > 5 ]]
+        if [[ $updates -gt 5 ]]
         then
             echo "$updates updates available | "
         fi
