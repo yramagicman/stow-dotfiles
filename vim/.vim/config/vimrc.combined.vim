@@ -558,6 +558,7 @@ nnoremap <Leader><Leader>z zMzOzz
 "{{{ folding options
 set foldmethod=indent
 set foldcolumn=2
+set foldlevel=100
 "}}}
 "}}}
 "{{{mappings
@@ -616,9 +617,6 @@ nnoremap CC 0f_x~
 nnoremap <leader>c :%!column -t<CR>
 nnoremap <leader>cs :%!column -t -s ","<CR>
 nnoremap <leader>cp :%!column -t -s "\|"<CR>
-nnoremap <leader>s :source %<CR>
-nnoremap <leader>S :source %<CR>
-nnoremap <leader>dca :!drush cc all<CR>
 nnoremap <leader>cd :lcd %:p:h<CR>
 "}}}
 "{{{ spelling mappings
