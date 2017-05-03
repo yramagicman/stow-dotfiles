@@ -99,7 +99,7 @@ bindsym $mod+d focus child
 # switch to workspace
 bindsym $mod+1 workspace term
 bindsym $mod+2 workspace chrome
-bindsym $mod+3 workspace firefox
+bindsym $mod+3 workspace alt-browser
 bindsym $mod+4 workspace files
 bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
@@ -111,7 +111,7 @@ bindsym $mod+0 workspace 10
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace term
 bindsym $mod+Shift+2 move container to workspace chrome
-bindsym $mod+Shift+3 move container to workspace firefox
+bindsym $mod+Shift+3 move container to workspace alt-browser
 bindsym $mod+Shift+4 move container to workspace files
 bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6
@@ -198,6 +198,7 @@ exec --no-startup-id ~/.dwm/autostart.sh
 bindsym Control+Shift+h move scratchpad
 bindsym Control+Shift+s scratchpad show
 bindsym Control+Shift+f floating toggle
+bindsym Mod1+space exec passmenu -p '>>' -nb '#082F4E' -sb '#082F4E' -sf '#43B448' -l 20 -i -fn 'Inconsolata'
 bindsym $mod+XF86MonBrightnessDown exec "xbacklight -set 25 -time 1 -steps 1"
 bindsym $mod+XF86MonBrightnessUp exec "xbacklight -set 65 -time 1 -steps 1"
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 10 -time 1 -steps 1"
@@ -216,13 +217,14 @@ assign [class="^chromium$"] chrome
 assign [class="^Chromium$"] chrome
 assign [class="^surf$"] chrome
 assign [class="^Surf$"] chrome
-assign [class="^Navigator$"] firefox
-assign [class="^Firefox$"] firefox
+assign [class="^Navigator$"] alt-browser
+assign [class="^Firefox$"] alt-browser
+assign [class="^Vivaldi-stable$"] alt-browser
 assign [class="^Google-chrome-beta$"] chrome
 assign [class="^thunar$"] files
 assign [class="^Thunar$"] files
 workspace chrome output DVI-D-0
-workspace firefox output DVI-D-0
+workspace alt-browser output DVI-D-0
 workspace files output DVI-I-1
 workspace term output DVI-I-1
 workspace emacs output DVI-I-1
