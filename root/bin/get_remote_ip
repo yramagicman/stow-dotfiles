@@ -3,7 +3,7 @@
 ssid=$(nmcli -t -f active,ssid dev wifi | grep yes | cut -d ':' -f 2)
 echo $ssid
 
-if [[ $ssid == 'lugnuts' ]]; then
+if [[ $ssid == 'hide_yo_kids_hide_yo_wi-fi' ]]; then
     $HOME/.config/rip
     dig +short myip.opendns.com @resolver1.opendns.com > $HOME/.config/rip
 fi
