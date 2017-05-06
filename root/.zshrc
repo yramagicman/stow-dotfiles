@@ -17,22 +17,30 @@ zle -N self-insert url-quote-magic
 # General
 #
 
-setopt BRACE_CCL          # Allow brace character class list expansion.
-setopt COMBINING_CHARS    # Combine zero-length punctuation characters (accents)
-                          # with the base character.
-setopt RC_QUOTES          # Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'.
-unsetopt MAIL_WARNING     # Don't print a warning message if a mail file has been accessed.
+# Allow brace character class list expansion.
+setopt BRACE_CCL
+# Combine zero-length punctuation characters (accents) with the base character.
+setopt COMBINING_CHARS
+ # Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'.
+setopt RC_QUOTES
+# Don't print a warning message if a mail file has been accessed.
+unsetopt MAIL_WARNING
 
 #
 # Jobs
 #
-
-setopt LONG_LIST_JOBS     # List jobs in the long format by default.
-setopt AUTO_RESUME        # Attempt to resume existing job before creating a new process.
-setopt NOTIFY             # Report status of background jobs immediately.
-unsetopt BG_NICE          # Don't run all background jobs at a lower priority.
-unsetopt HUP              # Don't kill jobs on shell exit.
-unsetopt CHECK_JOBS       # Don't report on jobs when shell exit.
+# List jobs in the long format by default.
+setopt LONG_LIST_JOBS
+# Attempt to resume existing job before creating a new process.
+setopt AUTO_RESUME
+# Report status of background jobs immediately.
+setopt NOTIFY
+# Don't run all background jobs at a lower priority.
+unsetopt BG_NICE
+# Don't kill jobs on shell exit.
+unsetopt HUP
+# Don't report on jobs when shell exit.
+unsetopt CHECK_JOBS
 
  #}}}
 # {{{ colors
@@ -167,24 +175,37 @@ zstyle ':completion:*' rehash true
 #}}}
 #{{{ History options
 
-HISTFILE="$HOME/.zhistory"       # The path to the history file.
-HISTSIZE=10000                   # The maximum number of events to save in the internal history.
-SAVEHIST=10000                   # The maximum number of events to save in the history file.
+# The path to the history file.
+HISTFILE="$HOME/.zhistory"
+# The maximum number of events to save in the internal history.
+HISTSIZE=10000
+# The maximum number of events to save in the history file.
+SAVEHIST=10000
 
 #
 # Options
 #
 
-setopt BANG_HIST                 # Treat the '!' character specially during expansion.
-setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
-setopt SHARE_HISTORY             # Share history between all sessions.
-setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
-setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
-setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
-setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
-setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
-setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
-setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
+# Treat the '!' character specially during expansion.
+setopt BANG_HIST
+# Write to the history file immediately, not when the shell exits.
+setopt INC_APPEND_HISTORY
+# Share history between all sessions.
+setopt SHARE_HISTORY
+# Expire a duplicate event first when trimming history.
+setopt HIST_EXPIRE_DUPS_FIRST
+# Do not record an event that was just recorded again.
+setopt HIST_IGNORE_DUPS
+# Delete an old recorded event if a new event is a duplicate.
+setopt HIST_IGNORE_ALL_DUPS
+# Do not display a previously found event.
+setopt HIST_FIND_NO_DUPS
+# Do not record an event starting with a space.
+setopt HIST_IGNORE_SPACE
+# Do not write a duplicate event to the history file.
+setopt HIST_SAVE_NO_DUPS
+# Do not execute immediately upon history expansion.
+setopt HIST_VERIFY
 
 #}}}
 # {{{ lazy load stuff
@@ -259,10 +280,10 @@ DIRSTACKSIZE=20
 
 setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME
 
-## Remove duplicate entries
+# Remove duplicate entries
 setopt PUSHD_IGNORE_DUPS
 
-## This reverts the +/- operators.
+# This reverts the +/- operators.
 setopt PUSHD_MINUS
 # }}}
 #{{{ start tmux,
