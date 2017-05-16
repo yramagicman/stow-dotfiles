@@ -23,6 +23,7 @@
  '(fringe-mode 15 nil (fringe))
  '(helm-mode t)
  '(icomplete-mode t)
+ '(ido-everywhere t)
  '(inhibit-startup-screen t)
  '(linum-format (quote dynamic))
  '(mode-require-final-newline nil)
