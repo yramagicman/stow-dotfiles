@@ -43,8 +43,10 @@ set ttyfast
 " set gdefault
 set binary
 set eol
-" Centralize backups, swapfiles and undo history
-set backupdir=~/.vim/backup//
+if exists("&backupdir")
+    " Centralize backups, swapfiles and undo history
+    set backupdir=~/.vim/backup//
+endif
 "set directory=~/.vim/swaps
 "I hate swap files
 set noswapfile

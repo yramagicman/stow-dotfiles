@@ -40,8 +40,8 @@ hi      TabLine          ctermbg=NONE     ctermfg=254
 hi      TabLineSel       ctermbg=NONE     ctermfg=254
 hi      Todo             ctermbg=NONE     ctermfg=254
 hi      TabLineFill      ctermbg=NONE     ctermfg=254
-hi      StatusLine       ctermbg=NONE     ctermfg=NONE
-hi      StatusLineNC     ctermbg=NONE     ctermfg=NONE
+hi      StatusLine       ctermbg=255     ctermfg=23
+hi      StatusLineNC     ctermbg=255     ctermfg=23
 if      has("spell")
 hi      SpellBad         ctermbg=NONE     ctermfg=202     cterm=UNDERLINE
 hi      SpellCap         ctermbg=NONE     ctermfg=254
