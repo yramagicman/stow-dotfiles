@@ -19,7 +19,6 @@ call plug#begin()
     Plug 'tpope/vim-speeddating'
     Plug 'tpope/vim-surround'
     Plug 'vim-indent-object'
-    Plug 'vim-scripts/taglist.vim'
     Plug 'haya14busa/incsearch.vim'
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'

@@ -10,19 +10,6 @@ augroup end
 
 let g:syntastic_python_checkers = ['pyflakes']
 "}}}
-"{{{ Tag list config
-nnoremap <c-t> :TlistOpen<CR>
-nnoremap <c-n> :TlistAddFiles
-"set statusline+=\ \%{Tlist_Get_Tagname_By_Line()}\ \|
-let g:Tlist_Show_One_File=0
-let g:Tlist_Close_On_Select=1
-let g:Tlist_Compact_Format=1
-let g:Tlist_Exit_OnlyWindow=1
-augroup tagliststuff
-    autocmd!
-    autocmd FileType taglist vertical resize +15
-augroup end
-"}}}
 "{{{ completion
 "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.

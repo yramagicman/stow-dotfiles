@@ -718,3 +718,5 @@ let @u = "dt(,x"
 let @v = '0/\u~hi_, '
 let @q = ':wq'
 "}}}
+"
+inoremap <C-n> <C-x><C-o>
