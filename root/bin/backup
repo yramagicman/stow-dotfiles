@@ -2,12 +2,28 @@
 
 # date +'%a' gives weekday
 # date +'%f' gives date format
-
+# date +'%u' gives number of day of the week
+mkdir='mkdir -p'
 ipaddr=$(ip addr show | grep 192 | cut -d ' ' -f 6 | cut -d '/' -f 1)
 today=$(date +'%Y%m%d')
-day=$(date +'%u')
-ssh pi@192.168.0.26 "mkdir /mnt/backup/backups/daily/$today"
-ssh pi@192.168.0.26 "rsync -azv --delete --link-dest=/mnt/backup/backups/daily/$(cat last) \
+num_daily=$(ssh pi@192.168.0.26 "ls /mnt/backup/backups/daily/ | wc -l")
+ssh pi@192.168.0.26 "$mkdir /mnt/backup/backups/daily/$today"
+ssh pi@192.168.0.26 "$mkdir /mnt/backup/backups/daily/$today"
+ssh pi@192.168.0.26 "rsync -azv --delete --link-dest=/mnt/backup/backups/daily/$(cat ../latest) \
     jonathan@$ipaddr:/home/jonathan/ /mnt/backup/backups/daily/$today/"
-ssh pi@192.168.0.26 "date +'%Y%m%d' > /mnt/backup/backups/daily/last"
+ssh pi@192.168.0.26 "date +'%Y%m%d' > /mnt/backup/backups/latest"
 
+if [[ $num_daily -eq 0 ]]; then
+    ssh pi@192.168.0.26 "date +'%Y%m%d' > /mnt/backup/backups/d_first"
+fi
+if [[ $num_daily -eq 7 ]]; then
+    ssh pi@192.168.0.26 "date +'%Y%m%d' > /mnt/backup/backups/d_last"
+fi
+if [[ $num_daily -eq 7 ]]; then
+    d_first=$(ssh pi@192.168.0.26 "cat /mnt/backup/backups/d_first")
+    d_last=$(ssh pi@192.168.0.26 "cat /mnt/backup/backups/d_last")
+    ssh pi@192.168.0.26 "$mkdir /mnt/backup/backups/weekly/$d_first_$d_last"
+    ssh pi@192.168.0.26 "rsync -azv /mnt/backup/backups/daily/$d_first/ /mnt/backup/backups/weekly/$d_first_$d_last/"
+    ssh pi@192.168.0.26 "rsync -azv /mnt/backup/backups/daily/$d_last/ /mnt/backup/backups/weekly/$d_first_$d_last/"
+    xterm -e "echo 'created weekly backup. Check it, and remove the daily backups if all is well. '&& read "
+fi
