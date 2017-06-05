@@ -1,0 +1,13 @@
+#!/usr/bin/zsh
+
+# date +'%a' gives weekday
+# date +'%f' gives date format
+
+ipaddr=$(ip addr show | grep 192 | cut -d ' ' -f 6 | cut -d '/' -f 1)
+today=$(date +'%Y%m%d')
+day=$(date +'%u')
+ssh pi@192.168.0.26 "mkdir /mnt/backup/backups/daily/$today"
+ssh pi@192.168.0.26 "rsync -azv --delete --link-dest=/mnt/backup/backups/daily/$(cat last) \
+    jonathan@$ipaddr:/home/jonathan/ /mnt/backup/backups/daily/$today/"
+ssh pi@192.168.0.26 "date +'%Y%m%d' > /mnt/backup/backups/daily/last"
+
