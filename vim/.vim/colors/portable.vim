@@ -1,12 +1,12 @@
-hi      clear
-syntax  reset
-set     background=dark
-let     colors_name      =               "portable"
+hi clear
+syntax reset
+set background=dark
+let colors_name="portable"
 
-hi normal ctermfg=7 ctermbg=0
+hi normal ctermfg=7 ctermbg=NONE
 hi foldcolumn ctermbg=NONE ctermfg=7
-hi linenr ctermfg=8
-hi cursorlinenr ctermfg=8
+hi linenr ctermfg=9
+hi cursorlinenr ctermfg=9
 hi statement ctermfg=10
 hi conditional ctermfg=9
 hi keyword ctermfg=11 cterm=BOLD
@@ -15,4 +15,19 @@ hi boolean ctermfg=13
 hi identifier ctermfg=9
 hi string ctermfg=15
 hi function ctermfg=12 cterm=BOLD
-hi comment ctermfg=4
+hi comment ctermfg=11
+hi folded ctermbg=NONE
+hi search ctermbg=1 ctermfg=15
+hi diffadd ctermfg=15
+hi diffchange ctermfg=0
+hi diffdelete ctermfg=15
+hi errormsg ctermbg=3 ctermfg=15
+hi error ctermbg=3 ctermfg=15
+hi pmenu ctermbg=0 ctermfg=15
+hi pmenusel ctermbg=8 ctermfg=15
+hi statusline ctermbg=0 ctermfg=7 term=none cterm=none
+hi visual ctermbg=1 ctermfg=15
+hi statuslinenc ctermbg=0 ctermfg=15 term=none cterm=none
+hi vertsplit ctermfg=0 ctermbg=9
+hi wildmenu ctermbg=0 ctermfg=15
+hi signcolumn ctermbg=none ctermfg=15
