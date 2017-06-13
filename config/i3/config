@@ -157,7 +157,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 
 set_from_resource $bg i3wm.background #333
-set_from_resource $fg i3wm.color15 #fff
+set_from_resource $fg i3wm.foreground #fff
 set_from_resource $fg_inactive i3wm.foreground #666
 set_from_resource $border i3wm.color7 #333
 set_from_resource $border_dark i3wm.color8 #000

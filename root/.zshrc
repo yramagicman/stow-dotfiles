@@ -249,7 +249,7 @@ bindkey -M emacs "\C-X\C-E" edit-command-line
 #{{{ virtualenv stuff
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Sites
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
 #}}}
 #{{{ random user opions
