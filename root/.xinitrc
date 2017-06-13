@@ -32,7 +32,7 @@ fi
 #xterm
 #exec xterm -geometry 80x66+0+0 -name login
 export DE="xfce"
-export TERMINAL="$HOME/bin/urxvtc"
+export TERMINAL="$HOME/bin/st-0.7/st"
 #exec $HOME/bin/dwmrestart
 
 setxkbmap -option compose:menu
