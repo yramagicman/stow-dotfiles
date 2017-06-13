@@ -13,7 +13,7 @@ function check_process(){
 i3-msg workspace 'term'
 xflux -z 45036
 ( /home/jonathan/.screenlayout/default.sh) &
-xsetroot -solid '#082F4E' 
+xsetroot -solid '#082F4E'
 (/home/jonathan/bin/rotate-wallpaper) &
 xset -dpms; xset s off &
 (sleep 1s && check_process compton -c) &
@@ -39,10 +39,6 @@ rm ~/.config/weather
 d=$(sort $HOME/.cache/zsh/dirs | uniq )
 rm "$HOME/.cache/zsh/dirs"
 echo "$d" > $HOME/.cache/zsh/dirs
-
-#start emacs daemon
-emacs --daemon
-urxvtd -q -o -f
 
 # make sure tmux digests file isn't overly large
 z=$(cat $HOME/.tmux.d/digests | tail -n $(ls -1 $HOME/.tmux.d/ | wc -l) )
