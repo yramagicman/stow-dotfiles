@@ -6,12 +6,12 @@ Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 xterm*termName: xterm-256color
 xterm*faceName: Inconsolata:size=12:antialias=true
-xter*fontName:xft:Inconsolata:size=13:antialias=true:autohint=true
+xter*fontName:xft:Inconsolata:size=12:antialias=true:autohint=true
 xterm*locale: true
 xterm*utf8: 1
 XTerm*VT100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
-URxvt*font:xft:Inconsolata:size=13:antialias=true:autohint=true
-URxvt*boldFont:xft:Inconsolata:weight=bold:size=13:antialias=true:autohint=true
+URxvt*font:xft:Inconsolata:size=12:antialias=true:autohint=true
+URxvt*boldFont:xft:Inconsolata:weight=bold:size=12:antialias=true:autohint=true
 URxvt*scrollBar: false
 URxvt.perl-ext-common: default,clipboard
 URxvt.allow_bold:true
@@ -25,38 +25,38 @@ URxvt.secondaryWheel: 1
 !*******************************************************************************!
 
 ! special
-*.foreground:   #ffffff
-*.background:   #082f4e
-*.cursorColor:  #ffffff
+*.foreground:   #9ea7a6
+*.background:   #232c31
+*.cursorColor:  #9ea7a6
 
 ! black
-*.color0:       #000000
-*.color8:       #4d4d4d
+*.color0:       #232c31
+*.color8:       #3f4944
 
 ! red
-*.color1:       #cc0403
-*.color9:       #cc0403
+*.color1:       #2a5491
+*.color9:       #2a5491
 
 ! green
-*.color2:       #19cb00
-*.color10:      #23fd00
+*.color2:       #237986
+*.color10:      #237986
 
 ! yellow
-*.color3:       #cecb00
-*.color11:      #cecb00
+*.color3:       #a03b1e
+*.color11:      #a03b1e
 
 ! blue
-*.color4:       #001cd1
-*.color12:      #5c5cff
+*.color4:       #484d79
+*.color12:      #484d79
 
 ! magenta
-*.color5:       #cb1ed1
-*.color13:      #cb1ed1
+*.color5:       #c59820
+*.color13:      #c59820
 
 ! cyan
-*.color6:       #0dcdcd
-*.color14:      #14ffff
+*.color6:       #b02f30
+*.color14:      #b02f30
 
 ! white
-*.color7:       #e5e5e5
-*.color15:      #ffffff
+*.color7:       #9ea7a6
+*.color15:      #b5d8f6

@@ -18,7 +18,7 @@ set background=dark
 set autoread
 set spelllang=en_us
 " best color scheme ever
-colorscheme darkblue2
+colorscheme portable
 set t_Co=256
 " Make Vim more useful
 set nocompatible
