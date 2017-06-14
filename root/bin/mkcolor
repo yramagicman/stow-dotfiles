@@ -1,0 +1,21 @@
+#/usr/bin/zsh
+config_dir="$HOME/Gits/dots/root/"
+if [[ $1 == '' ]]; then
+    echo "please provide an argument"
+    exit
+fi
+
+echo $config_dir
+sed -e 's/i3wm.*$//' -i $config_dir/.Xresources
+sed -e 's/! [a-z]*$//' -i $config_dir/.Xresources
+sed -e 's/\*/i3wm/' $HOME/.colors/$1'.xresources'  >> $config_dir/.Xresources
+cat $HOME/.colors/$1'.xresources' >> $config_dir/.Xresources
+cat -s $config_dir/.Xresources > $config_dir/Xresources
+mv  $config_dir/Xresources $config_dir/.Xresources
+
+sed -e "s/#include \"\/home\/jonathan\/.colors\/[a-z]*.h\"/#include \"\/home\/jonathan\/.colors\/$1\.h\"/g" -i $HOME/bin/st-0.7/config.h
+builtin cd ~/bin/st-0.7/
+make
+builtin cd
+xrdb -merge ~/.Xresources  >/dev/null 2>&1
+i3-msg restart
