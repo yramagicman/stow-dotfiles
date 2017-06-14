@@ -8,7 +8,7 @@ fi
 for f in $(find ./ -maxdepth 1 -type d | grep -Ev '.git$|config' | cut -d '/' -f 2 )
     stow -Rv $f -t ~/
 
-stow -Rv config -t ~/.config
+stow -R config -t ~/.config
 
 
 split=("${(@s#/#)SHELL}")
