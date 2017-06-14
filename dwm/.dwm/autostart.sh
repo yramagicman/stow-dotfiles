@@ -14,7 +14,7 @@ i3-msg workspace 'term'
 xflux -z 45036
 ( /home/jonathan/.screenlayout/default.sh) &
 xsetroot -solid '#082F4E'
-(/home/jonathan/bin/rotate-wallpaper) &
+# (/home/jonathan/bin/rotate-wallpaper) &
 xset -dpms; xset s off &
 (sleep 1s && check_process compton -c) &
 (sleep 1s && /usr/bin/xscreensaver -no-splash) &
@@ -29,7 +29,7 @@ xset r rate 250 25 &
 ## Turn on/off system beep
 xset b off &
 # Autostart the Dropbox deamon
-(sleep 10s && dropbox) &
+(sleep 10s && dropbox start) &
 
 # Update weather info on boot
 rm ~/.config/weather

@@ -7,13 +7,14 @@ fi
 
 echo $config_dir
 sed -e 's/i3wm.*$//' -i $config_dir/.Xresources
+sed -e 's/^\*.*$//' -i $config_dir/.Xresources
 sed -e 's/! [a-z]*$//' -i $config_dir/.Xresources
 sed -e 's/\*/i3wm/' $HOME/.colors/$1'.xresources'  >> $config_dir/.Xresources
 cat $HOME/.colors/$1'.xresources' >> $config_dir/.Xresources
 cat -s $config_dir/.Xresources > $config_dir/Xresources
 mv  $config_dir/Xresources $config_dir/.Xresources
 
-sed -e "s/#include \"\/home\/jonathan\/.colors\/[a-z]*.h\"/#include \"\/home\/jonathan\/.colors\/$1\.h\"/g" -i $HOME/bin/st-0.7/config.h
+sed -e "s/#include \"\/home\/jonathan\/.colors\/[a-z_]*.h\"/#include \"\/home\/jonathan\/.colors\/$1\.h\"/g" -i $HOME/bin/st-0.7/config.h
 builtin cd ~/bin/st-0.7/
 make
 builtin cd
