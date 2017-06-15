@@ -199,8 +199,8 @@ hide_edge_borders smart
 #}}}
 #{{{ launch apps, disable F1 help key
 
-exec xsetroot -solid '$bg'
-# exec --no-startup-id ~/.dwm/autostart.sh
+exec --no-startup-id xsetroot -solid '$bg'
+exec --no-startup-id ~/.dwm/autostart.sh
 
 # APP KEYS
 bindsym $mod+w exec chromium
