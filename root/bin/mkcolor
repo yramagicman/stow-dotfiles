@@ -14,6 +14,11 @@ cat $HOME/.colors/$1'.xresources' >> $config_dir/.Xresources
 cat -s $config_dir/.Xresources > $config_dir/Xresources
 mv  $config_dir/Xresources $config_dir/.Xresources
 
+if [[ -z $(grep defaultrcs $1'.h') ]]; then
+    sed -i -n 'p; s/defaultcs/defaultrcs/p' $1'.h'
+    grep defaultrcs $1'.h'
+fi
+
 sed -e "s/#include \"\/home\/jonathan\/.colors\/[a-z_]*.h\"/#include \"\/home\/jonathan\/.colors\/$1\.h\"/g" -i $HOME/bin/st-0.7/config.h
 builtin cd ~/bin/st-0.7/
 make
