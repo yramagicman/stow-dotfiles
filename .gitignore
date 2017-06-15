@@ -6,3 +6,11 @@ emacs/.emacs.d/undohist/
 tmux/.tmux.d/digests
 vim/.vim/bundle/
 vim/.vim/undo/
+config/ranger/colorschemes/__init__.pyo
+config/ranger/colorschemes/__pycache__/
+config/ranger/colorschemes/default.pyo
+config/ranger/history
+vim/.vim/.netrwhist
+vim/.vim/autoload/plug.vim
+vim/.vim/lastupdate
+vim/.vim/plugged/

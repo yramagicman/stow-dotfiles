@@ -198,12 +198,15 @@ new_float normal
 hide_edge_borders smart
 #}}}
 #{{{ launch apps, disable F1 help key
+
+exec xsetroot -solid '$bg'
+# exec --no-startup-id ~/.dwm/autostart.sh
+
 # APP KEYS
 bindsym $mod+w exec chromium
 bindsym $mod+Shift+w exec "chromium --incognito"
 bindsym Print exec gnome-screenshot
 bindsym Shift+F12 exec "systemctl poweroff"
-exec --no-startup-id ~/.dwm/autostart.sh
 bindsym Control+Shift+h move scratchpad
 bindsym Control+Shift+s scratchpad show
 bindsym Control+Shift+f floating toggle
