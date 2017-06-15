@@ -199,7 +199,8 @@ hide_edge_borders smart
 #}}}
 #{{{ launch apps, disable F1 help key
 
-exec --no-startup-id xsetroot -solid '$bg'
+exec --no-startup-id nitrogen --set-centered $HOME/Dropbox/Photos/transparent.png --set-color='$bg' --save
+
 exec --no-startup-id ~/.dwm/autostart.sh
 
 # APP KEYS
