@@ -96,7 +96,7 @@ bindsym $mod+d focus child
 #{{{ workspaces, define and move
 # switch to workspace
 bindsym $mod+1 workspace term
-bindsym $mod+2 workspace chrome
+bindsym $mod+2 workspace browser
 bindsym $mod+3 workspace alt-browser
 bindsym $mod+4 workspace files
 bindsym $mod+5 workspace 5
@@ -108,7 +108,7 @@ bindsym $mod+0 workspace 10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace term
-bindsym $mod+Shift+2 move container to workspace chrome
+bindsym $mod+Shift+2 move container to workspace browser
 bindsym $mod+Shift+3 move container to workspace alt-browser
 bindsym $mod+Shift+4 move container to workspace files
 bindsym $mod+Shift+5 move container to workspace 5
@@ -204,8 +204,8 @@ exec --no-startup-id nitrogen --set-centered $HOME/Dropbox/Photos/transparent.pn
 exec --no-startup-id ~/.dwm/autostart.sh
 
 # APP KEYS
-bindsym $mod+w exec chromium
-bindsym $mod+Shift+w exec "chromium --incognito"
+bindsym $mod+w exec $HOME/bin/firefox.sh
+bindsym $mod+Shift+w exec "$HOME/bin/firefox.sh -private-window"
 bindsym Print exec gnome-screenshot
 bindsym Shift+F12 exec "systemctl poweroff"
 bindsym Control+Shift+h move scratchpad
@@ -226,15 +226,15 @@ assign [class="^urxvt$"] term
 assign [class="^URxvt$"] term
 assign [class="^emacs$"] emacs
 assign [class="^Emacs$"] emacs
-assign [class="^chromium"] chrome
-assign [class="^Chromium"] chrome
+assign [class="^chromium"] browser
+assign [class="^Chromium"] browser
 assign [class="^Navigator$"] alt-browser
-assign [class="^Firefox$"] alt-browser
+assign [class="^Firefox$"] browser
 assign [class="^Vivaldi-stable$"] alt-browser
-assign [class="^Google-chrome-beta$"] chrome
+assign [class="^Google-chrome-beta$"] browser
 assign [class="^thunar$"] files
 assign [class="^Thunar$"] files
-workspace chrome output DVI-D-1
+workspace browser output DVI-D-1
 workspace alt-browser output DVI-D-1
 workspace files output DVI-I-1
 workspace term output DVI-I-1
