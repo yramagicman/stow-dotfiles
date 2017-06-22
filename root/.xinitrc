@@ -36,4 +36,5 @@ export TERMINAL="$HOME/bin/st-0.7/st"
 #exec $HOME/bin/dwmrestart
 
 setxkbmap -option compose:menu
+setxkbmap -option caps:none
 exec i3

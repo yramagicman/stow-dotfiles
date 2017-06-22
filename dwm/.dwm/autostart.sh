@@ -26,6 +26,7 @@ xset -dpms; xset s off &
 ## preferances.
 xset r rate 250 25 &
 
+pulseaudio --start
 ## Turn on/off system beep
 xset b off &
 # Autostart the Dropbox deamon
