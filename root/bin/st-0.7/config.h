@@ -82,7 +82,7 @@ static char termname[] = "st-256color";
  */
 static unsigned int tabspaces = 8;
 
-#include "/home/jonathan/.colors/codeschool.h"
+#include "/home/jonathan/.colors/ocean_dark.h"
 
 /*
  * Default shape of cursor
