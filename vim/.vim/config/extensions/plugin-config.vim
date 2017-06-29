@@ -1,13 +1,6 @@
 "plugin-config.vim
 "{{{ syntastic
 "@todo find a way to toggle this.
-augroup syntastic
-        autocmd Bufenter,BufRead */drupal*/* let g:syntastic_php_phpcs_args="--standard=Drupal --tab-width=0"
-        autocmd Bufenter,BufRead */drupal*/* let g:syntastic_php_phpcs_disable=0
-        autocmd BufLeave */drupal*/* let g:syntastic_php_phpcs_args="--tab-width=0"
-        autocmd BufLeave */drupal*/* let g:syntastic_php_phpcs_disable=1
-augroup end
-
 let g:syntastic_python_checkers = ['pyflakes']
 "}}}
 "{{{ completion
