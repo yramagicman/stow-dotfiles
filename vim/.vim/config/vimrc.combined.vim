@@ -123,7 +123,7 @@ endif
 set completeopt=longest,menuone
 set ofu=syntaxcomplete#complete
 " Show "invisible” characters
-"set lcs=tab:⟩\ ,trail:·,eol:↩,nbsp:_
+set lcs=tab:⟩\ ,trail:·,eol:↩,nbsp:_
 "set list " breaks set linebreak
 " Enable line numbers
 set relativenumber
@@ -152,11 +152,6 @@ set shiftwidth=4
 set shiftround
 "tabs to spaces
 set expandtab
-"}}}
-"{{{ set compiler
-let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_c_compiler = 'clang'
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 "}}}
 "{{{ set status line
 " Always show status line
@@ -205,24 +200,6 @@ set wildignore+=.cache,.neocomplcache,.npm,.gem
 set wildignore+=node_modules,bower_components
 
 "}}}
-"{{{ GUI Options
-if has('gui')
-set guifont="Source Code Pro":h13
-" Better line-height
-set linespace=10
-" Disable error bells
-set noerrorbells
-set guioptions -=m
-set guioptions +=c
-set guioptions +=p
-set guioptions -=e
-set guioptions -=r
-set guioptions -=R
-set guioptions -=l
-set guioptions -=L
-set guioptions -=T
-endif
-"}}}
 set switchbuf=usetab  " try to reuse windows/tabs when switching buffers
 set whichwrap=b,h,l,s,<,>,[,],~       " allow <BS>/h/l/<Left>/<Right>/<Space>, ~ to cross line boundaries
 "}}}
@@ -251,10 +228,6 @@ noremap % %zz
 noremap <Tab> <Tab>zz
 "}}}
 "{{{ jump to ...
-noremap <S-j> G
-noremap <S-k> gg
-nnoremap <tab> %
-vnoremap <tab> %
 nnoremap <leader>j J
 vnoremap <leader>j J
 "}}}
@@ -340,7 +313,6 @@ if has("autocmd")
         autocmd BufLeave,BufWritePre *.js silent! %s/\/\/ \/\//\/\/ /g
         autocmd BufLeave,CursorHold * silent! if @% != ''| silent! w
         autocmd BufEnter,FileType * if &ft != 'qf' | nnoremap <CR> @@ | else | nnoremap <CR> <CR> | endif
-       "autocmd BufLeave,FileType qf nnoremap <CR> @@ | e
         "}}}
     augroup end
     augroup js
@@ -348,30 +320,9 @@ if has("autocmd")
         autocmd!
         autocmd BufLeave,BufRead *.json setfiletype json syntax=javascript
         "}}}
-        "{{{ always use strict equal and not equal
-        autocmd Bufenter *.js iabbr == ===
-        autocmd BufEnter *.js iabbr != !==
-        autocmd BufLeave *.js iabbr === ==
-        autocmd BufLeave *.js iabbr !== !=
-        "}}}
     augroup end
     augroup coding
         autocmd!
-        "{{{ drupal coding standards
-        autocmd VimEnter,Bufenter,BufRead */drupal*/* set tabstop=2
-        autocmd VimEnter,Bufenter,BufRead */drupal*/* set shiftwidth=2
-        autocmd VimEnter,Bufenter,BufRead */drupal*/* set expandtab
-        autocmd VimEnter,Bufenter,BufRead */drupal*/* set foldmethod=indent
-        autocmd VimEnter,Bufenter,BufRead *.module set filetype=php
-        autocmd VimEnter,Bufenter,BufRead *.inc set filetype=php
-        autocmd VimEnter,Bufenter,BufRead *.install set filetype=php
-        "}}}
-        "{{{ ratiochristi coding standards
-        autocmd Bufenter,BufRead */ratiochristi/* set tabstop=4
-        autocmd Bufenter,BufRead */ratiochristi/* set smartindent
-        autocmd Bufenter,BufRead */ratiochristi/* set shiftwidth=4
-        autocmd Bufenter,BufRead */ratiochristi/* set expandtab
-        "}}}
         "{{{ scheme coding standards
         autocmd BufEnter,BufRead scheme set tabstop=2
         autocmd BufEnter,BufRead scheme set smartindent
@@ -397,6 +348,7 @@ if has("autocmd")
         " leave insert mode on focus lost
         autocmd FocusLost,BufLeave * call feedkeys("\<ESC>")
         autocmd FileType * set textwidth=80
+        autocmd FileType mail set textwidth=0
         " }}}
     augroup end
 endif
@@ -426,12 +378,6 @@ inoremap <expr> }  strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}
 inoremap <expr> >  strpart(getline('.'), col('.')-1, 1) == ">" ? "\<Right>" : ">"
 inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
 inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : "\'\'\<Left>"
-"}}}
-"{{{ swap quotes not in insert mode, too likely to conflict with typing
-vnoremap <Leader>" yda'i""<ESC>h"0pf"
-vnoremap <Leader>' yda"i''<ESC>h"0pf'
-nnoremap <Leader>" <ESC>vi'yda'i""<ESC>h"0pf"
-nnoremap <Leader>' <ESC>vi"yda"i''<ESC>h"0pf'
 "}}}
 "{{{ filetype specific mappings for characters and shortcuts
 augroup abbrevs
@@ -573,10 +519,6 @@ noremap <leader>rl <ESC>:source ~/.vimrc<CR>:set visualbell<CR>
 "{{{ Make Vim work logically
 "paste in insert mode
 inoremap <leader>p <ESC>pa
-"paste from x clipboard
-nnoremap <LocalLeader>p <ESC>"+p
-inoremap <LocalLeader>p <ESC>"+p
-vnoremap <LocalLeader>p "+p
 " delete till the beginning of a line
 nnoremap <leader>D d0
 inoremap <leader>D <ESC>d0xi
@@ -590,10 +532,9 @@ vnoremap Q gq
 nnoremap Ql gqq
 "}}}
 "{{{ Convenience bindings
-"auto-highlight current word
-nnoremap <leader>t :call AutoHighlightToggle()<CR>
-" Save a file as root ('W)
+" highlight test
 nnoremap <c-\> :so $VIMRUNTIME/syntax/hitest.vim<CR>
+" Save a file as root ('W)
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
 "delete blank lines
 noremap <localleader>db :g/^$/d<ESC>:let @/ = ""<CR>
@@ -615,8 +556,7 @@ nnoremap <C-u> <ESC>mzgUiwe
 nnoremap <silent><leader>I :set list!<CR>
 " reset color scheme
 nnoremap U :syntax sync fromstart<CR>:redraw!<CR>
-" make this_style into cammelCase
-nnoremap CC 0f_x~
+
 nnoremap <leader>c :%!column -t<CR>
 nnoremap <leader>cs :%!column -t -s ","<CR>
 nnoremap <leader>cp :%!column -t -s "\|"<CR>
@@ -642,13 +582,6 @@ iabbrev JOnathan Jonathan
 nnoremap <leader>O O<ESC>j
 nnoremap <leader>o o<ESC>k
 "}}}
-"{{{ set buffer, also set foldmethod
-nnoremap <silent>-b :set buftype=<CR>
-nnoremap <silent>-dh :set filetype=htmldjango<CR>
-nnoremap <silent>-fm :set foldmethod=marker<CR>
-nnoremap <silent>-fi :set foldmethod=indent<CR>
-nnoremap <silent>-fs :set foldmethod=syntax<CR>
-"}}}
 "{{{ Command line abbreviations
 cnoreabbrev clam Clam
 cnoreabbrev tw Tw
@@ -658,10 +591,8 @@ cnoreabbrev gac !git add %
 cnoreabbrev ga% !git add %
 cnoreabbrev gcm !git commit -m
 cnoreabbrev b ls<CR> :b
-
 "}}}
 "{{{ autoload functions
-nnoremap <silent> <leader>i :call functions#IndentGuides()<CR>
 nnoremap <silent><leader>le :call functions#LineEndings()<CR>
 nnoremap <Leader>f :call functions#FoldColumn()<CR>
 command! Clean :call functions#CleanScreen()
@@ -676,14 +607,7 @@ noremap <C-l> <C-w>l
 noremap <C-j> <C-w>j
 noremap <C-h> <C-w>h
 noremap <C-k> <C-w>k
-"inoremap <C-l> <ESC><C-w>li
-"inoremap <C-j> <ESC><C-w>ji
-"inoremap <C-h> <ESC><C-w>hi
-"inoremap <C-k> <ESC><C-w>ki
-noremap <C-w>m :call Maximize()<CR>
-"splitting
-noremap <leader>sn <ESC>:new<CR>
-noremap <leader>sv <ESC>:vnew<CR>
+noremap <C-w>m :call functions#Maximize()<CR>
 "window stuff
 set equalalways
 noremap <localleader>= <C-w>=
@@ -691,18 +615,6 @@ noremap <localleader>= <C-w>=
 "{{{ put splits in a logical place
 set splitbelow
 set splitright
-"}}}
-"{{{ buffer management <c-b>
-"{{{ open all buffers vertically v
-nnoremap <c-b>v :vert sball<CR>
-vnoremap <c-b>v <ESC>:vert sball<CR>
-inoremap <c-b>v <ESC>:vert sball<CR>
-"}}}
-"{{{ open all buffers horizontally h
-nnoremap <c-b>h :sball<CR>
-vnoremap <c-b>h <ESC>:sball<CR>
-inoremap <c-b>h <ESC>:sball<CR>
-"}}}
 "}}}
 "}}}
 "{{{ Regisers
