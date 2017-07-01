@@ -69,8 +69,6 @@ set ignorecase
 set smartcase
 " Highlight dynamically as pattern is typed
 set incsearch
-" Enable mouse in all modes
-"set mouse=a
 " Disable error bells
 set novisualbell
 set noerrorbells
@@ -557,9 +555,6 @@ nnoremap <silent><leader>I :set list!<CR>
 " reset color scheme
 nnoremap U :syntax sync fromstart<CR>:redraw!<CR>
 
-nnoremap <leader>c :%!column -t<CR>
-nnoremap <leader>cs :%!column -t -s ","<CR>
-nnoremap <leader>cp :%!column -t -s "\|"<CR>
 nnoremap <leader>cd :lcd %:p:h<CR>
 "}}}
 "{{{ spelling mappings
