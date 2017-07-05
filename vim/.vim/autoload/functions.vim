@@ -93,22 +93,11 @@ endfunction
 "}}}
 "{{{ Open in secondary editor. I use TextWrangler on OS X so tw makes sense
 function! functions#Tw()
-    if has('python')
-python << endpython
-import sys, os, vim
-from subprocess import call
-gui_editor_defined = int(vim.eval('exists("g:Gui_Editor")'))
-cur_file = vim.eval('bufname("%")')
-platform = sys.platform
-if gui_editor_defined:
-    gui_editor = vim.eval('g:Gui_Editor')
-    if platform == 'darwin':
-        call(['open', '-a', gui_editor, cur_file])
-    if platform =='linux' or platform == 'linux2':
-        call([gui_editor, cur_file])
-else:
-    print "Please set a secondary editor by adding let g:Gui_Editor='editor command' to your vimrc"
-endpython
+if exists("g:Gui_Editor")
+    let l:buf = bufname("%")
+    call system( join([ g:Gui_Editor, l:buf ], ' ') )
+else
+    echom 'g:Gui_Editor is not set'
 endif
 endfunction
 "}}}

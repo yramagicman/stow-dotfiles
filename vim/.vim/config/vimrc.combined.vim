@@ -1,10 +1,6 @@
 "{{{ defaults
 "{{{ set secondary editor
-if has('mac')
-    let g:Gui_Editor = 'TextWrangler'
-else
-    let g:Gui_Editor = 'geany'
-endif
+let g:Gui_Editor = 'geany'
 "}}}
 "{{{setup stuff, for install plugin
 let g:VundleHelper_Setup_Folders = ['after', 'autoload', 'backup', 'colors', 'config', 'doc', 'snippets', 'spell', 'swaps', 'syntax', 'tags', 'undo']
@@ -20,16 +16,10 @@ set spelllang=en_us
 " best color scheme ever
 colorscheme portable
 set t_Co=256
-" Make Vim more useful
-set nocompatible
 " text-width
 " For some reason this doesn't work on everything. I've hacked around it with an
 " autocmd further down the file.
 set textwidth=80
-" set color column to 0
-set cc=0
-" highlight long lines
-call matchadd('ColorColumn', '\%81v', 100)
 "Use os clipboard with mac
 set clipboard^=unnamedplus,unnamed
 " Enhance command-line completion
@@ -60,7 +50,7 @@ endif
 set modeline
 set modelines=4
 " Enable per-directory .vimrc files and disable unsafe commands in them
-set exrc
+"set exrc
 set secure
 " Highlight searches
 set hlsearch
@@ -130,9 +120,8 @@ set number
 let mapleader=","
 let localleader="/"
 set tags ^=./.git/tags,./.tags,.tags
-""set autochdir
+" Don't wrap searches
 set nowrapscan
-""set cryptmethod=blowfish2
 filetype plugin indent on
 set omnifunc=syntaxcomplete#Complete
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
