@@ -7,22 +7,24 @@ mkdir='mkdir -p'
 ipaddr=$(ip addr show | grep 192 | cut -d ' ' -f 6 | cut -d '/' -f 1)
 today=$(date +'%Y%m%d')
 num_daily=$(ssh pi@192.168.0.26 "ls /mnt/share/backups/daily/ | wc -l")
+backup_config_dir=$HOME/.config/backups
+mkdir -p $backup_config_dir
+echo $num_daily
 ssh pi@192.168.0.26 "$mkdir /mnt/share/backups/daily/$today"
 ssh pi@192.168.0.26 "$mkdir /mnt/share/backups/daily/$today"
-ssh pi@192.168.0.26 "rsync -azv --delete --link-dest=/mnt/share/backups/daily/$(cat ../latest) \
-    jonathan@$ipaddr:/home/jonathan/ /mnt/share/backups/daily/$today/"
-ssh pi@192.168.0.26 "date +'%Y%m%d' > /mnt/share/backups/latest"
+ssh pi@192.168.0.26 "rsync -av --exclude-from=.exclude --delete --link-dest=/mnt/share/backups/daily/$(cat $backup_config_dir/last) jonathan@$ipaddr:/home/jonathan/ /mnt/share/backups/daily/$today/"
 
-if [[ $num_daily -eq 0 ]]; then
-    ssh pi@192.168.0.26 "date +'%Y%m%d' > /mnt/share/backups/d_first"
-fi
-if [[ $num_daily -eq 7 ]]; then
-    ssh pi@192.168.0.26 "date +'%Y%m%d' > /mnt/share/backups/d_last"
-fi
-if [[ $num_daily -eq 7 ]]; then
-    d_first=$(ssh pi@192.168.0.26 "cat /mnt/share/backups/d_first")
-    d_last=$(ssh pi@192.168.0.26 "cat /mnt/share/backups/d_last")
-    ssh pi@192.168.0.26 "$mkdir /mnt/share/backups/weekly/$d_first_$d_last"
-    ssh pi@192.168.0.26 "rsync -azv /mnt/share/backups/daily/$d_first/ /mnt/share/backups/weekly/$d_first_$d_last/"
-    ssh pi@192.168.0.26 "rsync -azv /mnt/share/backups/daily/$d_last/ /mnt/share/backups/weekly/$d_first_$d_last/"
-fi
+date +'%Y%m%d' > $backup_config_dir/latest
+# echo if [[ $num_daily -eq 0 ]]; then
+# echo     ssh pi@192.168.0.26 "date +'%Y%m%d' > /mnt/share/backups/d_first"
+# echo fi
+# echo if [[ $num_daily -eq 7 ]]; then
+# echo     ssh pi@192.168.0.26 "date +'%Y%m%d' > /mnt/share/backups/d_last"
+# echo fi
+# echo if [[ $num_daily -eq 7 ]]; then
+# echo     d_first=$(ssh pi@192.168.0.26 "cat /mnt/share/backups/d_first")
+# echo     d_last=$(ssh pi@192.168.0.26 "cat /mnt/share/backups/d_last")
+# echo     ssh pi@192.168.0.26 "$mkdir /mnt/share/backups/weekly/$d_first_$d_last"
+# echo     ssh pi@192.168.0.26 "rsync -azv /mnt/share/backups/daily/$d_first/ /mnt/share/backups/weekly/$d_first_$d_last/"
+# echo     ssh pi@192.168.0.26 "rsync -azv /mnt/share/backups/daily/$d_last/ /mnt/share/backups/weekly/$d_first_$d_last/"
+# echo fi
