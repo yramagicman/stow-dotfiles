@@ -46,12 +46,12 @@ unsetopt CHECK_JOBS
 # {{{ colors
 if [[ $TERM = *256color* || $TERM = *rxvt* ]]; then
   _prompt_lime_colors=(
-    "%F{69}"  # Turquoise
-    "%F{166}" # Orange
-    "%F{135}" # Purple
-    "%F{161}" # Hotpink
-    "%F{40}" # Limegreen
-    "%F{245}" # dark grey
+    "%F{12}"  # Turquoise
+    "%F{9}" # Orange
+    "%F{13}" # Purple
+    "%F{9}" # Hotpink
+    "%F{10}" # Limegreen
+    "%F{8}" # dark grey
   )
 else
   _prompt_lime_colors=(
