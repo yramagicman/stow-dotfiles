@@ -8,16 +8,20 @@ if tmux has-session -t $1 2> /dev/null; then
 fi
 
 tmux new-session -c "$HOME/Sites/" -d -s $1 -n dev
+tmux send-keys -t $1:dev "cd $HOME/Sites/$1/wp-content/themes" Enter
 tmux send-keys -t $1:dev "vim $HOME/Sites/$1/wp-content/themes" Enter
 
 tmux new-window -t $1 -c "$HOME/Sites" -n shell
-tmux send-keys -t $1:shell "server-up" Enter
+if [[ -z $(pgrep httpd) && -z $(pgrep mysqld) ]] ; then
+    tmux send-keys -t $1:shell "server-up" Enter
+fi
 
 
 tmux new-window -t $1 -c "$HOME/Sites" -n hangups
 tmux send-keys -t $1:hangups "$HOME/Sites/hangups/bin/hangups" Enter
 
 tmux new-window -t $1 -c "$HOME/Sites/" -n sass
+tmux send-keys -t $1:sass "cd $HOME/Sites/$1/wp-content/themes" Enter
 
 tmux new-window -t $1 -c "$HOME/Sites" -n chrome
 tmux send-keys -t $1:chrome "nohup google-chrome-beta --incognito http://tbs.local &" Enter
