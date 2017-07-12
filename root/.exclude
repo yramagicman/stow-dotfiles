@@ -138,4 +138,4 @@ usrlocal
 .zsh-update
 autostart
 .config/
-VirtualBox_VMs/*
+VirtualBox_VMs/
