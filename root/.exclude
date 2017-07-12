@@ -1,5 +1,7 @@
 ./
 ../
+.chpwd-recent-dirs
+.xsession-errors-:0
 .adobe/
 .alsaequal.bin
 .android/
@@ -136,4 +138,4 @@ usrlocal
 .zsh-update
 autostart
 .config/
-'VirtualBox\ VMs'/
+VirtualBox_VMs/*
