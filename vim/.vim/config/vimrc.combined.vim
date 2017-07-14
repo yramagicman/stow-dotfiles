@@ -212,11 +212,6 @@ noremap ( (zz
 noremap } }zz
 noremap ) )zz
 noremap % %zz
-noremap <Tab> <Tab>zz
-"}}}
-"{{{ jump to ...
-nnoremap <leader>j J
-vnoremap <leader>j J
 "}}}
 "{{{ command line movement mappings
 cnoremap <C-a>  <Home>
@@ -341,16 +336,6 @@ if has("autocmd")
 endif
 "}}}
 "{{{matchbrackets
-"{{{ visual mode surround text
-vnoremap ' xi''<ESC>hp<ESC>f'
-vnoremap " xi""<ESC>hp<ESC>f"
-vnoremap { xi{}<ESC>hp<ESC>f}
-vnoremap [ xi[]<ESC>hp<ESC>f]
-vnoremap ( xi()<ESC>hp<ESC>F(
-vnoremap } xi{}<ESC>hp<ESC>f}
-vnoremap ] xi[]<ESC>hp<ESC>f]
-vnoremap ) xi()<ESC>hp<ESC>F(i
-"}}}
 "{{{ autocomplete quotes and brackets
 inoremap (  ()<Left>
 inoremap [  []<Left>
