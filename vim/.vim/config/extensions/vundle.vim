@@ -1,5 +1,3 @@
-"vundle.vim
-set rtp+=~/.vim/bundle/Vundle.vim
 call plug#begin()
     Plug 'bronson/vim-visual-star-search'
     Plug 'dzeban/vim-log-syntax'
