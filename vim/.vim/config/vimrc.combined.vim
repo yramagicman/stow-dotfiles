@@ -20,7 +20,7 @@ set t_Co=256
 " For some reason this doesn't work on everything. I've hacked around it with an
 " autocmd further down the file.
 set textwidth=80
-"Use os clipboard with mac
+"Use os clipboard 
 set clipboard^=unnamedplus,unnamed
 " Enhance command-line completion
 set wildmenu

@@ -16,6 +16,7 @@ mv  $config_dir/Xresources $config_dir/.Xresources
 
 if [[ -z $(grep defaultrcs $HOME/.colors/$1'.h') ]]; then
     sed -i -n 'p; s/defaultcs/defaultrcs/p' $HOME/.colors/$1'.h'
+    sed -i 's/defaultrcs = 257/defaultrcs = 256/g' $HOME/.colors/$1'.h'
     grep defaultrcs $HOME/.colors/$1'.h'
 fi
 

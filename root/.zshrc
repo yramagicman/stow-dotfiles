@@ -51,7 +51,7 @@ if [[ $TERM = *256color* || $TERM = *rxvt* ]]; then
     "%F{13}" # Purple
     "%F{9}" # Hotpink
     "%F{10}" # Limegreen
-    "%F{8}" # dark grey
+    "%F{7}" # dark grey
   )
 else
   _prompt_lime_colors=(

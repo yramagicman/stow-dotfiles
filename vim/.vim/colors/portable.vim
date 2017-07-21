@@ -9,6 +9,7 @@ hi linenr ctermfg=9
 hi cursorlinenr ctermfg=9
 hi statement ctermfg=10
 hi conditional ctermfg=9
+hi constant ctermfg=12
 hi keyword ctermfg=11 cterm=BOLD
 hi variable ctermfg=12
 hi boolean ctermfg=13
