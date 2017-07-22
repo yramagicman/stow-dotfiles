@@ -5,3 +5,4 @@ if [[ -a $HOME/bin/firefox/firefox ]]; then
 else
     firefox $@
 fi
+exit
