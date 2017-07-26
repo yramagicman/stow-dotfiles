@@ -3,11 +3,11 @@ static const char *colorname[] = {
 
   /* 8 normal colors */
   [0] = "#000000", /* black   */
-  [1] = "#1c0b12", /* red     */
-  [2] = "#361b25", /* green   */
-  [3] = "#592f3f", /* yellow  */
-  [4] = "#854960", /* blue    */
-  [5] = "#ba6988", /* magenta */
+  [1] = "#512a3a", /* red     */
+  [2] = "#6e3c4f", /* green   */
+  [3] = "#824c61", /* yellow  */
+  [4] = "#b46e88", /* blue    */
+  [5] = "#d890ab", /* magenta */
   [6] = "#d2a2b3", /* cyan    */
   [7] = "#eedfe3", /* white   */
 
