@@ -139,3 +139,5 @@ usrlocal
 autostart
 .config/
 VirtualBox_VMs/
+Dropbox/
+.thunderbird/
