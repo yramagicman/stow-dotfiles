@@ -1,7 +1,8 @@
 #/usr/bin/zsh
 config_dir="$HOME/Gits/dots/root/"
 if [[ $1 == '' ]]; then
-    echo "please provide an argument"
+    echo "please provide one of the following arguments:"
+    ls $HOME/.colors/ | cut -d '.' -f 1 | sort | uniq
     exit
 fi
 
