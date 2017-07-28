@@ -1,6 +1,11 @@
 #!/bin/sh
 
 set -e
+if test "$1" = ''; then
+    echo "please provide one of the following as an argument:"
+    find ~/Sites -maxdepth 2 -type d  -name 'wp-content'| cut -d '/' -f 5 | sort
+    exit
+fi
 
 if tmux has-session -t $1 2> /dev/null; then
   $HOME/bin/switch_or_attach $1
