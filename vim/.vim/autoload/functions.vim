@@ -77,20 +77,6 @@ function! functions#Scratch()
     resize -15
 endfunction
 "}}}
-"{{{ toggle fold column markers
-let g:foldon=1
-function! functions#FoldColumn()
-    if g:foldon == 1
-        hi      FoldColumn       ctermbg=234     ctermfg=247    guifg=# c1c1c  guibg=# c1c1c
-        let g:foldon=0
-        return g:foldon
-    else
-        hi      FoldColumn       ctermbg=234     ctermfg=234    guifg=# c1c1c  guibg=# c1c1c
-        let g:foldon=1
-        return g:foldon
-    endif
-endfunction
-"}}}
 "{{{ Open in secondary editor. I use TextWrangler on OS X so tw makes sense
 function! functions#Tw()
 if exists("g:Gui_Editor")

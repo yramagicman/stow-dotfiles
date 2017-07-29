@@ -1,6 +1,6 @@
 "{{{ defaults
 "{{{ set secondary editor
-let g:Gui_Editor = 'geany'
+let g:Gui_Editor = 'gedit'
 "}}}
 "{{{setup stuff, for install plugin
 let g:VundleHelper_Setup_Folders = ['after', 'autoload', 'backup', 'colors', 'config', 'doc', 'snippets', 'spell', 'swaps', 'syntax', 'tags', 'undo']
@@ -16,11 +16,7 @@ set spelllang=en_us
 " best color scheme ever
 colorscheme portable
 set t_Co=256
-" text-width
-" For some reason this doesn't work on everything. I've hacked around it with an
-" autocmd further down the file.
-set textwidth=80
-"Use os clipboard 
+"Use os clipboard
 set clipboard^=unnamedplus,unnamed
 " Enhance command-line completion
 set wildmenu
@@ -80,9 +76,7 @@ set shortmess+=t                      " truncate file messages at start
 " Show the current mode
 set showmode
 " Show the filename in the window titlebar
-set title
-" Highlight current line
-""set cursorline
+" set title
 " Show the (partial) command as it’s being typed
 set showcmd
 " Enable syntax highlighting
@@ -93,7 +87,8 @@ set synmaxcol=300
 " break
 set scrolloff=2
 set nolist wrap linebreak sidescrolloff=15
-set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+set listchars=tab:▸\ ,trail:·,eol:¬,extends:❯,precedes:❮
+set list
 set showbreak=....
 if exists('+breakindent')
     set breakindent
@@ -110,9 +105,6 @@ endif
 " sensible completion
 set completeopt=longest,menuone
 set ofu=syntaxcomplete#complete
-" Show "invisible” characters
-set lcs=tab:⟩\ ,trail:·,eol:↩,nbsp:_
-"set list " breaks set linebreak
 " Enable line numbers
 set relativenumber
 set number
@@ -148,7 +140,7 @@ let c=split(b, '')
 set laststatus=2
 set statusline=\|\ %m\ %f\ %r\ \%y
 set statusline+=\ \%{c[0]}
-set statusline+=%{f[0]}
+set statusline+=\ %{f[0]}
 set statusline+=%=
 set statusline+=Line:
 set statusline+=%4l/%-4L
@@ -188,7 +180,6 @@ set wildignore+=node_modules,bower_components
 
 "}}}
 set switchbuf=usetab  " try to reuse windows/tabs when switching buffers
-set whichwrap=b,h,l,s,<,>,[,],~       " allow <BS>/h/l/<Left>/<Right>/<Space>, ~ to cross line boundaries
 "}}}
 "{{{motions
 "{{{ kill arrow keys
@@ -284,16 +275,16 @@ if has("autocmd")
         autocmd FileType conf setlocal foldmethod=marker
         "}}}
         "{{{ Saving
-        autocmd BufEnter,BufWritePre * silent! checktime
-        autocmd BufLeave,BufWritePre * silent! call functions#StripWhitespace()
+        autocmd BufEnter,BufWritePre,CursorHold * silent! checktime
+        autocmd BufLeave,BufWritePre,CursorHold * silent! call functions#StripWhitespace()
         autocmd BufLeave,BufWritePre * silent! call functions#Knl()
         autocmd BufLeave,BufWritePre * silent! call functions#LineEndings()
-        autocmd BufLeave,BufWritePre * silent! %retab
-        autocmd BufLeave,BufWritePre *.py silent! %s/#\w/# &/g
-        autocmd BufLeave,BufWritePre *.py silent! %s/# #/# /g
-        autocmd BufLeave,BufWritePre *.js silent! %s/\/\/\w/\/\/ &/g
-        autocmd BufLeave,BufWritePre *.js silent! %s/\/\/ \/\//\/\/ /g
-        autocmd BufLeave,CursorHold * silent! if @% != ''| silent! w
+        autocmd BufLeave,BufWritePre,CursorHold * silent! %retab
+        autocmd BufLeave,BufWritePre,CursorHold *.py silent! %s/#\w/# &/g
+        autocmd BufLeave,BufWritePre,CursorHold *.py silent! %s/# #/# /g
+        autocmd BufLeave,BufWritePre,CursorHold *.js silent! %s/\/\/\w/\/\/ &/g
+        autocmd BufLeave,BufWritePre,CursorHold *.js silent! %s/\/\/ \/\//\/\/ /g
+        autocmd BufLeave,CursorHold * silent! if @% != ''| silent! wall
         autocmd BufEnter,FileType * if &ft != 'qf' | nnoremap <CR> @@ | else | nnoremap <CR> <CR> | endif
         "}}}
     augroup end
@@ -323,7 +314,7 @@ if has("autocmd")
         " make Vim edit cron again
         autocmd BufEnter /private/tmp/crontab.* setl backupcopy=yes
         " always reload files when changed outside Vim
-        "autocmd CursorHold,CursorMovedI,CursorMoved,Bufenter * :checktime
+        autocmd CursorHold,CursorMovedI,CursorMoved,Bufenter * :checktime
         autocmd Bufenter,FocusGained,BufLeave * :checktime
         " save on focus lost
         autocmd FocusLost,BufLeave * :silent! wall
@@ -361,11 +352,6 @@ augroup abbrevs
     autocmd FileType * iabbrev <buffer> durpal Drupal
     autocmd FileType * iabbrev <buffer> drupal Drupal
     autocmd FileType mail,text,gitcommit,scheme inoremap <buffer> ' '
-    autocmd FileType html vnoremap <buffer> < xi<<ESC>pa<ESC>la
-    autocmd FileType html,vim inoremap <<CR> <<CR>><ESC>O
-    autocmd FileType html,vim inoremap <expr> >  strpart(getline('.'), col('.')-1, 1) == ">" ? "\<Right>" : ">"
-    autocmd FileType php  iabbrev <buffer> pp> print '<pre>';
-    autocmd FileType php  iabbrev <buffer> cpp> print '</pre>';
     autocmd FileType vim inoremap <buffer> " "
 augroup end
 "}}}
@@ -393,30 +379,6 @@ function! Backspace()
     endif
 endfunction
 inoremap <expr> <BS> Backspace()
-"}}}
-"{{{ Unwrap parens and brackets
-function! UnwrapParens()
-    let l:current = strpart(getline('.'), col('.')-1, 1)
-    if  l:current == "]" || l:current == ")" || l:current == "}" || l:current == "[" || l:current == "(" || l:current == "{" || l:current == "<" || l:current == ">"
-        norm ml%mkx`lx
-    endif
-    if l:current == '"'
-        try
-            norm mlf"mkx`lx
-        catch
-            norm mlF"mkx`lx
-        endtry
-    endif
-    if l:current == "'"
-        try
-            norm mlf'mkx`lx
-        catch
-            norm mlF'mkx`lx
-        endtry
-    endif
-endfunction
-inoremap <localleader><BS> <Esc>:call UnwrapParens()<CR>
-noremap <leader>x :call UnwrapParens()<CR>
 "}}}
 "}}}
 "{{{ remap escape for easier access
@@ -517,8 +479,6 @@ noremap <silent><leader>w <ESC>:set wrap!<CR>
 inoremap <silent><leader>w <ESC>:set wrap!<CR>i
 "toggle file explorer
 noremap <silent><leader>e <ESC>:Explore<CR>
-"retab
-noremap <leader>r <ESC>:%retab<CR>
 "kill search highlighting
 noremap <silent><leader><space> <ESC>:let @/ = ""<CR>
 "uppercase words
@@ -527,7 +487,7 @@ nnoremap <C-u> <ESC>mzgUiwe
 " Toggle [i]nvisible characters
 nnoremap <silent><leader>I :set list!<CR>
 " reset color scheme
-nnoremap U :syntax sync fromstart<CR>:redraw!<CR>
+nnoremap R :syntax sync fromstart<CR>:redraw!<CR>
 
 nnoremap <leader>cd :lcd %:p:h<CR>
 "}}}
@@ -566,7 +526,6 @@ nnoremap <silent><leader>le :call functions#LineEndings()<CR>
 nnoremap <Leader>f :call functions#FoldColumn()<CR>
 command! Clean :call functions#CleanScreen()
 command! Scratch :call functions#Scratch()
-command! Fc :call functions#FoldColumn()
 command! Tw :call functions#Tw()
 "}}}
 "}}}
