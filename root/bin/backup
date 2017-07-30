@@ -4,26 +4,35 @@
 # date +'%f' gives date format
 # date +'%u' gives number of day of the week
 mkdir='mkdir -p'
+hname=$(hostname)
 ipaddr=$(ip addr show | grep 192 | cut -d ' ' -f 6 | cut -d '/' -f 1)
 today=$(date +'%Y%m%d')
-num_daily=$(ssh pi@192.168.0.26 "ls /mnt/share/backups/daily/ | wc -l")
+num_daily=$(ssh pi@192.168.0.26 "ls /mnt/share/backups/daily/$hname/| wc -l")
+
 backup_config_dir=$HOME/.config/backups
 mkdir -p $backup_config_dir
 echo $num_daily
-ssh pi@192.168.0.26 "$mkdir /mnt/share/backups/daily/$today"
-ssh pi@192.168.0.26 "$mkdir /mnt/share/backups/daily/$today"
-ssh pi@192.168.0.26 "rsync -av --exclude-from=.exclude --delete --link-dest=/mnt/share/backups/daily/$(cat $backup_config_dir/last) jonathan@$ipaddr:/home/jonathan/ /mnt/share/backups/daily/$today/"
+
+ssh pi@192.168.0.26 "$mkdir /mnt/share/backups/daily/$hname/$today"
+ssh pi@192.168.0.26 "$mkdir /mnt/share/backups/daily/$hname/$today"
+
+if [[ -a $backup_config_dir/latest ]]; then
+    ssh pi@192.168.0.26 "rsync -av --exclude-from=.exclude --delete --link-dest=/mnt/share/backups/daily/$(cat $backup_config_dir/latest) jonathan@$ipaddr:/home/jonathan/ /mnt/share/backups/daily/$hname/$today/"
+else
+    ssh pi@192.168.0.26 "rsync -av --exclude-from=.exclude --delete  jonathan@$ipaddr:/home/jonathan/ /mnt/share/backups/daily/$hname/$today/"
+fi
 
 date +'%Y%m%d' > $backup_config_dir/latest
 if [[ $num_daily -eq 0 ]]; then
-    ssh pi@192.168.0.26 "date +'%Y%m%d' > /mnt/share/backups/d_first"
+    echo "first daily"
+    date +'%Y%m%d' > $backup_config_dir/d_first
 fi
 if [[ $num_daily -eq 7 ]]; then
-    ssh pi@192.168.0.26 "date +'%Y%m%d' > /mnt/share/backups/d_last"
+    date +'%Y%m%d' > $backup_config_dir/d_last
 fi
 if [[ $num_daily -eq 7 ]]; then
-    d_first=$(ssh pi@192.168.0.26 "cat /mnt/share/backups/d_first")
-    d_last=$(ssh pi@192.168.0.26 "cat /mnt/share/backups/d_last")
+    d_first=$($backup_config_dir/d_first)
+    d_last=$($backup_config_dir/d_last)
     ssh pi@192.168.0.26 "$mkdir /mnt/share/backups/weekly/$d_first_$d_last"
     ssh pi@192.168.0.26 "rsync -av /mnt/share/backups/daily/$d_first/ /mnt/share/backups/weekly/$d_first_$d_last/"
     ssh pi@192.168.0.26 "rsync -av /mnt/share/backups/daily/$d_last/ /mnt/share/backups/weekly/$d_first_$d_last/"
