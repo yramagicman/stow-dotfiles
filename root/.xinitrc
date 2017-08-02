@@ -51,6 +51,7 @@ esac
 # day planer deamon
 # pland &
 
+export TERMINAL="$HOME/bin/st-0.7/st"
 #
 # finally start the window manager
 #
