@@ -52,6 +52,7 @@ esac
 # pland &
 
 export TERMINAL="$HOME/bin/st-0.7/st"
+export MAN_POSIXLY_CORRECT=true
 #
 # finally start the window manager
 #
