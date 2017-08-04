@@ -1,7 +1,10 @@
-#/usr/bin/zsh
+#!/usr/bin/zsh
 config_dir="$HOME/Gits/dots/root/"
 if [[ $1 == '' ]]; then
-    echo "please provide one of the following arguments:"
+    echo "You're currently using: "
+    grep '.colors' $HOME/bin/st-0.7/config.h | cut -d '/' -f 5 | cut -d '.' -f 1
+    echo
+    echo "To switch themes, please provide one of the following arguments:"
     ls $HOME/.colors/ | cut -d '.' -f 1 | sort | uniq
     exit
 fi

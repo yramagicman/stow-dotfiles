@@ -282,8 +282,8 @@ if has("autocmd")
         autocmd BufLeave,BufWritePre,CursorHold * silent! %retab
         autocmd BufLeave,BufWritePre,CursorHold *.py silent! %s/#\w/# &/g
         autocmd BufLeave,BufWritePre,CursorHold *.py silent! %s/# #/# /g
-        autocmd BufLeave,BufWritePre,CursorHold *.js silent! %s/\/\/\w/\/\/ &/g
-        autocmd BufLeave,BufWritePre,CursorHold *.js silent! %s/\/\/ \/\//\/\/ /g
+	" autocmd BufLeave,BufWritePre,CursorHold *.js silent! %s/\/\/\w/\/\/ &/g
+	" autocmd BufLeave,BufWritePre,CursorHold *.js silent! %s/\/\/ \/\//\/\/ /g
         autocmd BufLeave,CursorHold * silent! if @% != ''| silent! wall
         autocmd BufEnter,FileType * if &ft != 'qf' | nnoremap <CR> @@ | else | nnoremap <CR> <CR> | endif
         "}}}
