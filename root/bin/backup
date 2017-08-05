@@ -17,7 +17,7 @@ ssh pi@192.168.0.26 "$mkdir /mnt/share/backups/daily/$hname/$today"
 ssh pi@192.168.0.26 "$mkdir /mnt/share/backups/daily/$hname/$today"
 
 if [[ -a $backup_config_dir/latest ]]; then
-    ssh pi@192.168.0.26 "rsync -av --exclude-from=.exclude --delete --link-dest=/mnt/share/backups/daily/$(cat $backup_config_dir/latest) jonathan@$ipaddr:/home/jonathan/ /mnt/share/backups/daily/$hname/$today/"
+    ssh pi@192.168.0.26 "rsync -av --exclude-from=.exclude --delete --link-dest=/mnt/share/backups/daily/$hname/$(cat $backup_config_dir/latest) jonathan@$ipaddr:/home/jonathan/ /mnt/share/backups/daily/$hname/$today/"
 else
     ssh pi@192.168.0.26 "rsync -av --exclude-from=.exclude --delete  jonathan@$ipaddr:/home/jonathan/ /mnt/share/backups/daily/$hname/$today/"
 fi
@@ -31,9 +31,10 @@ if [[ $num_daily -eq 7 ]]; then
     date +'%Y%m%d' > $backup_config_dir/d_last
 fi
 if [[ $num_daily -eq 7 ]]; then
+    echo 'weekly backup'
     d_first=$($backup_config_dir/d_first)
     d_last=$($backup_config_dir/d_last)
-    ssh pi@192.168.0.26 "$mkdir /mnt/share/backups/weekly/$d_first_$d_last"
-    ssh pi@192.168.0.26 "rsync -av /mnt/share/backups/daily/$d_first/ /mnt/share/backups/weekly/$d_first_$d_last/"
-    ssh pi@192.168.0.26 "rsync -av /mnt/share/backups/daily/$d_last/ /mnt/share/backups/weekly/$d_first_$d_last/"
+    ssh pi@192.168.0.26 "$mkdir /mnt/share/backups/weekly/$hname/$d_first_$d_last"
+    ssh pi@192.168.0.26 "rsync -av --link-dest /mnt/share/backups/daily/$hname/$d_first/  /mnt/share/backups/daily/$hname/$d_first/ /mnt/share/backups/weekly/$hname/$d_first_$d_last/"
+    ssh pi@192.168.0.26 "rsync -av --link-dest /mnt/share/backups/daily/$hname/$d_last/ /mnt/share/backups/daily/$hname/$d_last/ /mnt/share/backups/weekly/$hname/$d_first_$d_last/"
 fi
