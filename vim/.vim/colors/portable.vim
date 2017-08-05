@@ -26,10 +26,10 @@ hi errormsg ctermbg=9 ctermfg=NONE
 hi error ctermbg=9 ctermfg=NONE
 hi pmenu ctermbg=0 ctermfg=15
 hi pmenusel ctermbg=8 ctermfg=15
-hi statusline ctermbg=0 ctermfg=7 term=none cterm=none
+hi statusline ctermbg=8 ctermfg=0 term=none cterm=none
 hi visual ctermbg=1 ctermfg=15
-hi statuslinenc ctermbg=0 ctermfg=15 term=none cterm=none
-hi vertsplit ctermfg=0 ctermbg=9
+hi statuslinenc ctermbg=0 ctermfg=8 term=none cterm=none
+hi vertsplit ctermfg=0 ctermbg=8
 hi wildmenu ctermbg=0 ctermfg=15
 hi signcolumn ctermbg=none ctermfg=15
 hi cursorline cterm=UNDERLINE
