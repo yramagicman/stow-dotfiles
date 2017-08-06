@@ -86,7 +86,6 @@ function updates() {
 function my_mail() {
     if [[ ( $(date +'%S') -eq 15  ) && ($(date +'%M'-eq 0)) ]]
     then
-        /usr/bin/rm $HOME/.config/mail
         $HOME/bin/mailmon > $HOME/.config/mail
         if [[ $(cat $HOME/.config/mail) -gt 0 ]]
         then

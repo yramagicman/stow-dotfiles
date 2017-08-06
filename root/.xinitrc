@@ -51,6 +51,15 @@ esac
 # day planer deamon
 # pland &
 
+if test "$( hostname )" = "k-nine"
+then
+    # use natural scrolling
+    xinput --set-prop 14 289 1
+    # disable horizontal scrolling
+    xinput --set-prop 14 304 0
+    # more sensitive mouse
+    xinput --set-prop 14 287 0.3
+fi
 export TERMINAL="$HOME/bin/st-0.7/st"
 export MAN_POSIXLY_CORRECT=true
 #
