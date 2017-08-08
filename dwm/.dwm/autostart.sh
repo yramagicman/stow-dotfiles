@@ -34,7 +34,7 @@ xset b off &
 
 # Update weather info on boot
 rm ~/.config/weather
-(sleep 45s && ~/bin/weather.py > ~/.config/weather) &
+(sleep 45s && check_process redshift) &
 
 #limit the size of dirs history
 d=$(sort $HOME/.cache/zsh/dirs | uniq )

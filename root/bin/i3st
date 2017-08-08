@@ -15,10 +15,10 @@ function my_bat() {
     bat_level=$( cat /sys/class/power_supply/BAT1/capacity )
     if [[ $(date +'%S') -eq 30 ]]
     then
-        if [[ "$( echo "$bat_level < 20" | bc)" && (  $notify_when -eq 0 )  ]]
-        then
-            notify-send "Battery low " "$bat_level remaining"
-        fi
+         if [[ $( echo "$bat_level < 20" | bc) -eq 1 && (  $notify_when -eq 0 )  ]]
+         then
+             notify-send "Battery low " "$bat_level remaining"
+         fi
     fi
     echo $bat_level
 }
