@@ -63,7 +63,7 @@ function my_load() {
 
 
 function my_mail() {
-    if [[ ( $(date +'%S') -eq 15  ) && ($(date +'%M'-eq 0)) ]]
+    if [[ $(date +'%S') -eq 15 ]]
     then
         $HOME/bin/mailmon > $HOME/.config/mail
         if [[ $(cat $HOME/.config/mail) -gt 0 ]]
