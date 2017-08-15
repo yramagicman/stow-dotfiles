@@ -100,12 +100,8 @@ precmd() {
         git_root=''
     fi
     branch_format=" (${_prompt_lime_colors[1]}%b%f%u%c ${_prompt_lime_colors[1]}${git_root}%f)"
-
     zstyle ':vcs_info:*:prompt:*' formats "${branch_format}"
-
-
     vcs_info 'prompt'
-
 }
 setopt prompt_subst
 PROMPT='
@@ -222,7 +218,6 @@ function workon() {
         workon "$@"
 }
 setopt NO_BEEP
-xset b off
 #}}}
 #{{{ key bindings,
 # define function that retrieves and runs last command
