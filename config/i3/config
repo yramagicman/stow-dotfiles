@@ -207,7 +207,7 @@ exec --no-startup-id ~/.dwm/autostart.sh
 bindsym $mod+w exec $HOME/bin/firefox.sh
 bindsym $mod+Shift+w exec "$HOME/bin/firefox.sh -private-window"
 bindsym Print exec xfce4-screenshooter
-bindsym Shift+F12 exec "systemctl poweroff"
+bindsym Shift+F12 exec "sudo systemctl poweroff"
 bindsym Control+Shift+h move scratchpad
 bindsym Control+Shift+s scratchpad show
 bindsym Control+Shift+f floating toggle

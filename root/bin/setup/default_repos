@@ -40,6 +40,8 @@ pulseaudio
 pulseaudio-bash-completion
 pulseaudio-utils
 pwgen
+password-store
+password-store-dmenu
 ranger
 redshift
 rxvt-unicode
