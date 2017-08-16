@@ -36,8 +36,8 @@
 
 (define num-changes (length (changes)))
 
-(define (show-changes)
-  (string-append (string-join (changes)) (make-string 20 #\space)))
+(define (show-changes repo)
+  (string-append "\n" (path->string repo) (string-join (changes)) (make-string 50 #\space)))
 
 (define (check-status)
   (define commands
@@ -55,8 +55,8 @@
       ((string=? base local) -1)
       (else 2))))
 
-(define (pull-push pull push)
-  ((execute-command "git") (list "fetch"))
+(define (pull-push pull push repo)
+  ((execute-command "git") (list "fetch" "--all"))
   (define stat (check-status))
   (cond
     ((not (= stat 0))
@@ -64,7 +64,7 @@
        ((= stat -1) (pull))
        ((= stat 1) (push))
        (else ((execute-command "git" )  "diff" "HEAD" "master" "origin/HEAD" "origin/master"))))
-    (else (show-changes))))
+    (else (show-changes repo))))
 
 (define (pull)
   (let ([pass (list "pass" "git" "pull")]
@@ -85,7 +85,7 @@
 (define (run-git-processes repo)
   (current-directory repo)
   (define cur-dir (path->string (current-directory)))
-  (display (string-append cur-dir "..." (make-string 20 #\space) "\r"))
-  (thread (pull-push pull push) ))
+  (display (string-append cur-dir "..." (make-string 50 #\space) "\r"))
+  (pull-push pull push repo))
 
 (map displayln (map run-git-processes paths))
