@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-java -jar /home/jonathan/Projects/gup/target/uberjar/gup-0.1.0-SNAPSHOT-standalone.jar
+racket ~/bin/gup.rkt 2>/dev/null

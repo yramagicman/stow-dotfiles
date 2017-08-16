@@ -37,7 +37,7 @@
 (define num-changes (length (changes)))
 
 (define (show-changes repo)
-  (string-append "\n" (path->string repo) (string-join (changes)) (make-string 50 #\space)))
+  (string-append (path->string repo) "\n" (string-join (changes) "\n\t") (make-string 50 #\space)))
 
 (define (check-status)
   (define commands
