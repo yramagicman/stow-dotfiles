@@ -11,13 +11,13 @@
      (thunk (apply system* proc args)))))
 
 (define home (path->string (find-system-path 'home-dir)))
-(define repos (list home ".mutt" ".zprezto" ".zprezto/modules/zsh-aliases" ".password-store"))
+(define repo-file (string-split (file->string (string-append home ".config/gits")) "\n"))
 (define git [find-executable-path "git"])
-
+(define repos (filter
+                (lambda x
+                  (not (string-prefix? (string-join x) "#" ) ) ) repo-file))
 (define (makepath p)
-  (if (not (equal? home p))
-      (string->path (string-append home p))
-      (string->path home)))
+  (string->path p))
 
 (define paths (map makepath repos))
 
@@ -68,11 +68,9 @@
 
 (define (pull)
   (let ([pass (list "pass" "git" "pull")]
-        [git (list "git" "up")]
-        [zprez (list (string->path (string-append home "bin/zupdate")))]
+        [git (list "git" "pull" "--rebase")]
         [pwd (path->string (current-directory))])
     (cond
-      ((string=? (string-append home "/.zprezto") pwd) ((execute-command (first zprez)) (rest zprez)))
       ((string=? (string-append home "/.password-store") pwd) ((execute-command (first pass)) (rest pass)))
       (else ((execute-command (first git)) (rest git))))))
 
@@ -88,6 +86,6 @@
   (current-directory repo)
   (define cur-dir (path->string (current-directory)))
   (display (string-append cur-dir "..." (make-string 20 #\space) "\r"))
-  (pull-push pull push))
+  (thread (pull-push pull push) ))
 
 (map displayln (map run-git-processes paths))
