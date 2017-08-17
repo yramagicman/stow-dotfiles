@@ -1,6 +1,6 @@
 "{{{ defaults
 "{{{ set secondary editor
-let g:Gui_Editor = 'gedit'
+let g:Gui_Editor = 'leafpad'
 "}}}
 "{{{setup stuff, for install plugin
 let g:VundleHelper_Setup_Folders = ['after', 'autoload', 'backup', 'colors', 'config', 'doc', 'snippets', 'spell', 'swaps', 'syntax', 'tags', 'undo']
@@ -153,12 +153,10 @@ set statusline+=\ \|
 "}}}
 "{{{ netrw settings
 "let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
-let g:netrw_banner=0        " disable annoying banner
 ""let g:netrw_browse_split=4  " open in prior window
 let g:netrw_altv=1          " open splits to the right
-":let g:netrw_liststyle=3     " tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
-" let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 "}}}
 "{{{ buffer sanity
 set hidden
@@ -187,18 +185,18 @@ set switchbuf=usetab  " try to reuse windows/tabs when switching buffers
 "}}}
 "{{{motions
 "{{{ kill arrow keys
-nnoremap <down> <C-d>
+nnoremap <down> <Nop>
 nnoremap <left> <Nop>
-nnoremap <up> <C-u>
+nnoremap <up> <Nop>
 nnoremap <right> <Nop>
 inoremap <right> <Nop>
 inoremap <down> <Nop>
 inoremap <left> <Nop>
 inoremap <up> <Nop>
 vnoremap <left> <Nop>
-vnoremap <down> <C-d>
+vnoremap <down> <Nop>
 vnoremap <right> <Nop>
-vnoremap <up> <C-u>
+vnoremap <up> <Nop>
 "}}}
 "{{{always center when navigating
 noremap G Gzz
@@ -207,6 +205,7 @@ noremap ( (zz
 noremap } }zz
 noremap ) )zz
 noremap % %zz
+noremap n nzz
 "}}}
 "{{{ command line movement mappings
 cnoremap <C-a>  <Home>
@@ -235,6 +234,7 @@ nnoremap v <c-v>
 nnoremap <c-v> v
 vnoremap v <C-V>
 vnoremap <C-V> v
+inoremap <C-n> <C-x><C-o>
 "}}}
 "{{{ Diff motions
 nnoremap <leader>dn ]czt
@@ -247,7 +247,6 @@ if has("autocmd")
     augroup VimStartup
         au!
         au VimEnter * if expand("%") == "" | e . | endif
-
     augroup END
     "}}}
     augroup general
@@ -286,8 +285,6 @@ if has("autocmd")
         autocmd BufLeave,BufWritePre,CursorHold * silent! %retab
         autocmd BufLeave,BufWritePre,CursorHold *.py silent! %s/#\w/# &/g
         autocmd BufLeave,BufWritePre,CursorHold *.py silent! %s/# #/# /g
-    " autocmd BufLeave,BufWritePre,CursorHold *.js silent! %s/\/\/\w/\/\/ &/g
-    " autocmd BufLeave,BufWritePre,CursorHold *.js silent! %s/\/\/ \/\//\/\/ /g
         autocmd BufLeave,CursorHold * silent! if @% != ''| silent! wall
         autocmd BufEnter,FileType * if &ft != 'qf' | nnoremap <CR> @@ | else | nnoremap <CR> <CR> | endif
         "}}}
@@ -445,15 +442,9 @@ nnoremap <Leader><Leader>z zMzOzz
 "{{{ folding options
 set foldmethod=indent
 set foldcolumn=2
-set foldlevel=100
 "}}}
 "}}}
 "{{{mappings
-"{{{file navigation shortcuts
-nnoremap <silent> <leader>ev :e ~/.vim/config/vimrc.combined.vim<CR>
-nnoremap <silent> <leader>pe :e ~/.vim/config/extensions<CR>
-noremap <leader>rl <ESC>:source ~/.vimrc<CR>:set visualbell<CR>
-"}}}
 "{{{ Make Vim work logically
 "paste in insert mode
 inoremap <leader>p <ESC>pa
@@ -492,7 +483,6 @@ nnoremap <C-u> <ESC>mzgUiwe
 nnoremap <silent><leader>I :set list!<CR>
 " reset color scheme
 nnoremap R :syntax sync fromstart<CR>:redraw!<CR>
-
 nnoremap <leader>cd :lcd %:p:h<CR>
 "}}}
 "{{{ spelling mappings
@@ -508,7 +498,6 @@ nnoremap --w z=
 nnoremap  qf :execute 'vimgrep /' .@/.'/g %'<CR>:copen<CR>
 nnoremap '; ;
 nnoremap ": ,
-
 iabbrev JOnathan Jonathan
 "}}}
 "{{{ insert blank lines in normal mode
@@ -563,4 +552,3 @@ let @v = '0/\u~hi_, '
 let @q = ':wq'
 "}}}
 "
-inoremap <C-n> <C-x><C-o>
