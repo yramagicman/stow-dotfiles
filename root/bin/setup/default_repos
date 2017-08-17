@@ -42,6 +42,7 @@ php5-pear-symfony2-Console
 php5-pear-symfony2-Finder
 php7
 php7-bz2
+php7-ctype
 php7-dom
 php7-gd
 php7-gettext
@@ -56,6 +57,7 @@ php7-pear-Archive_Tar
 php7-phar
 php7-sqlite
 php7-tokenizer
+php7-zip
 php7-zlib
 php-composer
 phpMyAdmin
