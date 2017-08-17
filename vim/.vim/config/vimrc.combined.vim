@@ -139,8 +139,12 @@ let b=system('git branch 2>/dev/null | grep \* | sed "s/\*//g"')
 let c=split(b, '')
 set laststatus=2
 set statusline=\|\ %m\ %f\ %r\ \%y
-set statusline+=\ \%{c[0]}
-set statusline+=\ %{f[0]}
+if len(c)
+    set statusline+=\ \%{c[0]}
+endif
+if len(f)
+    set statusline+=\ %{f[0]}
+endif
 set statusline+=%=
 set statusline+=Line:
 set statusline+=%4l/%-4L
@@ -282,8 +286,8 @@ if has("autocmd")
         autocmd BufLeave,BufWritePre,CursorHold * silent! %retab
         autocmd BufLeave,BufWritePre,CursorHold *.py silent! %s/#\w/# &/g
         autocmd BufLeave,BufWritePre,CursorHold *.py silent! %s/# #/# /g
-	" autocmd BufLeave,BufWritePre,CursorHold *.js silent! %s/\/\/\w/\/\/ &/g
-	" autocmd BufLeave,BufWritePre,CursorHold *.js silent! %s/\/\/ \/\//\/\/ /g
+    " autocmd BufLeave,BufWritePre,CursorHold *.js silent! %s/\/\/\w/\/\/ &/g
+    " autocmd BufLeave,BufWritePre,CursorHold *.js silent! %s/\/\/ \/\//\/\/ /g
         autocmd BufLeave,CursorHold * silent! if @% != ''| silent! wall
         autocmd BufEnter,FileType * if &ft != 'qf' | nnoremap <CR> @@ | else | nnoremap <CR> <CR> | endif
         "}}}
