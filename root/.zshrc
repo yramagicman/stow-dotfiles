@@ -232,7 +232,7 @@ function run-again {
 zle -N run-again
 
 # bind widget to Ctrl+X in viins mode
-bindkey -e '^y' run-again
+bindkey -e '^p' run-again
 
 # Allow command line editing in an external editor.
 autoload -Uz edit-command-line
