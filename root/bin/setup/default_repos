@@ -54,6 +54,7 @@ php7-pdo
 php7-pear
 php7-pear-Archive_Tar
 php7-phar
+php7-sqlite
 php7-tokenizer
 php7-zlib
 php-composer
