@@ -1,35 +1,22 @@
 hi clear
 syntax reset
 set background=dark
-let colors_name="portable"
+let colors_name='portable'
 
-hi normal ctermfg=7 ctermbg=NONE
 hi foldcolumn ctermbg=NONE ctermfg=7
 hi linenr ctermfg=12
 hi cursorlinenr ctermfg=9
-hi statement ctermfg=10
-hi conditional ctermfg=9
-hi constant ctermfg=12
-hi keyword ctermfg=11 cterm=BOLD
-hi variable ctermfg=12
-hi boolean ctermfg=13
-hi identifier ctermfg=9
-hi string ctermfg=15
-hi function ctermfg=12 cterm=BOLD
-hi comment ctermfg=11
-hi folded ctermbg=NONE
 hi search ctermbg=1 ctermfg=15
-hi diffadd ctermfg=15
-hi diffchange ctermfg=0
-hi diffdelete ctermfg=15
-hi errormsg ctermbg=9 ctermfg=NONE
-hi error ctermbg=9 ctermfg=NONE
+hi diffadd ctermfg=15 ctermbg=4
+hi diffchange ctermbg=8 ctermfg=0
+hi diffdelete ctermfg=15 ctermbg=1
+hi difftext ctermbg=0 ctermfg=NONE
 hi pmenu ctermbg=0 ctermfg=15
-hi pmenusel ctermbg=8 ctermfg=15
-hi statusline ctermbg=8 ctermfg=0 term=none cterm=none
-hi visual ctermbg=1 ctermfg=15
-hi statuslinenc ctermbg=0 ctermfg=8 term=none cterm=none
-hi vertsplit ctermfg=0 ctermbg=8
+hi pmenusel cterm=REVERSE
+hi statusline ctermbg=15 ctermfg=0 term=none cterm=none
+hi statuslinenc ctermbg=0 ctermfg=15 term=none cterm=none
+hi visual ctermbg=2 ctermfg=15
+hi vertsplit ctermfg=8 ctermbg=0
 hi wildmenu ctermbg=0 ctermfg=15
 hi signcolumn ctermbg=none ctermfg=15
 hi cursorline cterm=none
