@@ -22,6 +22,8 @@ i3lock
 i3status
 inkscape
 krita
+libX11-devel
+libXft-devel
 lshw
 lxappearance
 make
