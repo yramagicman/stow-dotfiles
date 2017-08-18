@@ -60,6 +60,8 @@ then
     # more sensitive mouse
     xinput --set-prop 14 287 0.3
 fi
+setxkbmap -option compose:menu
+setxkbmap -option caps:none
 export TERMINAL="$HOME/bin/st-0.7/st"
 export MAN_POSIXLY_CORRECT=true
 #
