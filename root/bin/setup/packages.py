@@ -14,20 +14,13 @@ repos = [r[:-2].strip() for r in repos if 'http' in r]
 packman = 'http://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/'
 dvd = 'http://opensuse-guide.org/repo/openSUSE_Leap_42.3/'
 
-subprocess.call(zypper + default_list)
-
 packman = open('./packman')
 packman_list = packman.readlines()
 packman_list = [p.strip() for p in packman_list]
 packman.close()
 
-
-
 if packman in repos:
     subprocess.call(ar + [packman, 'packman'] )
-    subprocess.call(['zypper', 'refresh'])
-
-subprocess.call(zypper + ['--from', 'packman'] + packman_list)
 
 dvd = open('./dvd')
 dvd_list = dvd.readlines()
@@ -36,6 +29,8 @@ dvd.close()
 
 if dvd in repos:
     subprocess.call(ar + [dvd, 'dvd'] )
-    subprocess.call(['zypper', 'refresh'])
 
+subprocess.call(['zypper', 'refresh'])
+subprocess.call(zypper + default_list)
 subprocess.call(zypper + ['--from', 'dvd'] + dvd_list)
+subprocess.call(zypper + ['--from', 'packman'] + packman_list)
