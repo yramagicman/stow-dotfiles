@@ -1,8 +1,10 @@
 #!/usr/bin/zsh
+
+st_dir=$HOME/Gits/st/
 config_dir="$HOME/Gits/dots/root/"
 if [[ $1 == '' ]]; then
     echo "You're currently using: "
-    grep '.colors' $HOME/bin/st-0.7/config.h | cut -d '/' -f 5 | cut -d '.' -f 1
+    grep '.colors'  $st_dir/config.h | cut -d '/' -f 5 | cut -d '.' -f 1
     echo
     echo "To switch themes, please provide one of the following arguments:"
     ls $HOME/.colors/ | cut -d '.' -f 1 | sort | uniq
@@ -24,8 +26,8 @@ if [[ -z $(grep defaultrcs $HOME/.colors/$1'.h') ]]; then
     grep defaultrcs $HOME/.colors/$1'.h'
 fi
 
-sed -e "s/#include \"\/home\/jonathan\/.colors\/[a-z_]*.h\"/#include \"\/home\/jonathan\/.colors\/$1\.h\"/g" -i $HOME/bin/st-0.7/config.h
-builtin cd ~/bin/st-0.7/
+sed -e "s/#include \"\/home\/jonathan\/.colors\/[a-z_]*.h\"/#include \"\/home\/jonathan\/.colors\/$1\.h\"/g" -i $st_dir/config.h
+builtin cd $st_dir
 make
 builtin cd
 xrdb -merge ~/.Xresources  >/dev/null 2>&1
