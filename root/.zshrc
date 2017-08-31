@@ -268,6 +268,8 @@ if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
 fi
 chpwd() {
     print -l $PWD ${(u)dirstack} >>$DIRSTACKFILE
+    d="$(sort $DIRSTACKFILE | uniq)"
+    echo "$d" > $DIRSTACKFILE
 
 }
 
