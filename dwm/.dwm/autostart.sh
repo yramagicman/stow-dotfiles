@@ -1,7 +1,6 @@
-#!/usr/bin/env zsh
-
+#!/bin/sh
 xbacklight -set 25
-function check_process(){
+check_process(){
 
     if [[ -z "$(pgrep $1 )" ]];
     then
@@ -11,7 +10,6 @@ function check_process(){
 }
 
 i3-msg workspace 'term'
-xflux -z 45036
 ( /home/jonathan/.screenlayout/default.sh) &
 # xsetroot -solid '#082F4E'
 # (/home/jonathan/bin/rotate-wallpaper) &
@@ -19,7 +17,6 @@ xset -dpms; xset s off &
 (sleep 1s && check_process compton -c) &
 (sleep 1s && /usr/bin/xscreensaver -no-splash) &
 (sleep 10s && xfce4-power-manager) &
-(sleep 3s && check_process volumeicon) &
 (sleep 5s  && $HOME/bin/get_remote_ip) &
 ## Set keyboard settings - 250 ms delay and 25 cps (characters per
 ## second) repeat rate.  Adjust the values according to your
@@ -49,4 +46,8 @@ echo "$z" > $HOME/.tmux.d/digests
 #update mail count
 rm ~/.config/mail
 $HOME/bin/mailmon > $HOME/.config/mail
+
+if ! stat $HOME/Gits/st/st > /dev/null; then
+    i3-nagbar -t warning -m "st not intsalled in $HOME/Gits/st"
+fi
 exit
