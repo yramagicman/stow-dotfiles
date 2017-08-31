@@ -48,6 +48,6 @@ rm ~/.config/mail
 $HOME/bin/mailmon > $HOME/.config/mail
 
 if ! stat $HOME/Gits/st/st > /dev/null; then
-    i3-nagbar -t warning -m "st not intsalled in $HOME/Gits/st"
+    notify-send -u critical "st not intsalled in $HOME/Gits/st"
 fi
 exit
