@@ -411,6 +411,11 @@ nnoremap <leader>cl <ESC>:close!
 inoremap <leader>cl <ESC>:close!
 vnoremap <leader>cl <ESC>:close!
 "}}}
+"
+"{{{ close
+nnoremap cl <ESC>:close
+vnoremap cl <ESC>:close
+"}}}
 "{{{ save and quit
 nnoremap <silent><leader>wq :wqa<CR>
 inoremap <silent><leader>wq <ESC>:wqa<CR>
