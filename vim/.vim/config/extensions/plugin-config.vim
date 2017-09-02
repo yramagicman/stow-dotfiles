@@ -1,8 +1,3 @@
-"plugin-config.vim
-"{{{ syntastic
-"@todo find a way to toggle this.
-let g:syntastic_python_checkers = ['pyflakes']
-"}}}
 "{{{ completion
 "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
