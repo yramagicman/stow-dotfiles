@@ -2,6 +2,8 @@
 ../
 .chpwd-recent-dirs
 .xsession-errors-:0
+.xsession-errors
+.xsession-errors.old
 .adobe/
 .alsaequal.bin
 .android/

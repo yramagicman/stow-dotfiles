@@ -46,7 +46,10 @@ echo "$z" > $HOME/.tmux.d/digests
 #update mail count
 rm ~/.config/mail
 $HOME/bin/mailmon > $HOME/.config/mail
-
+echo "" > $HOME/.xsession-errors
+if ! stat $HOME/.xsession-errors.old > /dev/null; then
+    rm $HOME/.xsession-errors.old
+fi
 if ! stat $HOME/Gits/st/st > /dev/null; then
     notify-send -u critical "st not intsalled in $HOME/Gits/st"
 fi
