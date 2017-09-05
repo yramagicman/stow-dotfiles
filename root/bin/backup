@@ -34,10 +34,12 @@ else
     freq='daily'
 fi
 
+echo $freq
 ssh $remote_user@$host "$mkdir /mnt/share/backups/daily/$backup_name/$today"
 
 if [[ -a $backup_config_dir/latest ]]; then
-    ssh $remote_user@$host "rsync -av --exclude-from=.exclude --delete --link-dest=/mnt/share/backups/$freq/$backup_name/$(cat $backup_config_dir/latest) $local_user@$ipaddr:$HOME/ /mnt/share/backups/daily/$backup_name/$today/"
+    echo ssh $remote_user@$host "rsync -av --exclude-from=.exclude --delete --link-dest=/mnt/share/backups/$freq/$backup_name/$(cat $backup_config_dir/latest) $local_user@$ipaddr:$HOME/ /mnt/share/backups/daily/$backup_name/$today/"
+exit
 else
     ssh $remote_user@$host "rsync -av --exclude-from=.exclude --delete  $local_user@$ipaddr:$HOME/ /mnt/share/backups/daily/$backup_name/$today/"
 fi
@@ -65,7 +67,7 @@ if [[ $num_daily -eq 7 ]]; then
     echo $d_first-$d_last > $backup_config_dir/latest
     echo "clearing daily backups"
 
-    echo ssh $remote_user@$host "rm -rf /mnt/share/backups/daily/$backup_name/"
+    ssh $remote_user@$host "rm -rf /mnt/share/backups/daily/$backup_name/"
 
     if [[ $num_weekly -eq 0 ]]; then
         echo $d_first-$d_last > $backup_config_dir/w_first
