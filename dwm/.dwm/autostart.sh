@@ -11,13 +11,16 @@ check_process(){
 
 i3-msg workspace 'term'
 ( /home/jonathan/.screenlayout/default.sh) &
+
 # xsetroot -solid '#082F4E'
 # (/home/jonathan/bin/rotate-wallpaper) &
+
 xset -dpms; xset s off &
 (sleep 1s && check_process compton -c) &
 (sleep 1s && /usr/bin/xscreensaver -no-splash) &
 (sleep 10s && xfce4-power-manager) &
 (sleep 5s  && $HOME/bin/get_remote_ip) &
+
 ## Set keyboard settings - 250 ms delay and 25 cps (characters per
 ## second) repeat rate.  Adjust the values according to your
 ## preferances.
@@ -53,7 +56,14 @@ fi
 if ! stat $HOME/Gits/st/st > /dev/null; then
     notify-send -u critical "st not intsalled in $HOME/Gits/st"
 fi
-if nmcli | grep 'hide_yo_kids'; then
-    $HOME/bin/get_remote_ip
+
+if test "$( hostname )" = 'knine'; then
+    if nmcli | grep 'hide_yo_kids'; then
+        $HOME/bin/get_remote_ip
+    fi
+
+    if ! grep "$(cat $HOME/.config/rip)" /etc/sysconfig/proxy; then
+        notify-send -u critical "Remote IP and Proxy URL are different"
+    fi
 fi
 exit
