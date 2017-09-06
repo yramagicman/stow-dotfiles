@@ -53,5 +53,7 @@ fi
 if ! stat $HOME/Gits/st/st > /dev/null; then
     notify-send -u critical "st not intsalled in $HOME/Gits/st"
 fi
-$HOME/bin/get_remote_ip
+if nmcli | grep 'hide_yo_kids'; then
+    $HOME/bin/get_remote_ip
+fi
 exit
