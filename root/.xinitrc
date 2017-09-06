@@ -53,12 +53,14 @@ esac
 
 if test "$( hostname )" = "k-nine"
 then
-    # use natural scrolling
-    xinput --set-prop 14 289 1
-    # disable horizontal scrolling
-    xinput --set-prop 14 304 0
-    # more sensitive mouse
-    xinput --set-prop 14 287 0.3
+    # libinput Natural Scrolling Enabled (292)
+    xinput --set-prop 14 292 1
+    # libinput Horizontal Scroll Enabled (307)
+    xinput --set-prop 14 307 0
+    # libinput Accel Speed (290)
+    xinput --set-prop 14 290 0.3
+    # libinput Disable While Typing Enabled (304)
+    xinput --set-prop 14 304 1
 fi
 setxkbmap -option compose:menu
 setxkbmap -option caps:none
