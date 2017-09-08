@@ -218,6 +218,7 @@ bindsym $mod+XF86MonBrightnessDown exec "xbacklight -set 25 -time 1 -steps 1"
 bindsym $mod+XF86MonBrightnessUp exec "xbacklight -set 65 -time 1 -steps 1"
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 10 -time 1 -steps 1"
 bindsym XF86MonBrightnessDown exec "xbacklight -dec 10 -time 1 -steps 1"
+bindsym XF86AudioPlay exec "$HOME/bin/playpause"
 
 bindsym F1 exec --no-startup-id echo "help" > /dev/null
 #}}}
