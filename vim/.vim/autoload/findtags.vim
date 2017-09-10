@@ -19,6 +19,6 @@ function! findtags#Findtags()
         endif
     endfunction
     if &tags != ''
-        call Recurse(path, index)
+        silent! call Recurse(path, index)
     endif
 endfunction

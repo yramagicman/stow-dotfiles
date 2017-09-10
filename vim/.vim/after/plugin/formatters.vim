@@ -11,7 +11,7 @@ function! JsBeautify() range
                 \ '!js-beautify',
                 \ '-i -'
                 \ ]
-    let type =(&filetype ==# 'javascript' || &filetype ==# 'php') ? 'js' : &filetype
+    let type =(&filetype ==# 'javascript') ? 'js' : &filetype
     if &expandtab
         let cmd = add(cmd, '--indent-size '. shiftwidth())
     else
@@ -22,6 +22,6 @@ function! JsBeautify() range
 endfunction
 augroup formatters
     autocmd!
-    autocmd FileType html,css,javascript,json,php command! -bar -nargs=0 -buffer -range=% Format <line1>,<line2>call JsBeautify()
+    autocmd FileType html,css,javascript,json command! -bar -nargs=0 -buffer -range=% Format <line1>,<line2>call JsBeautify()
     autocmd FileType python command! -bar -nargs=0 -buffer -range=% Format <line1>,<line2>call PyFormat()
 augroup end
