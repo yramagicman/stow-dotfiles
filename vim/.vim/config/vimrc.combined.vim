@@ -8,7 +8,7 @@ let g:VundleHelper_Plugin_File =  '/.vim/config/extensions/vundle.vim'
 let g:VundleHelper_Update_Frequency = 5
 "}}}
 "{{{ Defaults probably won't change... ever
-set updatetime=1500
+set updatetime=3000
 set lazyredraw
 set background=dark
 set autoread
