@@ -1,5 +1,5 @@
 #!/usr/bin/zsh
-
+env
 hn=$(hostname)
 function my_date () {
     if [[ "$hn" == "k-nine" ]];
@@ -84,20 +84,22 @@ function my_weather() {
         rm $HOME/.config/weather
         $HOME/bin/weather.py > $HOME/.config/weather
     else
-        weather=$(cat $HOME/.config/weather)
+        weather='| '$(cat $HOME/.config/weather)'F'
     fi
-    echo $weather
+    if [[ ! -z $SHOW_WEATHER ]]; then
+        echo $weather
+    fi
 }
 
 if [[ "$hn" == "k-nine" ]];
 then
     while; do
-        echo "$(my_mail) $(current_window) | bat: $(my_bat)% $(my_bat_stat) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_load) | $(my_date)"
+        echo "$(my_mail) $(current_window) $(my_weather) | bat: $(my_bat)% $(my_bat_stat) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_load) | $(my_date)"
         sleep 1s
     done
 else
     while; do
-        echo "$(my_mail) $(current_window) | $(my_load) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date)"
+        echo "$(my_mail) $(current_window) $(my_weather) | $(my_load) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date)"
         sleep 1s
     done
 fi
