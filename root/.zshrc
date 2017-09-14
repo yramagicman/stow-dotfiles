@@ -1,5 +1,5 @@
-#{{{ Set defaults
-CONFIG_DIR="$HOME/Gits"
+#{{{ Set default.zsh
+CONFIG_DIR="$HOME/.zsh"
 autoload -Uz compinit promptinit
 compinit
 promptinit
@@ -131,11 +131,32 @@ fi
 }
 source $HOME/.zprofile
 
-source_or_clone $CONFIG_DIR/z/z.sh 'https://github.com/rupa/z.git'
-source_or_clone $CONFIG_DIR/zsh-completions/zsh-completions.plugin.zsh 'git://github.com/zsh-users/zsh-completions.git'
-source_or_clone $CONFIG_DIR/zsh-aliases/init.zsh 'git@github.com:yramagicman/zsh-aliases.git'
-source_or_clone $CONFIG_DIR/zsh-autoenv/autoenv.zsh 'https://github.com/Tarrasch/zsh-autoenv'
+PACKAGES=( "$CONFIG_DIR/z/z.sh" 'https://github.com/rupa/z.git'
+    "$CONFIG_DIR/zsh-completions/zsh-completions.plugin.zsh" 'git://github.com/zsh-users/zsh-completions.git'
+    "$CONFIG_DIR/zsh-aliases/init.zsh" 'git@github.com:yramagicman/zsh-aliases.git'
+    "$CONFIG_DIR/zsh-autoenv/autoenv.zsh" 'https://github.com/Tarrasch/zsh-autoenv'
+    )
 
+
+for (( i = 1; i <= $#PACKAGES; i=i+2 )) do
+    source_or_clone $PACKAGES[i] $PACKAGES[i+1]
+done
+
+
+function clean() {
+    NUM_LISTED="$( echo "$#PACKAGES/2" | bc )"
+    NUM_INSTALLED="$(ls $CONFIG_DIR | wc -l)"
+    if [[ $NUM_INSTALLED -gt $NUM_LISTED ]]; then
+        echo "removing and reinstalling all packages in $CONFIG_DIR. is this okay? (type yes)"
+        read response
+        if [[ $response=='yes' ]]; then
+            rm -rfv $CONFIG_DIR/*
+            source ~/.zshrc
+        fi
+    else
+        echo "nothing to do"
+    fi
+}
 #}}}
 #{{{ completion
 #{{{ options
