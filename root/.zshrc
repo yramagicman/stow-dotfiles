@@ -112,15 +112,19 @@ RPROMPT='${_prompt_lime_colors[6]}[ %D{%I:%M %P} ]%f'
 #{{{ source and load aliases and plugins
 
 function clone_if_needed() {
+
     if [[ ! -d "$CONFIG_DIR/$1" ]]; then
         echo "$1 not found "
+        split=("${(@s#/#)1}")
+        echo $split
         read -k 1 -r \
             "REPLY?Do you want to clone it into $CONFIG_DIR "
         if [[ $REPLY =~ ^[yY]$ ]]; then
-            mkdir -p "$CONFIG_DIR/$1"
-            builtin cd  "$CONFIG_DIR/$1"
+            mkdir -p $CONFIG_DIR/$split[1]
             echo
-            git clone "git@github.com:$1" ./
+            cd  "$CONFIG_DIR/$split[1]/$split[2]"
+            pwd
+            git clone git@github.com:$split[1]/$split[2] $CONFIG_DIR/$split[1]/$split[2]/
             echo
             builtin cd
         fi
@@ -164,7 +168,7 @@ function clean() {
     if [[ $NUM_INSTALLED -gt $NUM_LISTED ]]; then
         echo "removing and reinstalling all packages in $CONFIG_DIR. is this okay? (type yes)"
         read response
-        if [[ $response=='yes' ]]; then
+        if [[ $response='yes' ]]; then
             rm -rfv $CONFIG_DIR/*
             source ~/.zshrc
         fi
