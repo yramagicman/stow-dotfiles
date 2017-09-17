@@ -119,30 +119,44 @@ function clone_if_needed() {
         if [[ $REPLY =~ ^[yY]$ ]]; then
             mkdir -p "$CONFIG_DIR/$1"
             builtin cd  "$CONFIG_DIR/$1"
-            echo "\n"
             echo
             git clone "git@github.com:$1" ./
             echo
             builtin cd
         fi
     fi
-
 }
+
 source $HOME/.zprofile
 
-PACKAGES=( 'rupa/z'
+PACKAGES=(
+    'rupa/z'
     'zsh-users/zsh-completions'
     'yramagicman/zsh-aliases'
     'Tarrasch/zsh-autoenv'
     )
 
-
 for (( i = 1; i <= $#PACKAGES; i=i+1 )) do
     clone_if_needed $PACKAGES[i]
 done
 
-for f in $( find $CONFIG_DIR -maxdepth 3 -type f | grep -E 'init.zsh|*\.plugin.zsh|*\.sh' )
-    source $f
+function source_pkg() {
+    if [[ -a "$CONFIG_DIR/$1/init.zsh" ]] then
+        source $CONFIG_DIR/$1/init.zsh
+        return
+    elif [[  $( find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.plugin.zsh" ) ]] then
+        source  $CONFIG_DIR/$1/*.plugin.zsh
+        return
+    elif [[  $( find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.zsh") ]] then
+        source  $CONFIG_DIR/$1/*.zsh
+        return
+    else
+        source $CONFIG_DIR/$1/*.sh
+        return
+    fi
+}
+for p in $PACKAGES
+    source_pkg $p
 
 function clean() {
     local NUM_LISTED="$( echo "$#PACKAGES/2" | bc )"
@@ -158,6 +172,7 @@ function clean() {
         echo "nothing to do"
     fi
 }
+
 #}}}
 #{{{ completion
 #{{{ options
