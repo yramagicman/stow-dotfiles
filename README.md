@@ -1,8 +1,8 @@
 # stow-dotfiles
 
-I have the best dotfiles in the world, or at least I think I do, and you should
-think the same thing about yours. My dotfiles are the best because they are
-almost completely self installing.
+**Welcome!!** Feel free to look around. My configs are free for the copying, but
+be aware that I've configured my environment to fit my workflow, so it may
+take some tweaking to work for you.
 
 ## To use my dotfiles:
 

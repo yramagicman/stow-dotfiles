@@ -1,11 +1,11 @@
 import subprocess
 ar = ['zypper', 'ar', '-f']
 lr = ['zypper', 'lr', '-u']
-zypper = ['zypper', 'in' ]
+zypper = ['zypper', 'in']
 
 default = open('./default_repos')
 default_list = default.readlines()
-default_list  = [p.strip() for p in default_list]
+default_list = [p.strip() for p in default_list]
 default.close()
 
 repos = subprocess.check_output(lr).decode().split('|')
@@ -20,15 +20,15 @@ packman_list = [p.strip() for p in packman_list]
 packman.close()
 
 if packman in repos:
-    subprocess.call(ar + [packman, 'packman'] )
+    subprocess.call(ar + [packman, 'packman'])
 
 dvd = open('./dvd')
 dvd_list = dvd.readlines()
-dvd_list  = [p.strip() for p in dvd_list]
+dvd_list = [p.strip() for p in dvd_list]
 dvd.close()
 
 if dvd in repos:
-    subprocess.call(ar + [dvd, 'dvd'] )
+    subprocess.call(ar + [dvd, 'dvd'])
 
 subprocess.call(['zypper', 'refresh'])
 subprocess.call(zypper + default_list)

@@ -111,41 +111,42 @@ RPROMPT='${_prompt_lime_colors[6]}[ %D{%I:%M %P} ]%f'
 #}}}
 #{{{ source and load aliases and plugins
 
-function source_or_clone() {
-
-if [[ -a $1 ]]; then
-    source $1
-else
-    echo "$1 not found "
-    read -k 1 -r \
-        "REPLY?Do you want to clone it into $CONFIG_DIR "
-    if [[ $REPLY =~ ^[yY]$ ]]; then
-        mkdir -p $CONFIG_DIR
-        builtin cd  $CONFIG_DIR
-        echo "\n"
-        git clone $2
-        source $1
-        builtin cd
+function clone_if_needed() {
+    if [[ ! -d "$CONFIG_DIR/$1" ]]; then
+        echo "$1 not found "
+        read -k 1 -r \
+            "REPLY?Do you want to clone it into $CONFIG_DIR "
+        if [[ $REPLY =~ ^[yY]$ ]]; then
+            mkdir -p "$CONFIG_DIR/$1"
+            builtin cd  "$CONFIG_DIR/$1"
+            echo "\n"
+            echo
+            git clone "git@github.com:$1" ./
+            echo
+            builtin cd
+        fi
     fi
-fi
+
 }
 source $HOME/.zprofile
 
-PACKAGES=( "$CONFIG_DIR/z/z.sh" 'https://github.com/rupa/z.git'
-    "$CONFIG_DIR/zsh-completions/zsh-completions.plugin.zsh" 'git://github.com/zsh-users/zsh-completions.git'
-    "$CONFIG_DIR/zsh-aliases/init.zsh" 'git@github.com:yramagicman/zsh-aliases.git'
-    "$CONFIG_DIR/zsh-autoenv/autoenv.zsh" 'https://github.com/Tarrasch/zsh-autoenv'
+PACKAGES=( 'rupa/z'
+    'zsh-users/zsh-completions'
+    'yramagicman/zsh-aliases'
+    'Tarrasch/zsh-autoenv'
     )
 
 
-for (( i = 1; i <= $#PACKAGES; i=i+2 )) do
-    source_or_clone $PACKAGES[i] $PACKAGES[i+1]
+for (( i = 1; i <= $#PACKAGES; i=i+1 )) do
+    clone_if_needed $PACKAGES[i]
 done
 
+for f in $( find $CONFIG_DIR -maxdepth 3 -type f | grep -E 'init.zsh|*\.plugin.zsh|*\.sh' )
+    source $f
 
 function clean() {
-    NUM_LISTED="$( echo "$#PACKAGES/2" | bc )"
-    NUM_INSTALLED="$(ls $CONFIG_DIR | wc -l)"
+    local NUM_LISTED="$( echo "$#PACKAGES/2" | bc )"
+    local NUM_INSTALLED="$(ls $CONFIG_DIR | wc -l)"
     if [[ $NUM_INSTALLED -gt $NUM_LISTED ]]; then
         echo "removing and reinstalling all packages in $CONFIG_DIR. is this okay? (type yes)"
         read response
