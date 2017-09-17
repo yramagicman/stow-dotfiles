@@ -1,0 +1,34 @@
+#!/usr/bin/python3
+
+import subprocess
+
+find_mouse = subprocess.check_output('xinput')
+find_mouse = find_mouse.decode().split('\n')
+mouse_id = ''
+for l in find_mouse:
+    if 'TouchPad' in l:
+        mouse_id = l.split()
+
+for i in mouse_id:
+    if 'id' in i:
+        mouse_id = i.split('=')[1]
+
+mouse_props = subprocess.check_output(['xinput', '--list-props', mouse_id])
+
+mouse_props = mouse_props.decode().split('\n')
+
+
+def setprop(prop, props, value):
+    if prop in props and 'Default' not in props:
+        id = props.split('(')
+        id = id[1].split(')')
+        id = id[0]
+        subprocess.check_call(
+            ['xinput', '--set-prop', str(mouse_id), str(id), str(value)])
+
+
+for p in mouse_props:
+    setprop('Natural Scrolling', p, 1)
+    setprop('Horizontal Scroll',  p, 0)
+    setprop('Accel Speed', p, 0.3)
+    setprop('Disable While Typing', p, 1)
