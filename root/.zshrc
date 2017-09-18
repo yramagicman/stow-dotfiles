@@ -34,6 +34,8 @@ PACKAGES=(
     'zsh-users/zsh-completions'
     'yramagicman/zsh-aliases'
     'Tarrasch/zsh-autoenv'
+    'chrissicool/zsh-bash'
+    'srijanshetty/zsh-pandoc-completion'
     )
 #}}}
 # {{{ COLORS ****************************************
@@ -325,7 +327,6 @@ export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
 #}}}
 #{{{ random user opions
 export XDG_CONFIG_HOME=$HOME/.config
-export PATH=$PATH:$HOME/bin/
 export BROWSER=firefox
 #}}}
 # {{{cdr, persistent cd
