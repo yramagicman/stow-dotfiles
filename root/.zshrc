@@ -210,12 +210,12 @@ function pkg_clean() {
 
 function download_pkgs() {
     for p in $PACKAGES
-    clone_if_needed $p
+        clone_if_needed $p
 }
 
 function load_pkgs() {
     for p in $PACKAGES
-    source_pkg $p
+        source_pkg $p
 }
 
 download_pkgs
