@@ -34,7 +34,6 @@ PACKAGES=(
     'zsh-users/zsh-completions'
     'yramagicman/zsh-aliases'
     'Tarrasch/zsh-autoenv'
-    'chrissicool/zsh-bash'
     'srijanshetty/zsh-pandoc-completion'
     )
 #}}}
@@ -194,9 +193,8 @@ function source_pkg() {
 }
 
 function pkg_clean() {
-    local NUM_LISTED="$( echo "$#PACKAGES/2" | bc )"
     local NUM_INSTALLED="$(ls $CONFIG_DIR | wc -l)"
-    if [[ $NUM_INSTALLED -gt $NUM_LISTED ]]; then
+    if [[ $NUM_INSTALLED -gt $#PACKAGES ]]; then
         read -k 1 -r \
             "REPLY?Do you want to remove $CONFIG_DIR and all it's contents and reinstall all plugins?"
         if [[ $REPLY =~ ^[yY]$ ]] then
@@ -209,13 +207,15 @@ function pkg_clean() {
 }
 
 function download_pkgs() {
-    for p in $PACKAGES
-        clone_if_needed $p
+    for p in $PACKAGES;
+        do clone_if_needed $p
+        done
 }
 
 function load_pkgs() {
-    for p in $PACKAGES
-        source_pkg $p
+    for p in $PACKAGES;
+        do source_pkg $p
+        done
 }
 
 download_pkgs
