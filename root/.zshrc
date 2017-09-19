@@ -208,11 +208,19 @@ function pkg_clean() {
     fi
 }
 
-for p in $PACKAGES
-    clone_if_needed $p
+function download_pkgs() {
+    for p in $PACKAGES
+	clone_if_needed $p
+}
 
-for p in $PACKAGES
-    source_pkg $p
+function load_pkgs() {
+    for p in $PACKAGES
+	source_pkg $p
+}
+
+download_pkgs
+load_pkgs
+
 #}}}
 #{{{ completion
 #{{{ options
