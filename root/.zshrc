@@ -35,6 +35,7 @@ PACKAGES=(
     'yramagicman/zsh-aliases'
     'Tarrasch/zsh-autoenv'
     'srijanshetty/zsh-pandoc-completion'
+    'marzocchi/zsh-notify'
     )
 #}}}
 # {{{ COLORS ****************************************
