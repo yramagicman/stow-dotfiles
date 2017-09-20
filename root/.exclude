@@ -143,3 +143,4 @@ autostart
 VirtualBox_VMs/
 Dropbox/
 .thunderbird/
+.zsh
