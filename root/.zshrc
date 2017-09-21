@@ -4,7 +4,7 @@
 # be cloned into this directory. This directory is created automatically when
 # zsh is loaded for the first time. Files that are refereced from disk will be
 # left in place.
-CONFIG_DIR="$HOME/.zsh"
+CONFIG_DIR="$HOME/.zsh_modules"
 
 # PACKAGES is an array of either absolute paths to local files or github
 # user/repo/folder paths without leading or trailing slashes. If you want to use
@@ -26,9 +26,15 @@ CONFIG_DIR="$HOME/.zsh"
 # this file is sourced directly.
 
 PACKAGES=(
+    $HOME/.zsh/runtime.zsh
+    $HOME/.zsh/prompt.zsh
+    $HOME/.zsh/history.zsh
+    $HOME/.zsh/completion.zsh
+)
+
+PACKAGES+=(
     # Source .zprofile every time to make sure the $PATH variable is correct.
     $HOME/.zprofile
-
     # Load the rest of the plugins.
     'rupa/z'
     'zsh-users/zsh-completions'
@@ -36,269 +42,14 @@ PACKAGES=(
     'Tarrasch/zsh-autoenv'
     'srijanshetty/zsh-pandoc-completion'
     'marzocchi/zsh-notify'
+    # These files are needed if you're going to use oh-my-zsh themes.'
+    # 'robbyrussell/oh-my-zsh/lib/git.zsh' # git support
+    # 'robbyrussell/oh-my-zsh/lib/promt_info_functions.zsh' # rvm and ruby support
+    # 'robbyrussell/oh-my-zsh/lib/nvm.zsh' # nvm support
+    # 'robbyrussell/oh-my-zsh/plugins/themes' # theming functions
     )
 #}}}
-# {{{ COLORS ****************************************
-if [[ $TERM = *256color* || $TERM = *rxvt* ]]; then
-  _prompt_colors=(
-    "%F{12}"  # Turquoise
-    "%F{9}" # Orange
-    "%F{13}" # Purple
-    "%F{9}" # Hotpink
-    "%F{10}" # Limegreen
-    "%F{7}" # dark grey
-  )
-else
-  _prompt_colors=(
-    "%F{cyan}"
-    "%F{yellow}"
-    "%F{magenta}"
-    "%F{red}"
-    "%F{green}"
-    "%F{grey}"
-  )
-fi
-#}}}
-#{{{ Set zsh options for general runtime.
-#
-# Load the prompt system and completion system and initilize them
-autoload -Uz compinit promptinit
-compinit
-promptinit
-
-# Use case-insensitve globbing.
-unsetopt CASE_GLOB
-
-# Automatically change directory if a directory is entered
-setopt autocd
-setopt extendedglob
-
-#
-# Smart URLs
-#
-
-autoload -Uz url-quote-magic
-zle -N self-insert url-quote-magic
-
-#
-# General
-#
-
-# Allow brace character class list expansion.
-setopt BRACE_CCL
-# Combine zero-length punctuation characters (accents) with the base character.
-setopt COMBINING_CHARS
- # Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'.
-setopt RC_QUOTES
-# Don't print a warning message if a mail file has been accessed.
-unsetopt MAIL_WARNING
-
-#
-# Jobs
-#
-# List jobs in the long format by default.
-setopt LONG_LIST_JOBS
-# Attempt to resume existing job before creating a new process.
-setopt AUTO_RESUME
-# Report status of background jobs immediately.
-setopt NOTIFY
-# Don't run all background jobs at a lower priority.
-unsetopt BG_NICE
-# Don't kill jobs on shell exit.
-unsetopt HUP
-# Don't report on jobs when shell exit.
-unsetopt CHECK_JOBS
-
- #}}}
-# {{{ VCS in prompt options
-# Formats:
-#   %b - branchname
-#   %u - unstagedstr (see below)
-#   %c - stagedstr (see below)
-#   %a - action (e.g. rebase-i)
-#   %R - repository path
-#   %S - path in the repository
-local branch_format="(${_prompt_colors[1]}%b%f%u%c)"
-local action_format="(${_prompt_colors[5]}%a%f)"
-local unstaged_format="${_prompt_colors[2]}*%f"
-local staged_format="${_prompt_colors[5]}+%f"
-
-# Set vcs_info parameters.
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:*:prompt:*' check-for-changes true
-zstyle ':vcs_info:*:prompt:*' unstagedstr "${unstaged_format}"
-zstyle ':vcs_info:*:prompt:*' stagedstr "${staged_format}"
-zstyle ':vcs_info:*:prompt:*' actionformats "${branch_format}${action_format}"
-zstyle ':vcs_info:*:prompt:*' formats "${branch_format}"
-zstyle ':vcs_info:*:prompt:*' nvcsformats   ""
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git
-#}}}
-#{{{ PROMPT ****************************************
-
-precmd() {
-    if git rev-parse --git-dir > /dev/null 2>&1; then
-        str=$( git rev-parse --show-toplevel)
-        split=("${(@s#/#)str}")
-        git_root=$split[-1]
-        unset str
-    else
-        git_root=''
-    fi
-    branch_format=" (${_prompt_colors[1]}%b%f%u%c ${_prompt_colors[1]}${git_root}%f)"
-    zstyle ':vcs_info:*:prompt:*' formats "${branch_format}"
-    vcs_info 'prompt'
-}
-setopt prompt_subst
-PROMPT='
- %B${_prompt_colors[5]}%m%f %~${vcs_info_msg_0_}
- ➔%b '
-RPROMPT='${_prompt_colors[6]}[ %D{%I:%M %P} ]%f'
-#}}}
-#{{{ source and load aliases and plugins
-
-function clone_if_needed() {
-    if [[ ( ! -d "$CONFIG_DIR/$1" )  ]]; then
-        if [[ -a $1 ]]; then
-            return
-        fi
-        echo "$1 not found "
-        split=("${(@s#/#)1}")
-        read -k 1 -r \
-            "REPLY?Do you want to clone it into $CONFIG_DIR "
-        if [[ $REPLY =~ ^[yY]$ ]]; then
-            mkdir -p $CONFIG_DIR/$split[1]
-            echo
-            git clone git@github.com:$split[1]/$split[2] $CONFIG_DIR/$split[1]/$split[2]/
-            echo
-        fi
-    fi
-}
-
-function source_pkg() {
-    if [[ -f "$CONFIG_DIR/$1/init.zsh" ]] then
-        source $CONFIG_DIR/$1/init.zsh
-        return
-    elif [[  $( find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.plugin.zsh" 2> /dev/null ) ]] then
-        source  $CONFIG_DIR/$1/*.plugin.zsh
-        return
-    elif [[  $( find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.zsh" 2> /dev/null ) ]] then
-        source  $CONFIG_DIR/$1/*.zsh
-        return
-    elif [[  $( find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.sh" 2> /dev/null ) ]] then
-        source $CONFIG_DIR/$1/*.sh
-        return
-    else
-        source $1
-    fi
-}
-
-function pkg_clean() {
-    local NUM_INSTALLED="$(ls $CONFIG_DIR | wc -l)"
-    if [[ $NUM_INSTALLED -gt $#PACKAGES ]]; then
-        read -k 1 -r \
-            "REPLY?Do you want to remove $CONFIG_DIR and all it's contents and reinstall all plugins?"
-        if [[ $REPLY =~ ^[yY]$ ]] then
-            rm -rfv $CONFIG_DIR
-            source ~/.zshrc
-        fi
-    else
-        echo "nothing to do"
-    fi
-}
-
-function download_pkgs() {
-    for p in $PACKAGES;
-        do clone_if_needed $p
-        done
-}
-
-function load_pkgs() {
-    for p in $PACKAGES;
-        do source_pkg $p
-        done
-}
-
-download_pkgs
-load_pkgs
-
-#}}}
-#{{{ completion
-#{{{ options
-# Complete from both ends of a word.
-setopt COMPLETE_IN_WORD
-# Move cursor to the end of a completed word.
-setopt ALWAYS_TO_END
-# Perform path search even on command names with slashes.
-setopt PATH_DIRS
-# Show completion menu on a successive tab press.
-setopt AUTO_MENU
-# Automatically list choices on ambiguous completion.
-setopt AUTO_LIST
-# If completed parameter is a directory, add a trailing slash.
-setopt AUTO_PARAM_SLASH
-setopt NO_COMPLETE_ALIASES
-# Do not autoselect the first completion entry.
-unsetopt MENU_COMPLETE
-# Disable start/stop characters in shell editor.
-unsetopt FLOW_CONTROL
-#}}}
-#{{{ zstyle
-zstyle ':completion:*:*:*:*:*' menu select
-zstyle ':completion:*:matches' group 'yes'
-zstyle ':completion:*:options' description 'yes'
-zstyle ':completion:*:options' auto-description '%d'
-zstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
-zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
-zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
-zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
-zstyle ':completion:*:default' list-prompt '%S%M matches%s'
-zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' verbose yes
-zstyle ':completion::complete:*' use-cache on
-zstyle ':completion::complete:*' cache-path "$HOME/.zcompcache"
-zstyle ':completion:*' list-colors $LS_COLORS
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-zstyle ':completion:*' rehash true
-#}}}
-#}}}
-#{{{ History options
-
-# The path to the history file.
-HISTFILE="$HOME/.zhistory"
-# The maximum number of events to save in the internal history.
-HISTSIZE=10000
-# The maximum number of events to save in the history file.
-SAVEHIST=10000
-
-#
-# Options
-#
-
-# Treat the '!' character specially during expansion.
-setopt BANG_HIST
-# Write to the history file immediately, not when the shell exits.
-setopt INC_APPEND_HISTORY
-# Share history between all sessions.
-setopt SHARE_HISTORY
-# Expire a duplicate event first when trimming history.
-setopt HIST_EXPIRE_DUPS_FIRST
-# Do not record an event that was just recorded again.
-setopt HIST_IGNORE_DUPS
-# Delete an old recorded event if a new event is a duplicate.
-setopt HIST_IGNORE_ALL_DUPS
-# Do not display a previously found event.
-setopt HIST_FIND_NO_DUPS
-# Do not record an event starting with a space.
-setopt HIST_IGNORE_SPACE
-# Do not write a duplicate event to the history file.
-setopt HIST_SAVE_NO_DUPS
-# Do not execute immediately upon history expansion.
-setopt HIST_VERIFY
-
-#}}}
+source $HOME/.zsh/lib.zsh
 # {{{ lazy load stuff
 if [[ "$TMUX" != '' ]]; then
 
@@ -373,3 +124,4 @@ if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$SSH_TTY" ]]; then
     s tmux
 fi
 #}}}
+#

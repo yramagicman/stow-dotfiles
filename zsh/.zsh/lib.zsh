@@ -55,7 +55,7 @@ function load_pkgs() {
         done
 }
 
-function clean_pkgs() {
+function reload_pkgs() {
     rm -rf $CONFIG_DIR/*
     clear
     source ~/.zshrc
