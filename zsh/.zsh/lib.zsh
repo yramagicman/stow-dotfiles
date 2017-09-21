@@ -56,9 +56,57 @@ function load_pkgs() {
 }
 
 function reload_pkgs() {
-    rm -rf $CONFIG_DIR/*
+    tmpthemedir="$HOME/.tmptheme"
+    /usr/bin/rm -rf $tmpthemedir
+    /usr/bin/rm -rf $CONFIG_DIR/*
     clear
     source ~/.zshrc
+}
+
+
+function update_pkgs() {
+    cwd=$(pwd)
+    for f in $(find $CONFIG_DIR -maxdepth 3 -type d -name '.git')
+        do
+        builtin cd $f; builtin cd ../; git pull
+        done
+    builtin cd $cwd
+}
+
+function try_theme() {
+    split=("${(@s#/#)1}")
+    cwd=$(pwd)
+    tmpthemedir="$HOME/.tmptheme"
+    mkdir -p $tmpthemedir
+    builtin cd $tmpthemedir
+    if [[ ! -a "$tmpthemedir/$split[5]" ]] then
+        git clone https://github.com/$split[4]/$split[5]
+    fi
+    echo
+    if [[ $split[5] = 'prezto' ]] then
+
+        echo source  $tmpthemedir/prezto/modules/prompt/functions/prompt-pwd
+        echo source $tmpthemedir/prezto/modules/prompt/functions/$split[-1]
+
+        source  $tmpthemedir/prezto/modules/prompt/functions/prompt-pwd
+        source $tmpthemedir/prezto/modules/prompt/functions/$split[-1]
+    elif [[ $split[5] = 'oh-my-zsh' ]] then
+
+        echo source $tmpthemedir/oh-my-zsh/lib/git.zsh # git support
+        echo source $tmpthemedir/oh-my-zsh/lib/prompt_info_functions.zsh # rvm and ruby support
+        echo source $tmpthemedir/oh-my-zsh/lib/nvm.zsh # nvm support
+        echo source $tmpthemedir/oh-my-zsh/plugins/themes/themes.plugin.zsh # theming functions
+        echo source $tmpthemedir/oh-my-zsh/themes/$split[-1] # theming functions
+
+        source $tmpthemedir/oh-my-zsh/lib/git.zsh # git support
+        source $tmpthemedir/oh-my-zsh/lib/prompt_info_functions.zsh # rvm and ruby support
+        source $tmpthemedir/oh-my-zsh/lib/nvm.zsh # nvm support
+        source $tmpthemedir/oh-my-zsh/plugins/themes/themes.plugin.zsh # theming functions
+        source $tmpthemedir/oh-my-zsh/themes/$split[-1] # theming functions
+    fi
+
+    builtin cd $cwd
+
 }
 
 download_pkgs
