@@ -64,7 +64,9 @@ function download_pkgs() {
 
 function build_pkg_cache() {
     echo "gonna be slow"
-    rm $CONFIG_DIR/.plugins
+    if [[ -f $CONFIG_DIR/.plugins ]] then
+        rm $CONFIG_DIR/.plugins
+    fi
     for p in $PACKAGES;
         do
             cache_pkg $p
