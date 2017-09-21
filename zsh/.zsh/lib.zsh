@@ -99,10 +99,10 @@ function try_theme() {
         echo source  $tmpthemedir/prezto/modules/prompt/functions/prompt-pwd
         echo source $tmpthemedir/prezto/modules/prompt/functions/$split[-1]
 
+        echo
         source  $tmpthemedir/prezto/modules/prompt/functions/prompt-pwd
         source $tmpthemedir/prezto/modules/prompt/functions/$split[-1]
     elif [[ $split[5] = 'oh-my-zsh' ]] then
-
 
         echo source $tmpthemedir/oh-my-zsh/lib/spectrum.zsh # color support
         echo source $tmpthemedir/oh-my-zsh/lib/git.zsh # git support
