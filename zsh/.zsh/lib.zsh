@@ -2,49 +2,49 @@
 
 function clone_if_needed() {
     split=("${(@s#/#)1}")
-    if [[ ( ! -d "$CONFIG_DIR/$split[1]" )  ]]; then
+    if [[ ( ! -d "$MODULES_DIR/$split[1]" )  ]]; then
         if [[ -a $1 ]]; then
             return
         fi
         echo "$1 not found "
         read -k 1 -r \
-            "REPLY?Do you want to clone it into $CONFIG_DIR "
+            "REPLY?Do you want to clone it into $MODULES_DIR "
         if [[ $REPLY =~ ^[yY]$ ]]; then
-            mkdir -p $CONFIG_DIR/$split[1]
+            mkdir -p $MODULES_DIR/$split[1]
             echo
-            git clone git@github.com:$split[1]/$split[2] $CONFIG_DIR/$split[1]/$split[2]/
+            git clone git@github.com:$split[1]/$split[2] $MODULES_DIR/$split[1]/$split[2]/
             echo
         fi
     fi
 }
 
 function cache_pkg () {
-    if [[ -f "$CONFIG_DIR/$1/init.zsh" ]] then
-        echo "$CONFIG_DIR/$1/init.zsh" >> $CONFIG_DIR/.plugins
-        source $CONFIG_DIR/$1/init.zsh
+    if [[ -f "$MODULES_DIR/$1/init.zsh" ]] then
+        echo "$MODULES_DIR/$1/init.zsh" >> $MODULES_DIR/.plugins
+        source $MODULES_DIR/$1/init.zsh
         return
-    elif [[  $( find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.plugin.zsh" 2> /dev/null ) ]] then
-        find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.plugin.zsh" >> $CONFIG_DIR/.plugins
-        source  $CONFIG_DIR/$1/*.plugin.zsh
+    elif [[  $( find $MODULES_DIR/$1/ -maxdepth 1 -name "*.plugin.zsh" 2> /dev/null ) ]] then
+        find $MODULES_DIR/$1/ -maxdepth 1 -name "*.plugin.zsh" >> $MODULES_DIR/.plugins
+        source  $MODULES_DIR/$1/*.plugin.zsh
         return
-    elif [[  $( find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.zsh" 2> /dev/null ) ]] then
-        find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.zsh" >> $CONFIG_DIR/.plugins
-        source  $CONFIG_DIR/$1/*.zsh
+    elif [[  $( find $MODULES_DIR/$1/ -maxdepth 1 -name "*.zsh" 2> /dev/null ) ]] then
+        find $MODULES_DIR/$1/ -maxdepth 1 -name "*.zsh" >> $MODULES_DIR/.plugins
+        source  $MODULES_DIR/$1/*.zsh
         return
-    elif [[  $( find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.zsh-theme" 2> /dev/null ) ]] then
-        find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.zsh-theme" >> $CONFIG_DIR/.plugins
-        source $CONFIG_DIR/$1/*.zsh-theme
+    elif [[  $( find $MODULES_DIR/$1/ -maxdepth 1 -name "*.zsh-theme" 2> /dev/null ) ]] then
+        find $MODULES_DIR/$1/ -maxdepth 1 -name "*.zsh-theme" >> $MODULES_DIR/.plugins
+        source $MODULES_DIR/$1/*.zsh-theme
         return
-    elif [[  $( find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.sh" 2> /dev/null ) ]] then
-        find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.sh" >> $CONFIG_DIR/.plugins
-        source $CONFIG_DIR/$1/*.sh
+    elif [[  $( find $MODULES_DIR/$1/ -maxdepth 1 -name "*.sh" 2> /dev/null ) ]] then
+        find $MODULES_DIR/$1/ -maxdepth 1 -name "*.sh" >> $MODULES_DIR/.plugins
+        source $MODULES_DIR/$1/*.sh
         return
-    elif [[ -a "$CONFIG_DIR/$1" ]] then
-        echo "$CONFIG_DIR/$1" >> $CONFIG_DIR/.plugins
-        source "$CONFIG_DIR/$1"
+    elif [[ -a "$MODULES_DIR/$1" ]] then
+        echo "$MODULES_DIR/$1" >> $MODULES_DIR/.plugins
+        source "$MODULES_DIR/$1"
         return
     else
-        echo "$1" >> $CONFIG_DIR/.plugins
+        echo "$1" >> $MODULES_DIR/.plugins
         source $1
         return
     fi
@@ -64,8 +64,8 @@ function download_pkgs() {
 
 function build_pkg_cache() {
     echo "gonna be slow"
-    if [[ -f $CONFIG_DIR/.plugins ]] then
-        rm $CONFIG_DIR/.plugins
+    if [[ -f $MODULES_DIR/.plugins ]] then
+        rm $MODULES_DIR/.plugins
     fi
     for p in $PACKAGES;
         do
@@ -73,8 +73,8 @@ function build_pkg_cache() {
         done
 }
 function load_pkgs() {
-    if [[ -f $CONFIG_DIR/.plugins ]] then
-        for p in $( cat $CONFIG_DIR/.plugins )
+    if [[ -f $MODULES_DIR/.plugins ]] then
+        for p in $( cat $MODULES_DIR/.plugins )
         do
             source $p
         done
@@ -86,8 +86,8 @@ function load_pkgs() {
 function reload_pkgs() {
 
     clean_tmp_themes
-    rm $CONFIG_DIR/.plugins
-    /usr/bin/rm -rf $CONFIG_DIR/*
+    rm $MODULES_DIR/.plugins
+    /usr/bin/rm -rf $MODULES_DIR/*
     clear
     source ~/.zshrc
 }
@@ -95,7 +95,7 @@ function reload_pkgs() {
 function update_pkgs() {
     clean_tmp_themes
     cwd=$(pwd)
-    for f in $(find $CONFIG_DIR -maxdepth 3 -type d -name '.git')
+    for f in $(find $MODULES_DIR -maxdepth 3 -type d -name '.git')
         do
         builtin cd $f
         builtin cd ../

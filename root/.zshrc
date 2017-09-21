@@ -4,7 +4,8 @@
 # be cloned into this directory. This directory is created automatically when
 # zsh is loaded for the first time. Files that are refereced from disk will be
 # left in place.
-CONFIG_DIR="$HOME/.zsh_modules"
+CONFIG_DIR="$HOME/.zsh"
+MODULES_DIR="$HOME/.zsh_modules"
 
 # PACKAGES is an array of either absolute paths to local files or github
 # user/repo/folder paths without leading or trailing slashes. If you want to use
@@ -25,11 +26,13 @@ CONFIG_DIR="$HOME/.zsh_modules"
 # The last thing looked for is an absolute path to a local file. If found,
 # this file is sourced directly.
 
+# Set up zsh. Feel free to remove any of these and replace them with your own
+# modules.
 PACKAGES=(
-    $HOME/.zsh/runtime.zsh
-    $HOME/.zsh/prompt.zsh
-    $HOME/.zsh/history.zsh
-    $HOME/.zsh/completion.zsh
+    $CONFIG_DIR/runtime.zsh
+    $CONFIG_DIR/prompt.zsh
+    $CONFIG_DIR/history.zsh
+    $CONFIG_DIR/completion.zsh
 )
 
 PACKAGES+=(
