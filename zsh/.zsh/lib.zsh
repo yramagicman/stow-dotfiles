@@ -63,7 +63,7 @@ function download_pkgs() {
 }
 
 function build_pkg_cache() {
-    echo "gonna be slow"
+    echo "caching"
     if [[ -f $MODULES_DIR/.plugins ]] then
         rm $MODULES_DIR/.plugins
     fi
