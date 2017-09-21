@@ -47,7 +47,7 @@ PACKAGES+=(
     'marzocchi/zsh-notify'
     # These files are needed if you're going to use oh-my-zsh themes.'
     # 'robbyrussell/oh-my-zsh/lib/git.zsh' # git support
-    # 'robbyrussell/oh-my-zsh/lib/promt_info_functions.zsh' # rvm and ruby support
+    # 'robbyrussell/oh-my-zsh/lib/prompt_info_functions.zsh' # rvm and ruby support
     # 'robbyrussell/oh-my-zsh/lib/nvm.zsh' # nvm support
     # 'robbyrussell/oh-my-zsh/plugins/themes' # theming functions
     )

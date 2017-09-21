@@ -15,6 +15,7 @@ function clone_if_needed() {
             git clone git@github.com:$split[1]/$split[2] $MODULES_DIR/$split[1]/$split[2]/
             echo
         fi
+        build_pkg_cache 2>/dev/null
     fi
 }
 
@@ -65,7 +66,7 @@ function download_pkgs() {
 function build_pkg_cache() {
     echo "caching"
     if [[ -f $MODULES_DIR/.plugins ]] then
-        rm $MODULES_DIR/.plugins
+        /usr/bin/rm  $MODULES_DIR/.plugins
     fi
     for p in $PACKAGES;
         do
@@ -84,9 +85,8 @@ function load_pkgs() {
 }
 
 function reload_pkgs() {
-
     clean_tmp_themes
-    rm $MODULES_DIR/.plugins
+    /usr/bin/rm $MODULES_DIR/.plugins
     /usr/bin/rm -rf $MODULES_DIR/*
     clear
     source ~/.zshrc
