@@ -18,56 +18,77 @@ function clone_if_needed() {
     fi
 }
 
-function source_pkg() {
+function cache_pkg () {
     if [[ -f "$CONFIG_DIR/$1/init.zsh" ]] then
+        echo "$CONFIG_DIR/$1/init.zsh" >> $CONFIG_DIR/.plugins
         source $CONFIG_DIR/$1/init.zsh
         return
     elif [[  $( find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.plugin.zsh" 2> /dev/null ) ]] then
+        find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.plugin.zsh" >> $CONFIG_DIR/.plugins
         source  $CONFIG_DIR/$1/*.plugin.zsh
         return
     elif [[  $( find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.zsh" 2> /dev/null ) ]] then
+        find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.zsh" >> $CONFIG_DIR/.plugins
         source  $CONFIG_DIR/$1/*.zsh
         return
     elif [[  $( find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.zsh-theme" 2> /dev/null ) ]] then
+        find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.zsh-theme" >> $CONFIG_DIR/.plugins
         source $CONFIG_DIR/$1/*.zsh-theme
         return
     elif [[  $( find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.sh" 2> /dev/null ) ]] then
+        find $CONFIG_DIR/$1/ -maxdepth 1 -name "*.sh" >> $CONFIG_DIR/.plugins
         source $CONFIG_DIR/$1/*.sh
         return
     elif [[ -a "$CONFIG_DIR/$1" ]] then
+        echo "$CONFIG_DIR/$1" >> $CONFIG_DIR/.plugins
         source "$CONFIG_DIR/$1"
         return
     else
+        echo "$1" >> $CONFIG_DIR/.plugins
         source $1
+        return
     fi
-}
 
+}
 
 function clean_tmp_themes () {
     tmpthemedir="$HOME/.tmptheme"
     /usr/bin/rm -rf $tmpthemedir
 }
 function download_pkgs() {
-    clean_tmp_themes
     for p in $PACKAGES;
-        do clone_if_needed $p
+        do
+            clone_if_needed $p
         done
 }
 
-function load_pkgs() {
-    clean_tmp_themes
+function build_pkg_cache() {
+    echo "gonna be slow"
+    rm $CONFIG_DIR/.plugins
     for p in $PACKAGES;
-        do source_pkg $p
+        do
+            cache_pkg $p
         done
+}
+function load_pkgs() {
+    if [[ -f $CONFIG_DIR/.plugins ]] then
+        for p in $( cat $CONFIG_DIR/.plugins )
+        do
+            source $p
+        done
+    else
+        build_pkg_cache
+    fi
 }
 
 function reload_pkgs() {
+
     clean_tmp_themes
+    rm $CONFIG_DIR/.plugins
     /usr/bin/rm -rf $CONFIG_DIR/*
     clear
     source ~/.zshrc
 }
-
 
 function update_pkgs() {
     clean_tmp_themes
@@ -99,7 +120,6 @@ function try_theme() {
         echo source $tmpthemedir/prezto/init.zsh
         echo source $tmpthemedir/prezto/modules/prompt/functions/prompt-pwd
         echo source $tmpthemedir/prezto/modules/prompt/functions/$split[-1]
-
 
         echo
         source $tmpthemedir/prezto/init.zsh
