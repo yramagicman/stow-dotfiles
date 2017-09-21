@@ -36,6 +36,10 @@ PACKAGES=(
 
 # Your own packages here
 PACKAGES+=(
+    # If you want to use prezto themes, you may need to source this file
+    # to get your current directory in the prompt
+    # 'sorin-ionescu/prezto/modules/prompt/functions/prompt-pwd'
+    #
     # These files are needed if you're going to use oh-my-zsh themes.'
     # 'robbyrussell/oh-my-zsh/lib/git.zsh' # git support
     # 'robbyrussell/oh-my-zsh/lib/promt_info_functions.zsh' # rvm and ruby support
