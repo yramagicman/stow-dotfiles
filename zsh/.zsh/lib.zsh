@@ -110,7 +110,7 @@ function try_theme() {
         echo source $tmpthemedir/oh-my-zsh/lib/nvm.zsh # nvm support
         echo source $tmpthemedir/oh-my-zsh/plugins/themes/themes.plugin.zsh # theming functions
         echo source $tmpthemedir/oh-my-zsh/themes/$split[-1] # theming functions
-
+        echo
         source $tmpthemedir/oh-my-zsh/lib/spectrum.zsh # color support
         source $tmpthemedir/oh-my-zsh/lib/git.zsh # git support
         source $tmpthemedir/oh-my-zsh/lib/prompt_info_functions.zsh # rvm and ruby support
