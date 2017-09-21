@@ -5,6 +5,9 @@ autoload -Uz compinit promptinit
 compinit
 promptinit
 
+# load colors
+autoload -U colors && colors
+
 # Use case-insensitve globbing.
 unsetopt CASE_GLOB
 
