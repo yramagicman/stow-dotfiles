@@ -61,6 +61,6 @@ precmd() {
 setopt prompt_subst
 PROMPT='
  %B${_prompt_colors[5]}%m%f %~${vcs_info_msg_0_}
- ➔%b '
+ >%b '
 RPROMPT='${_prompt_colors[6]}[ %D{%I:%M %P} ]%f'
 #}}}
