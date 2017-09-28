@@ -18,7 +18,7 @@ function clone_if_needed() {
         # clean up if we don't clone anything. This won't delete directories
         # that arent empty'
         build_pkg_cache 2>/dev/null
-        find $MODULES_DIR -type d -delete 2 > /dev/null
+        find $MODULES_DIR -type d -delete 2>/dev/null
         if [[ $(ls $MODULES_DIR | wc -l) -eq 0 ]]; then
             echo "nothing cloned"
             rm $MODULES_DIR/.plugins
