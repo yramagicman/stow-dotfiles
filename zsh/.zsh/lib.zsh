@@ -51,12 +51,16 @@ function cache_pkg () {
         echo "$MODULES_DIR/$1" >> $MODULES_DIR/.plugins
         source "$MODULES_DIR/$1"
         return
-    else
+    elif [[ -f "$1" ]]; then
         echo "$1" >> $MODULES_DIR/.plugins
         source $1
         return
+    else
+        return
     fi
 
+    sort -u  $MODULES_DIR/.plugins > $MODULES_DIR/.plug
+    mv $MODULES_DIR/.plug $MODULES_DIR/.plugins
 }
 
 function clean_tmp_themes () {
