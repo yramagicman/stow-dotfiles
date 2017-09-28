@@ -23,6 +23,16 @@ else
 fi
 echo $backup_name
 ipaddr=$(hostname -I | cut -d ' ' -f 1)
+
+
+
+ if [[ ! $(ssh localserver "ssh $local_user@$ipaddr \"echo hi\"") ]]; then
+     echo "Your host key or IP address has changed. Better fix it on the server"
+     echo "ssh $remote_user@$host"
+     echo "then, from the remote"
+     echo "ssh $local_user@$ipaddr"
+     exit
+fi
 today=$(date +'%Y%m%d')
 num_daily=$(ssh $remote_user@$host "ls /mnt/share/backups/daily/$backup_name/| wc -l")
 num_weekly=$(ssh $remote_user@$host "ls /mnt/share/backups/weekly/$backup_name/| wc -l")

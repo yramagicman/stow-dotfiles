@@ -24,7 +24,6 @@
              evil-nerd-commenter
              evil-numbers
              auto-complete
-             relative-line-numbers
              git-commit
              muttrc-mode
              projectile
@@ -80,8 +79,8 @@
 (setq-default word-wrap t)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(global-relative-line-numbers-mode)
 (global-auto-complete-mode 1)
+(global-linum-mode)
 
 
 (defun myterm (&optional prog)
