@@ -75,6 +75,7 @@ function download_pkgs() {
 function build_pkg_cache() {
     echo "caching"
     if [[ -f $MODULES_DIR/.plugins ]]; then
+        echo 'hi'
         /usr/bin/rm  $MODULES_DIR/.plugins
     fi
     for p in $PACKAGES;
