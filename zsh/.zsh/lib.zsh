@@ -15,6 +15,9 @@ function clone_if_needed() {
             git clone git@github.com:$split[1]/$split[2] $MODULES_DIR/$split[1]/$split[2]/
             echo
         fi
+        # clean up if we don't clone anything. This won't delete directories
+        # that arent empty'
+        find ./ -type d -delete 2>&1 >/dev/null2>&1 >/dev/null
         build_pkg_cache 2>/dev/null
     fi
 }
