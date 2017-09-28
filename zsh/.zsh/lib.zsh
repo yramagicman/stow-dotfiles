@@ -20,27 +20,27 @@ function clone_if_needed() {
 }
 
 function cache_pkg () {
-    if [[ -f "$MODULES_DIR/$1/init.zsh" ]] then
+    if [[ -f "$MODULES_DIR/$1/init.zsh" ]]; then
         echo "$MODULES_DIR/$1/init.zsh" >> $MODULES_DIR/.plugins
         source $MODULES_DIR/$1/init.zsh
         return
-    elif [[  $( find $MODULES_DIR/$1/ -maxdepth 1 -name "*.plugin.zsh" 2> /dev/null ) ]] then
+    elif [[  $( find $MODULES_DIR/$1/ -maxdepth 1 -name "*.plugin.zsh" 2> /dev/null ) ]]; then
         find $MODULES_DIR/$1/ -maxdepth 1 -name "*.plugin.zsh" >> $MODULES_DIR/.plugins
         source  $MODULES_DIR/$1/*.plugin.zsh
         return
-    elif [[  $( find $MODULES_DIR/$1/ -maxdepth 1 -name "*.zsh" 2> /dev/null ) ]] then
+    elif [[  $( find $MODULES_DIR/$1/ -maxdepth 1 -name "*.zsh" 2> /dev/null ) ]]; then
         find $MODULES_DIR/$1/ -maxdepth 1 -name "*.zsh" >> $MODULES_DIR/.plugins
         source  $MODULES_DIR/$1/*.zsh
         return
-    elif [[  $( find $MODULES_DIR/$1/ -maxdepth 1 -name "*.zsh-theme" 2> /dev/null ) ]] then
+    elif [[  $( find $MODULES_DIR/$1/ -maxdepth 1 -name "*.zsh-theme" 2> /dev/null ) ]]; then
         find $MODULES_DIR/$1/ -maxdepth 1 -name "*.zsh-theme" >> $MODULES_DIR/.plugins
         source $MODULES_DIR/$1/*.zsh-theme
         return
-    elif [[  $( find $MODULES_DIR/$1/ -maxdepth 1 -name "*.sh" 2> /dev/null ) ]] then
+    elif [[  $( find $MODULES_DIR/$1/ -maxdepth 1 -name "*.sh" 2> /dev/null ) ]]; then
         find $MODULES_DIR/$1/ -maxdepth 1 -name "*.sh" >> $MODULES_DIR/.plugins
         source $MODULES_DIR/$1/*.sh
         return
-    elif [[ -a "$MODULES_DIR/$1" ]] then
+    elif [[ -a "$MODULES_DIR/$1" ]]; then
         echo "$MODULES_DIR/$1" >> $MODULES_DIR/.plugins
         source "$MODULES_DIR/$1"
         return
@@ -65,7 +65,7 @@ function download_pkgs() {
 
 function build_pkg_cache() {
     echo "caching"
-    if [[ -f $MODULES_DIR/.plugins ]] then
+    if [[ -f $MODULES_DIR/.plugins ]]; then
         /usr/bin/rm  $MODULES_DIR/.plugins
     fi
     for p in $PACKAGES;
@@ -74,7 +74,7 @@ function build_pkg_cache() {
         done
 }
 function load_pkgs() {
-    if [[ -f $MODULES_DIR/.plugins ]] then
+    if [[ -f $MODULES_DIR/.plugins ]]; then
         for p in $( cat $MODULES_DIR/.plugins )
         do
             source $p
@@ -113,11 +113,11 @@ function try_theme() {
     tmpthemedir="$HOME/.tmptheme"
     mkdir -p $tmpthemedir
     builtin cd $tmpthemedir
-    if [[ ! -a "$tmpthemedir/$split[5]" ]] then
+    if [[ ! -a "$tmpthemedir/$split[5]" ]]; then
         git clone https://github.com/$split[4]/$split[5]
     fi
     echo
-    if [[ $split[5] = 'prezto' ]] then
+    if [[ $split[5] = 'prezto' ]]; then
 
         echo source $tmpthemedir/prezto/init.zsh
         echo source $tmpthemedir/prezto/modules/prompt/functions/prompt-pwd
@@ -128,7 +128,7 @@ function try_theme() {
         source $tmpthemedir/prezto/modules/prompt/functions/prompt-pwd
         source $tmpthemedir/prezto/modules/prompt/functions/$split[-1]
 
-    elif [[ $split[5] = 'oh-my-zsh' ]] then
+    elif [[ $split[5] = 'oh-my-zsh' ]]; then
 
         echo source $tmpthemedir/oh-my-zsh/lib/spectrum.zsh # color support
         echo source $tmpthemedir/oh-my-zsh/lib/git.zsh # git support
