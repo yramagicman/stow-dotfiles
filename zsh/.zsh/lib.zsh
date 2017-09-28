@@ -21,7 +21,7 @@ function clone_if_needed() {
         find $MODULES_DIR -type d -delete 2>/dev/null
         if [[ $(ls $MODULES_DIR | wc -l) -eq 0 ]]; then
             echo "nothing cloned"
-            rm $MODULES_DIR/.plugins
+            command rm $MODULES_DIR/.plugins
         fi
     fi
 }
@@ -63,7 +63,7 @@ function cache_pkg () {
 
 function clean_tmp_themes () {
     tmpthemedir="$HOME/.tmptheme"
-    /usr/bin/rm -rf $tmpthemedir
+    command rm -rf $tmpthemedir
 }
 function download_pkgs() {
     for p in $PACKAGES;
@@ -76,7 +76,7 @@ function build_pkg_cache() {
     echo "caching"
     if [[ -f $MODULES_DIR/.plugins ]]; then
         echo 'hi'
-        /usr/bin/rm  $MODULES_DIR/.plugins
+        command rm  $MODULES_DIR/.plugins
     fi
     for p in $PACKAGES;
         do
@@ -99,8 +99,8 @@ function load_pkgs() {
 
 function reload_pkgs() {
     clean_tmp_themes
-    /usr/bin/rm $MODULES_DIR/.plugins
-    /usr/bin/rm -rf $MODULES_DIR/*
+    command rm $MODULES_DIR/.plugins
+    command rm -rf $MODULES_DIR/*
     clear
     source ~/.zshrc
 }
