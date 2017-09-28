@@ -13,6 +13,11 @@ function clone_if_needed() {
             mkdir -p $MODULES_DIR/$split[1]
             echo
             git clone git@github.com:$split[1]/$split[2] $MODULES_DIR/$split[1]/$split[2]/
+            find $MODULES_DIR -type d -delete 2>/dev/null
+            if [[ ! -d $MODULES_DIR/$split[1]/$split[2]  ]]; then
+                echo "nothing cloned; trying https"
+                git clone https://github.com/$split[1]/$split[2] $MODULES_DIR/$split[1]/$split[2]/
+            fi
             echo
         fi
         # clean up if we don't clone anything. This won't delete directories
@@ -75,7 +80,6 @@ function download_pkgs() {
 function build_pkg_cache() {
     echo "caching"
     if [[ -f $MODULES_DIR/.plugins ]]; then
-        echo 'hi'
         command rm  $MODULES_DIR/.plugins
     fi
     for p in $PACKAGES;
