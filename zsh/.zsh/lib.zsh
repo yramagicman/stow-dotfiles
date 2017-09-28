@@ -83,7 +83,7 @@ function build_pkg_cache() {
         done
 
     sort -u  $MODULES_DIR/.plugins > $MODULES_DIR/.plug
-    mv $MODULES_DIR/.plug $MODULES_DIR/.plugins
+    command mv $MODULES_DIR/.plug $MODULES_DIR/.plugins
 }
 function load_pkgs() {
     if [[ -f $MODULES_DIR/.plugins ]]; then
