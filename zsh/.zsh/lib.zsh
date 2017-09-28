@@ -59,8 +59,6 @@ function cache_pkg () {
         return
     fi
 
-    sort -u  $MODULES_DIR/.plugins > $MODULES_DIR/.plug
-    mv $MODULES_DIR/.plug $MODULES_DIR/.plugins
 }
 
 function clean_tmp_themes () {
@@ -83,6 +81,9 @@ function build_pkg_cache() {
         do
             cache_pkg $p
         done
+
+    sort -u  $MODULES_DIR/.plugins > $MODULES_DIR/.plug
+    mv $MODULES_DIR/.plug $MODULES_DIR/.plugins
 }
 function load_pkgs() {
     if [[ -f $MODULES_DIR/.plugins ]]; then
