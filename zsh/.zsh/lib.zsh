@@ -17,8 +17,8 @@ function clone_if_needed() {
         fi
         # clean up if we don't clone anything. This won't delete directories
         # that arent empty'
-        find $MODULES_DIR -type d -delete 2>&1 >/dev/null2>&1 >/dev/null
         build_pkg_cache 2>/dev/null
+        find $MODULES_DIR -type d -delete
     fi
 }
 
