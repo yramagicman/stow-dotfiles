@@ -31,6 +31,10 @@ function clone_if_needed() {
 }
 
 function cache_pkg () {
+    if [[ ! -f $MODULES_DIR/.plugins ]]; then
+        mkdir -p $MODULES_DIR
+        touch $MODULES_DIR/.plugins
+    fi
     if [[ -f "$MODULES_DIR/$1/init.zsh" ]]; then
         echo "$MODULES_DIR/$1/init.zsh" >> $MODULES_DIR/.plugins
         return
@@ -68,6 +72,7 @@ function download_pkgs() {
         do
             clone_if_needed $p
         done
+        build_pkg_cache
 }
 
 function build_pkg_cache() {
@@ -91,7 +96,6 @@ function load_pkgs() {
         done
     else
         build_pkg_cache
-        load_pkgs
     fi
 }
 
