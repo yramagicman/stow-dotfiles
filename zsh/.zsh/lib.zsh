@@ -167,6 +167,5 @@ function try_theme() {
 
 }
 
-download_pkgs
 load_pkgs
 #}}}
