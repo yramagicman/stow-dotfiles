@@ -6,7 +6,7 @@ function my_date () {
     then
         date +"%d/%m/%Y %I:%M:%S"
     else
-        echo "Local:$(date +"%a %d %b %Y %I:%M:%S")" "PT:" "$(TZ=":US/Pacific" date +%H:%M:%S)"
+        echo "Local:$(date +"%a %d %b %Y %I:%M:%S")" "PT:" "$(TZ=":US/Pacific" date +%I:%M:%S)"
     fi
 }
 

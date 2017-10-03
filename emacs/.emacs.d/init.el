@@ -16,7 +16,6 @@
 (defvar cfg-var:packages)
 (setq cfg-var:packages '(
              evil
-             base16-theme
              evil-escape
              evil-matchit
              evil-surround
