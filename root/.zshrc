@@ -63,8 +63,9 @@ if [[ "$TMUX" != '' ]]; then
 
 fi
 function workon() {
-    if [[ -f /usr/bin/virtualenvwrapper.sh ]] then
-        source /usr/bin/virtualenvwrapper.sh  &> /dev/null
+    echo " working.."
+    if [[ -f $VIRTUALENVWRAPPER_SCRIPT ]] then
+        source $VIRTUALENVWRAPPER_SCRIPT   &> /dev/null
         workon "$@"
     else
         echo "virtualenvwrapper.sh not at  /usr/bin/virtualenvwrapper.sh"
