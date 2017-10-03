@@ -22,7 +22,6 @@ function clone_if_needed() {
         fi
         # clean up if we don't clone anything. This won't delete directories
         # that arent empty'
-        build_pkg_cache 2>/dev/null
         find $MODULES_DIR -type d -delete 2>/dev/null
         if [[ $(ls $MODULES_DIR | wc -l) -eq 0 ]]; then
             echo "nothing cloned"
@@ -34,31 +33,24 @@ function clone_if_needed() {
 function cache_pkg () {
     if [[ -f "$MODULES_DIR/$1/init.zsh" ]]; then
         echo "$MODULES_DIR/$1/init.zsh" >> $MODULES_DIR/.plugins
-        source $MODULES_DIR/$1/init.zsh
         return
     elif [[  $( find $MODULES_DIR/$1/ -maxdepth 1 -name "*.plugin.zsh" 2> /dev/null ) ]]; then
         find $MODULES_DIR/$1/ -maxdepth 1 -name "*.plugin.zsh" >> $MODULES_DIR/.plugins
-        source  $MODULES_DIR/$1/*.plugin.zsh
         return
     elif [[  $( find $MODULES_DIR/$1/ -maxdepth 1 -name "*.zsh" 2> /dev/null ) ]]; then
         find $MODULES_DIR/$1/ -maxdepth 1 -name "*.zsh" >> $MODULES_DIR/.plugins
-        source  $MODULES_DIR/$1/*.zsh
         return
     elif [[  $( find $MODULES_DIR/$1/ -maxdepth 1 -name "*.zsh-theme" 2> /dev/null ) ]]; then
         find $MODULES_DIR/$1/ -maxdepth 1 -name "*.zsh-theme" >> $MODULES_DIR/.plugins
-        source $MODULES_DIR/$1/*.zsh-theme
         return
     elif [[  $( find $MODULES_DIR/$1/ -maxdepth 1 -name "*.sh" 2> /dev/null ) ]]; then
         find $MODULES_DIR/$1/ -maxdepth 1 -name "*.sh" >> $MODULES_DIR/.plugins
-        source $MODULES_DIR/$1/*.sh
         return
     elif [[ -a "$MODULES_DIR/$1" ]]; then
         echo "$MODULES_DIR/$1" >> $MODULES_DIR/.plugins
-        source "$MODULES_DIR/$1"
         return
     elif [[ -f "$1" ]]; then
         echo "$1" >> $MODULES_DIR/.plugins
-        source $1
         return
     else
         return
@@ -70,6 +62,7 @@ function clean_tmp_themes () {
     tmpthemedir="$HOME/.tmptheme"
     command rm -rf $tmpthemedir
 }
+
 function download_pkgs() {
     for p in $PACKAGES;
         do
@@ -98,6 +91,7 @@ function load_pkgs() {
         done
     else
         build_pkg_cache
+        load_pkgs
     fi
 }
 
@@ -106,6 +100,7 @@ function reload_pkgs() {
     command rm $MODULES_DIR/.plugins
     command rm -rf $MODULES_DIR/*
     clear
+    download_pkgs
     source ~/.zshrc
 }
 
