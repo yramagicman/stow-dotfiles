@@ -61,10 +61,11 @@ function clean_tmp_themes () {
 }
 
 function download_pkgs() {
+    num_packages="$( ls $CONFIG_DIR | wc -l ) + $( ls $MODULES_DIR | wc -l )"
     if [[ ! -d $MODULES_DIR ]]; then
         mkdir -p $MODULES_DIR
     fi
-    if [[ $( echo "$( ls $CONFIG_DIR | wc -l ) + $( ls $MODULES_DIR | wc -l )" | bc ) -lt $#PACKAGES ]]; then
+    if [[ $( echo "$num_packages" | bc ) -lt $#PACKAGES ]]; then
         if [[ $( ping -c 2 8.8.8.8 2> /dev/null ) ]]; then
             for p in $PACKAGES;
             do
