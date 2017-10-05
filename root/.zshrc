@@ -5,7 +5,7 @@
 # zsh is loaded for the first time. Files that are refereced from disk will be
 # left in place.
 CONFIG_DIR="$HOME/.zsh"
-MODULES_DIR="$HOME/.zsh_modules"
+MODULES_DIR="$CONFIG_DIR/zsh_modules"
 
 # PACKAGES is an array of either absolute paths to local files or github
 # user/repo/folder paths without leading or trailing slashes. If you want to use
