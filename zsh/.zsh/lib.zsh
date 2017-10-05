@@ -1,5 +1,3 @@
-#{{{ source and load aliases and plugins
-
 function clone_if_needed() {
     split=("${(@s#/#)1}")
     if [[ ( ! -d "$MODULES_DIR/$split[1]" )  ]]; then
@@ -7,19 +5,15 @@ function clone_if_needed() {
             return
         fi
         echo "$1 not found "
-        read -k 1 -r \
-            "REPLY?Do you want to clone it into $MODULES_DIR "
-        if [[ $REPLY =~ ^[yY]$ ]]; then
-            mkdir -p $MODULES_DIR/$split[1]
-            echo
-            git clone git@github.com:$split[1]/$split[2] $MODULES_DIR/$split[1]/$split[2]/
-            find $MODULES_DIR -type d -delete 2>/dev/null
-            if [[ ! -d $MODULES_DIR/$split[1]/$split[2]  ]]; then
-                echo "nothing cloned; trying https"
-                git clone https://github.com/$split[1]/$split[2] $MODULES_DIR/$split[1]/$split[2]/
-            fi
-            echo
+        mkdir -p $MODULES_DIR/$split[1]
+        echo
+        git clone git@github.com:$split[1]/$split[2] $MODULES_DIR/$split[1]/$split[2]/
+        find $MODULES_DIR -type d -delete 2>/dev/null
+        if [[ ! -d $MODULES_DIR/$split[1]/$split[2]  ]]; then
+            echo "nothing cloned; trying https"
+            git clone https://github.com/$split[1]/$split[2] $MODULES_DIR/$split[1]/$split[2]/
         fi
+        echo
         # clean up if we don't clone anything. This won't delete directories
         # that arent empty'
         find $MODULES_DIR -type d -delete 2>/dev/null
@@ -59,7 +53,6 @@ function cache_pkg () {
     else
         return
     fi
-
 }
 
 function clean_tmp_themes () {
@@ -68,11 +61,18 @@ function clean_tmp_themes () {
 }
 
 function download_pkgs() {
-    for p in $PACKAGES;
-        do
-            clone_if_needed $p
-        done
+    if [[ ! -d $MODULES_DIR ]]; then
+        mkdir -p $MODULES_DIR
+    fi
+    if [[ $( echo "$( ls $CONFIG_DIR | wc -l ) + $( ls $MODULES_DIR | wc -l )" | bc ) -lt $#PACKAGES ]]; then
+        if [[ $( ping -c 2 8.8.8.8 2> /dev/null ) ]]; then
+            for p in $PACKAGES;
+            do
+                clone_if_needed $p
+            done
+        fi
         build_pkg_cache
+    fi
 }
 
 function build_pkg_cache() {
@@ -88,6 +88,7 @@ function build_pkg_cache() {
     sort -u  $MODULES_DIR/.plugins > $MODULES_DIR/.plug
     command mv $MODULES_DIR/.plug $MODULES_DIR/.plugins
 }
+
 function load_pkgs() {
     if [[ -f $MODULES_DIR/.plugins ]]; then
         for p in $( cat $MODULES_DIR/.plugins )
@@ -152,6 +153,7 @@ function try_theme() {
         echo source $tmpthemedir/oh-my-zsh/lib/nvm.zsh # nvm support
         echo source $tmpthemedir/oh-my-zsh/plugins/themes/themes.plugin.zsh # theming functions
         echo source $tmpthemedir/oh-my-zsh/themes/$split[-1] # theming functions
+
         echo
         source $tmpthemedir/oh-my-zsh/lib/spectrum.zsh # color support
         source $tmpthemedir/oh-my-zsh/lib/git.zsh # git support
@@ -166,5 +168,5 @@ function try_theme() {
 
 }
 
+download_pkgs > /dev/null
 load_pkgs
-#}}}
