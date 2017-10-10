@@ -446,7 +446,6 @@ inoremap qq qq
 nnoremap <Leader>z zMzvzz
 nnoremap <Leader><Leader>z zMzOzz
 "{{{ folding options
-set foldlevel=2
 set foldmethod=indent
 set foldcolumn=2
 "}}}
