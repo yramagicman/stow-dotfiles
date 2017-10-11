@@ -19,4 +19,5 @@ call plug#begin()
     Plug 'haya14busa/incsearch.vim'
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
+    Plug 'leafgarland/typescript-vim'
 call plug#end()
