@@ -1,4 +1,3 @@
----+-----------------------------+------------------------------------------+---------------------------------+-------
  aaa_base
  aaa_base-extras
  accountsservice
@@ -54,7 +53,7 @@
  bind-utils
  binutils
  blog
- boost-license1_64_0
+ boost-license1_65_1
  branding-openSUSE
  brasero
  brasero-lang
@@ -67,7 +66,6 @@
  bundle-lang-kde-en
  bzip2
  ca-certificates
- ca-certificates-mozilla
  canberra-gtk-play
  cantarell-fonts
  cdrdao
@@ -327,6 +325,7 @@
  hicolor-icon-theme-branding-openSUSE
  highlight
  hostname
+ hplip
  hplip-hpijs
  hplip-sane
  htop
@@ -348,6 +347,7 @@
  icewm-default
  idnkit
  ifplugd
+ iftop
  ImageMagick
  imlib2-loaders
  info
@@ -469,14 +469,14 @@
  libblkid1-32bit
  libbluetooth3
  libbluray2
- libboost_date_time1_64_0
- libboost_filesystem1_64_0
- libboost_iostreams1_64_0
- libboost_locale1_64_0
- libboost_program_options1_64_0
- libboost_regex1_64_0
- libboost_system1_64_0
- libboost_thread1_64_0
+ libboost_date_time1_65_1
+ libboost_filesystem1_65_1
+ libboost_iostreams1_65_1
+ libboost_locale1_65_1
+ libboost_program_options1_65_1
+ libboost_regex1_65_1
+ libboost_system1_65_1
+ libboost_thread1_65_1
  libbrasero-burn3-1
  libbrasero-media3-1
  libbrasero-utils3-1
@@ -526,7 +526,7 @@
  libclutter-1_0-0
  libclutter-gst-3_0-0
  libclutter-gtk-1_0-0
- libcmark0_27_1
+ libcmark0_28_0
  libcmis-0_5-5
  libcogl20
  libcogl-pango20
@@ -542,7 +542,7 @@
  libcrack2
  libcrack2-32bit
  libcroco-0_6-3
- libcrypto41
+ libcrypto42
  libcryptsetup4
  libcryptsetup4-32bit
  libcurl4
@@ -619,6 +619,7 @@
  libffi7
  libffi7-32bit
  libfftw3-3
+ libfl2
  libFLAC8
  libflickcurl0
  libfltk1
@@ -766,6 +767,7 @@
  libgviewencoder-2_0-2
  libgviewrender-2_0-2
  libgviewv4l2core-2_0-2
+ libgypsy0
  libHalf12
  libharfbuzz0
  libharfbuzz0-32bit
@@ -1079,23 +1081,36 @@
  libqt4-sql
  libqt4-sql-sqlite
  libqt4-x11
+ libQt5Bluetooth5
  libQt5Concurrent5
  libQt5Core5
  libQt5DBus5
+ libQt5Designer5
  libQt5Gui5
+ libQt5Help5
+ libQt5Location5
  libQt5Multimedia5
  libQt5Network5
+ libQt5Nfc5
  libQt5OpenGL5
+ libQt5Positioning5
  libQt5PrintSupport5
  libqt5-qtbase-platformtheme-gtk3
  libqt5-qtimageformats
  libqt5-qtstyleplugins-platformtheme-gtk2
  libqt5-qttranslations
+ libqt5-qtwebengine
  libQt5Script5
+ libQt5Sensors5
+ libQt5SerialPort5
  libQt5Sql5
  libQt5Sql5-sqlite
  libQt5Svg5
  libQt5Test5
+ libQt5WebChannel5
+ libQt5WebKit5
+ libQt5WebKitWidgets5
+ libQt5WebSockets5
  libQt5Widgets5
  libQt5X11Extras5
  libQt5Xml5
@@ -1211,7 +1226,7 @@
  libsrtp1
  libssh2-1
  libssh4
- libssl43
+ libssl44
  libstaroffice-0_0-0
  libstartup-notification-1-0
  libstdc++6
@@ -1260,7 +1275,7 @@
  libtirpc3
  libtirpc3-32bit
  libtirpc-netconfig
- libtls15
+ libtls16
  libtotem-plparser18
  libtotem-plparser-mini18
  libtracker-common-2_0
@@ -1343,6 +1358,7 @@
  libwmf-0_2-7
  libwnck-1-22
  libwnck2-lang
+ libwnck-3-0
  libwpd-0_10-10
  libwpg-0_3-3
  libwps-0_4-4
@@ -1532,12 +1548,6 @@ Loading repository data...
  ModemManager-bash-completion
  MozillaFirefox
  MozillaFirefox-branding-openSUSE
- mozilla-nspr
- mozilla-nspr-32bit
- mozilla-nss
- mozilla-nss-32bit
- mozilla-nss-certs
- mozilla-nss-certs-32bit
  MozillaThunderbird
  mpclient
  mpg123-openal
@@ -1842,6 +1852,8 @@ Loading repository data...
  python2-lxml
  python2-numpy
  python2-pyudev
+ python2-qt5
+ python2-sip
  python2-six
  python2-urwid
  python3
@@ -1895,7 +1907,9 @@ Loading repository data...
  python-curses
  python-gobject2
  python-gtk
+ python-qt5-utils
  python-rpm-macros
+ python-sip-common
  python-solv
  python-talloc
  python-talloc-32bit
