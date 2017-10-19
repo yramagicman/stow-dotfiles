@@ -11,8 +11,10 @@ cd vim || exit
             --enable-python3interp=yes \
             --enable-perlinterp=yes \
             --enable-luainterp=yes \
-            --enable-gui=gtk3 \
+            # --enable-gui=gtk3 \
             --enable-cscope
 make
 sudo make install
 rm -rf /tmp/vim
+
+sudo zypper rm -u ruby-devel python-devel python-devel python3-devel lua53-devel
