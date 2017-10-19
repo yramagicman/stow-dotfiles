@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sudo zypper in ruby-devel python-devel python-devel python3-devel lua53-devel
+sudo zypper in libXtst-devel ruby-devel python-devel python-devel python3-devel lua53-devel gtk2-devel libXt-devel libXpm-devel
 cd /tmp || exit
 git clone https://github.com/vim/vim.git
 cd vim || exit
@@ -11,10 +11,10 @@ cd vim || exit
             --enable-python3interp=yes \
             --enable-perlinterp=yes \
             --enable-luainterp=yes \
-            # --enable-gui=gtk3 \
+            --enable-gui=gtk2 \
             --enable-cscope
 make
 sudo make install
 rm -rf /tmp/vim
 
-sudo zypper rm -u ruby-devel python-devel python-devel python3-devel lua53-devel
+sudo zypper rm -u libXtst-devel ruby-devel python-devel python-devel python3-devel lua53-devel gtk2-devel libXt-devel libXpm-devel
