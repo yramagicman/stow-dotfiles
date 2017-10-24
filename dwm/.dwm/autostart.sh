@@ -66,4 +66,6 @@ if test "$( hostname )" = 'k-nine'; then
         notify-send -u critical "Remote IP and Proxy URL are different"
     fi
 fi
+fetchmail &
+echo '' > $HOME/.config/fetchmail.log
 exit
