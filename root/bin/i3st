@@ -1,5 +1,4 @@
 #!/usr/bin/zsh
-env
 hn=$(hostname)
 function my_date () {
     if [[ "$hn" == "k-nine" ]];
@@ -62,7 +61,7 @@ function my_load() {
 }
 
 
-function my_mail() {
+function my_,ail() {
     if [[ $(date +'%S') -eq 15 ]]
     then
         # $HOME/bin/mailmon > $HOME/.config/mail

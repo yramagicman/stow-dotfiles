@@ -1,3 +1,29 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env python3
+from shutil import copyfile
+from os.path import expanduser
+import re
 
-fetchmail -c 2>/dev/null | sed 's/(//g' | awk -F ' ' '{print int($1) - int($3)}'
+
+home = expanduser('~')
+mailfile = home + '/.config/mail/new'
+junkfile = home + '/.config/mail/junk'
+copyfile('/var/mail/jonathan', mailfile)
+froms = []
+e = re.compile('^From:')
+with open(mailfile) as mail:
+    for line in mail.readlines():
+        if e.match(line):
+            froms.append(line.strip())
+
+junk_list = []
+with open(junkfile) as junk:
+    for line in junk.readlines():
+        junk_list.append(line.strip())
+
+junk_re = '|'.join(junk_list)
+r = re.compile(junk_re)
+for sender in froms:
+    if r.findall(sender):
+        del froms[froms.index(sender)]
+
+print(froms)
