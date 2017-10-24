@@ -61,16 +61,16 @@ function my_load() {
 }
 
 
-function my_,ail() {
+function my_mail() {
     if [[ $(date +'%S') -eq 15 ]]
     then
         $HOME/bin/mailmon > $HOME/.config/mail/count
-        if [[ $(cat $HOME/.config/mail) -gt 0 ]]
+        if [[ $(cat $HOME/.config/mail/count) -gt 0 ]]
         then
-            echo "$(cat $HOME/.config/mail) emails | "
+            echo "$(cat $HOME/.config/mail/count) emails | "
         fi
     else
-        if [[ $(cat $HOME/.config/mail) -gt 0 ]]
+        if [[ $(cat $HOME/.config/mail/count) -gt 0 ]]
         then
             echo "$(cat $HOME/.config/mail/count) emails | "
         fi

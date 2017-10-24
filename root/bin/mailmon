@@ -27,5 +27,4 @@ for sender in froms:
         del froms[froms.index(sender)]
 
 
-if len(froms) > 0:
-    print(len(froms))
+print(len(froms))

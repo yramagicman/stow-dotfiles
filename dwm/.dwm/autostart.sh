@@ -46,9 +46,6 @@ z=$(cat $HOME/.tmux.d/digests | tail -n $(ls -1 $HOME/.tmux.d/ | wc -l) )
 rm "$HOME/.tmux.d/digests"
 echo "$z" > $HOME/.tmux.d/digests
 
-# Update mail count
-rm ~/.config/mail
-$HOME/bin/mailmon > $HOME/.config/mail
 echo "" > $HOME/.xsession-errors
 if ! stat $HOME/.xsession-errors.old > /dev/null; then
     rm $HOME/.xsession-errors.old
