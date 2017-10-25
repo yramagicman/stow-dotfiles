@@ -1,30 +1,36 @@
 #!/usr/bin/env python3
 from os.path import expanduser
+from os import listdir
 import re
 
 
 home = expanduser('~')
 
-mailfile = home + '/.config/mail/Inbox/new/'
+mailfiles = [home + '/.config/mail/Inbox/new/',
+             home + '/.config/mail/Inbox/cur/']
 junkfile = home + '/.config/mail/junk'
 
-froms = []
+froms = ''
+new = re.compile('^[0-9]{10}.[0-9]{5}_0.geeko(:2)$')
 e = re.compile('^From:')
-with open(mailfile) as mail:
-    for line in mail.readlines():
-        if e.match(line):
-            froms.append(line.strip())
-
-junk_list = []
-with open(junkfile) as junk:
-    for line in junk.readlines():
-        junk_list.append(line.strip())
-
-junk_re = '|'.join(junk_list)
-r = re.compile(junk_re)
-for sender in froms:
-    if r.findall(sender):
-        del froms[froms.index(sender)]
+for mailfile in mailfiles:
+    for m in listdir(mailfile):
+        print(new.findall(m))
 
 
-print(len(froms))
+print(froms)
+print(new.findall(froms))
+# junk_list = []
+# with open(junkfile) as junk:
+#     for line in junk.readlines():
+#         junk_list.append(line.strip())
+#
+# junk_re = '|'.join(junk_list)
+# r = re.compile(junk_re)
+# for sender in froms:
+#     if r.findall(sender):
+#         del froms[froms.index(sender)]
+#
+
+# print(len(froms))
+# print(len('1508956469'))
