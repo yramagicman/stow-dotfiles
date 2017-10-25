@@ -75,9 +75,9 @@ function my_mail() {
    #         echo "$(cat $HOME/.config/mail/count) emails | "
    #     fi
    # fi
-   if [[ $(ls $HOME/.config/mail/Inbox/new) -gt 0 ]]
+   if [[ $(ls $HOME/.config/mail/Inbox/new | wc -l) -gt 0 ]]
    then
-       echo "$(ls $HOME/.config/mail/Inbox/new) emails | "
+       echo "$(ls $HOME/.config/mail/Inbox/new | wc -l) emails | "
    fi
 }
 

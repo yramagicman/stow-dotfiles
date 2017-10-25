@@ -65,4 +65,5 @@ if test "$( hostname )" = 'k-nine'; then
 fi
 fetchmail &
 echo '' > $HOME/.config/fetchmail.log
+echo '' > $HOME/.config/procmail.log
 exit
