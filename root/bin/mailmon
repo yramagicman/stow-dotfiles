@@ -10,27 +10,48 @@ mailfiles = [home + '/.config/mail/Inbox/new/',
              home + '/.config/mail/Inbox/cur/']
 junkfile = home + '/.config/mail/junk'
 
-froms = ''
-new = re.compile('^[0-9]{10}.[0-9]{5}_0.geeko(:2)$')
+froms = []
+new = re.compile(
+    r"^[0-9]{10}\.[0-9]{5}_[0-9]\.geeko$|^[0-9]{10}\.[0-9]{5}_[0-9]\.k-nine$")
+seen = re.compile(
+    r"^[0-9]{10}\.[0-9]{5}_[0-9]\.geeko:2,$|^[0-9]{10}\.[0-9]{5}_[0-9]\.k-nine:2,$")
 e = re.compile('^From:')
 for mailfile in mailfiles:
     for m in listdir(mailfile):
-        print(new.findall(m))
+        if len(new.findall(m)):
+            froms.append(mailfile + ''.join(new.findall(m)))
+        if len(seen.findall(m)):
+            froms.append(mailfile + ''.join(seen.findall(m)))
+
+not_junk = {
+    'seen': [],
+    'new': []
+}
+junk = open(junkfile)
+junk_list = junk.readlines()
+junk_list = [j.strip() for j in junk_list]
+junk.close()
+junk_re = '|'.join(junk_list)
+r = re.compile(junk_re)
+for f in froms:
+    with open(f) as mail:
+        for line in mail.readlines():
+            if len(e.findall(line)) and '/cur/' in f and not len(r.findall(line)):
+                not_junk['seen'].append(line.strip())
+            if len(e.findall(line)) and '/new/' in f and not len(r.findall(line)):
+                not_junk['new'].append(line.strip())
+        mail.close()
 
 
-print(froms)
-print(new.findall(froms))
-# junk_list = []
-# with open(junkfile) as junk:
-#     for line in junk.readlines():
-#         junk_list.append(line.strip())
-#
-# junk_re = '|'.join(junk_list)
-# r = re.compile(junk_re)
-# for sender in froms:
-#     if r.findall(sender):
-#         del froms[froms.index(sender)]
-#
+message =''
+if len(not_junk['seen']):
+    message = message + 'seen: ' + str(len(not_junk['seen']))
+if len(not_junk['seen']) and len(not_junk['new']):
+    message = message + ' & '
+if len(not_junk['new']):
+    message = message + str(len(not_junk['new']))
 
-# print(len(froms))
-# print(len('1508956469'))
+if len(not_junk['seen']) or len(not_junk['new']):
+    message = message + ' emails | '
+
+print(message)
