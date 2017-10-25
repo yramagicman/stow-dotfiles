@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-from shutil import copyfile
 from os.path import expanduser
 import re
 
 
 home = expanduser('~')
-mailfile = home + '/.config/mail/new'
+
+mailfile = home + '/.config/mail/Inbox/new/'
 junkfile = home + '/.config/mail/junk'
-copyfile('/var/mail/jonathan', mailfile)
+
 froms = []
 e = re.compile('^From:')
 with open(mailfile) as mail:
