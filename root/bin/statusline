@@ -54,7 +54,7 @@ function my_load() {
     average=("${(@s/ /)load}")
     if [[ "$hn" == "k-nine" ]];
     then
-        echo "Load: "$average[14,-1]
+        echo "free ram: $(free -mh | head -n2 | tail -n 1 | awk '{ print $4}')"
     else
         echo $average[9,-1]
     fi
@@ -93,7 +93,7 @@ function my_weather() {
 
 if [[ "$hn" == "k-nine" ]];
 then
-    echo "$(my_mail) $(current_window) $(my_weather) | bat: $(my_bat)% $(my_bat_stat) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_load) | $(my_date)"
+    xsetroot -name "$(my_mail)  $(my_weather) | bat: $(my_bat)% $(my_bat_stat) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_load) | $(my_date) $(dropbox status)"
 else
     echo "$(my_mail) $(current_window) $(my_weather) | $(my_load) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date)"
 fi

@@ -11,7 +11,7 @@ check_process(){
 
 i3-msg workspace 'term'
 ( /home/jonathan/.screenlayout/default.sh) &
-
+"$HOME/bin/i3st" &
 # xsetroot -solid '#082F4E'
 # (/home/jonathan/bin/rotate-wallpaper) &
 
@@ -29,11 +29,13 @@ xset r rate 250 25 &
 pulseaudio --start
 ## Turn on/off system beep
 xset b off &
+
+if test "$( hostname )" != 'k-nine'; then
 # Autostart the Dropbox deamon
-(sleep 10s && dropbox start) &
+    (sleep 10s && dropbox start) &
+fi
 
 # Update weather info on boot
-rm ~/.config/weather
 (sleep 45s && check_process redshift) &
 
 #limit the size of dirs history
