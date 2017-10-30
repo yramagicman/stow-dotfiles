@@ -10,6 +10,7 @@ check_process(){
 }
 
 ( /home/jonathan/.screenlayout/default.sh) &
+( /home/jonathan/bin/rotate-wallpaper) &
 
 "$HOME/bin/i3st" &
 # xsetroot -solid '#082F4E'
@@ -43,6 +44,9 @@ d=$(sort -u  "$HOME/.cache/zsh/dirs" )
 rm "$HOME/.cache/zsh/dirs"
 echo "$d" > "$HOME/.cache/zsh/dirs"
 
+h=$(sort -u  "$HOME/.surf/history.txt" )
+rm "$HOME/.surf/history.txt"
+echo "$h" > "$HOME/.surf/history.txt"
 # make sure tmux digests file isn't overly large
 z=$(tail  "$HOME/.tmux.d/digests" -n "$(find  "$HOME/.tmux.d/" | wc -l)" )
 rm "$HOME/.tmux.d/digests"

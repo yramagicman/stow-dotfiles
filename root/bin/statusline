@@ -93,5 +93,5 @@ if [[ "$hn" == "k-nine" ]];
 then
     xsetroot -name "$(my_mail)  $(my_weather) | bat: $(my_bat)% $(my_bat_stat) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_load) | $(my_date) $(dropbox status)"
 else
-    xsetroot -name "$(my_mail) $(my_weather) | $(my_load) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date)"
+    xsetroot -name "$(my_mail) $(my_weather) | $(my_load) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date) $(dropbox status)"
 fi
