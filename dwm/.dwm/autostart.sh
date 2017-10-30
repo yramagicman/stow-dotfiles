@@ -9,8 +9,8 @@ check_process(){
 
 }
 
-i3-msg workspace 'term'
 ( /home/jonathan/.screenlayout/default.sh) &
+
 "$HOME/bin/i3st" &
 # xsetroot -solid '#082F4E'
 # (/home/jonathan/bin/rotate-wallpaper) &

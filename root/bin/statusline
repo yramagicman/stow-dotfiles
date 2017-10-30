@@ -86,14 +86,12 @@ function my_weather() {
     else
         weather='| '$(cat $HOME/.config/weather)'F'
     fi
-    if [[ ! -z $SHOW_WEATHER ]]; then
-        echo $weather
-    fi
+    echo $weather
 }
 
 if [[ "$hn" == "k-nine" ]];
 then
     xsetroot -name "$(my_mail)  $(my_weather) | bat: $(my_bat)% $(my_bat_stat) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_load) | $(my_date) $(dropbox status)"
 else
-    echo "$(my_mail) $(current_window) $(my_weather) | $(my_load) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date)"
+    xsetroot -name "$(my_mail) $(my_weather) | $(my_load) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date)"
 fi
