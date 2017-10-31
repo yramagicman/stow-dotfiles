@@ -1,4 +1,5 @@
 call plug#begin()
+    Plug 'mileszs/ack.vim'
     Plug 'bronson/vim-visual-star-search'
     Plug 'dzeban/vim-log-syntax'
     Plug 'editorconfig/editorconfig-vim'

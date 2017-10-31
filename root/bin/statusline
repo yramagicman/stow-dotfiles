@@ -39,24 +39,14 @@ function wifi_strength() {
     awk '/[0-9]*/ {if ($3/1 != 0) print $3}' /proc/net/wireless
 }
 
-function current_window() {
-    xpropstr=$(xprop -root _NET_ACTIVE_WINDOW)
-    id=("${(@s/ /)xpropstr}")
-    $id[-1]
-    window=$(xprop -id $id[-1] WM_NAME)
-    wind_name=("${(@s/=/)window}")
-    name=$wind_name[-1]
-    echo $name[3,-2]
-}
-
 function my_load() {
     load=$(uptime)
     average=("${(@s/ /)load}")
     if [[ "$hn" == "k-nine" ]];
     then
-        echo "free ram: $(free -mh | head -n2 | tail -n 1 | awk '{ print $4}')"
+        echo "R: $(free -mh | head -n2 | tail -n 1 | awk '{ print $4}')"
     else
-        echo $average[9,-1]
+        echo "L:$average[11,-1]"
     fi
 }
 
@@ -71,16 +61,20 @@ function my_weather() {
     then
         rm $HOME/.config/weather
         $HOME/bin/weather.py > $HOME/.config/weather
-        weather='| '$(cat $HOME/.config/weather)'F'
+        weather='W:'$(cat $HOME/.config/weather)'F'
     else
-        weather='| '$(cat $HOME/.config/weather)'F'
+        weather='W:'$(cat $HOME/.config/weather)'F'
     fi
     echo $weather
 }
 
+function my_volume() {
+    echo "V:$( amixer | awk '/Playback [0-9]{0,5} \[[0-9]{0,3}%]/ {print $5 $6}' | tail -n 1)"
+}
+
 if [[ "$hn" == "k-nine" ]];
 then
-   xsetroot -name  " $(my_mail)  $(my_weather) | bat: $(my_bat)% $(my_bat_stat) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_load) | $(my_date) $(dropbox status)"
+   xsetroot -name  " $(my_mail)  $(my_weather) B: $(my_bat)% $(my_bat_stat) N: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) L: $(my_load) D:$(dropbox status) $(my_date)"
 else
-    xsetroot -name  " $(my_mail) $(my_weather) | $(my_load) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date) $(dropbox status)"
+    xsetroot -name  " $(my_mail) $(my_weather) $(my_load) N:$(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) D:$(dropbox status) $(my_volume) $(my_date)"
 fi
