@@ -1,0 +1,26 @@
+#!/bin/sh
+
+wget "http://pgl.yoyo.org/as/serverlist.php?hostformat=hosts;showintro=0" -O "$HOME/bin/hosts.d/hosts.html"
+
+wget "http://someonewhocares.org/hosts/zero/hosts" -O "$HOME/bin/hosts.d/hosts.2"
+
+grep '127.0.0.1' "$HOME/bin/hosts.d/hosts.html" > "$HOME/bin/hosts.d/hosts.1"
+grep '0.0.0.0' "$HOME/bin/hosts.d/hosts.2" | grep -Ev '^#' > "$HOME/bin/hosts.d/hosts.3"
+mv "$HOME/bin/hosts.d/hosts.3" "$HOME/bin/hosts.d/hosts.2"
+sed -i 's/127.0.0.1/0.0.0.0/g' "$HOME/bin/hosts.d/hosts.1"
+sed -i 's/127.0.0.1/0.0.0.0/g' "$HOME/bin/hosts.d/hosts.2"
+
+cat  "$HOME/bin/hosts.d/hosts.1" "$HOME/bin/hosts.d/hosts.2"  | sort -u > "$HOME/bin/hosts.d/hosts.sorted"
+
+cat "$HOME/bin/hosts.d/hosts.$(hostname)"  "$HOME/bin/hosts.d/hosts.sorted" > "$HOME/bin/hosts.d/hosts.compiled"
+
+less  "$HOME/bin/hosts.d/hosts.compiled"
+
+sudo mv -i "$HOME/bin/hosts.d/hosts.compiled" /etc/hosts
+
+
+rm "$HOME/bin/hosts.d/hosts.1"
+rm "$HOME/bin/hosts.d/hosts.2"
+rm "$HOME/bin/hosts.d/hosts.html"
+rm "$HOME/bin/hosts.d/hosts.sorted"
+rm "$HOME/bin/hosts.d/hosts.compiled"

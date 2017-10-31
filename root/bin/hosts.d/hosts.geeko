@@ -1,0 +1,37 @@
+#
+# hosts         This file describes a number of hostname-to-address
+#               mappings for the TCP/IP subsystem.  It is mostly
+#               used at boot time, when no name servers are running.
+#               On small systems, this file can be used instead of a
+#               "named" name server.
+# Syntax:
+#
+# IP-Address  Full-Qualified-Hostname  Short-Hostname
+#
+
+127.0.0.1   localhost
+127.0.0.1   geeko
+
+10.0.1.16       tbs.local
+10.0.1.16       tbsmagazine.local
+10.0.1.16       ss.local
+10.0.1.16       eandc.local
+10.0.1.16       phpmyadmin.local
+10.0.1.16       wp.local
+10.0.1.16       tbsquery.local
+10.0.1.16       search.tbsquery.local
+0.0.0.0         connect.facebook.net
+0.0.0.0         pixel.facebook.com
+0.0.0.0         schoolslist.thebestschools.org
+0.0.0.0         admin.educationaxis.com
+0.0.0.0         googletagmanager.com
+
+# special IPv6 addresses
+::1             localhost ipv6-localhost ipv6-loopback
+
+fe00::0         ipv6-localnet
+
+ff00::0         ipv6-mcastprefix
+ff02::1         ipv6-allnodes
+ff02::2         ipv6-allrouters
+ff02::3         ipv6-allhosts
