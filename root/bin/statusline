@@ -36,7 +36,7 @@ function my_wifi(){
 }
 
 function wifi_strength() {
-    cat /proc/net/wireless | tail -n 1 | awk -F ' ' '{print $3}'
+    awk '/[0-9]*/ {if ($3/1 != 0) print $3}' /proc/net/wireless
 }
 
 function current_window() {
@@ -91,7 +91,7 @@ function my_weather() {
 
 if [[ "$hn" == "k-nine" ]];
 then
-    xsetroot -name "$(my_mail)  $(my_weather) | bat: $(my_bat)% $(my_bat_stat) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_load) | $(my_date) $(dropbox status)"
+    xsetroot -name " $(my_mail)  $(my_weather) | bat: $(my_bat)% $(my_bat_stat) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_load) | $(my_date) $(dropbox status)"
 else
-    xsetroot -name "$(my_mail) $(my_weather) | $(my_load) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date) $(dropbox status)"
+    xsetroot -name " $(my_mail) $(my_weather) | $(my_load) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date) $(dropbox status)"
 fi
