@@ -62,27 +62,16 @@ function my_load() {
 
 
 function my_mail() {
-   # if [[ $(date +'%S') -eq 15 ]]
-   # then
-   #     $HOME/bin/mailmon > $HOME/.config/mail/count
-   #     if [[ $(cat $HOME/.config/mail/count) -gt 0 ]]
-   #     then
-   #         echo "$(cat $HOME/.config/mail/count) emails | "
-   #     fi
-   # else
-   #     if [[ $(cat $HOME/.config/mail/count) -gt 0 ]]
-   #     then
-   #         echo "$(cat $HOME/.config/mail/count) emails | "
-   #     fi
-   # fi
-       mailmon
+    mailmon
 }
 
 function my_weather() {
-    if [[ $(date +'%M') -eq 0 && $(date +'%S') -eq 45 ]]
+    modified_date=$(stat $HOME/.config/weather | awk '/Modify/ {split($3, arr, ":"); print arr[1]}')
+    if [[ ! "$(date +"%H" )" -eq $modified_date ]]
     then
         rm $HOME/.config/weather
         $HOME/bin/weather.py > $HOME/.config/weather
+        weather='| '$(cat $HOME/.config/weather)'F'
     else
         weather='| '$(cat $HOME/.config/weather)'F'
     fi
@@ -91,7 +80,7 @@ function my_weather() {
 
 if [[ "$hn" == "k-nine" ]];
 then
-    xsetroot -name " $(my_mail)  $(my_weather) | bat: $(my_bat)% $(my_bat_stat) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_load) | $(my_date) $(dropbox status)"
+   xsetroot -name  " $(my_mail)  $(my_weather) | bat: $(my_bat)% $(my_bat_stat) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_load) | $(my_date) $(dropbox status)"
 else
-    xsetroot -name " $(my_mail) $(my_weather) | $(my_load) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date) $(dropbox status)"
+    xsetroot -name  " $(my_mail) $(my_weather) | $(my_load) | net: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) | $(my_date) $(dropbox status)"
 fi
