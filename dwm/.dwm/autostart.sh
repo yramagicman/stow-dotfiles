@@ -10,11 +10,10 @@ check_process(){
 }
 
 ( /home/jonathan/.screenlayout/default.sh) &
-( /home/jonathan/bin/rotate-wallpaper) &
+( nitrogen --restore) &
 
 "$HOME/bin/i3st" &
 # xsetroot -solid '#082F4E'
-# (/home/jonathan/bin/rotate-wallpaper) &
 
 xset -dpms; xset s off &
 (sleep 1s && check_process compton -c) &

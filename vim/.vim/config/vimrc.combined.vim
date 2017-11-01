@@ -518,6 +518,7 @@ cnoreabbrev gac !git add %
 cnoreabbrev ga% !git add %
 cnoreabbrev gcm !git commit -m
 cnoreabbrev b ls<CR> :b
+cnoreabbrev find ls<CR> :find
 "}}}
 "{{{ autoload functions
 nnoremap <silent><leader>le :call functions#LineEndings()<CR>
