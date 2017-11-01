@@ -12,6 +12,7 @@ function my_date () {
 function my_bat() {
     notify_when=$(echo "$(date +'%M') % 5" | bc)
     bat_level=$( cat /sys/class/power_supply/BAT1/capacity )
+    bat_stat=$( cat /sys/class/power_supply/BAT1/status )
     if [[ $(date +'%S') -eq 30 ]]
     then
          if [[ $( echo "$bat_level < 20" | bc) -eq 1 && (  $notify_when -eq 0 )  ]]
@@ -19,20 +20,19 @@ function my_bat() {
              notify-send "Battery low " "$bat_level remaining"
          fi
     fi
-    echo $bat_level
-}
-
-function my_bat_stat() {
-    cat /sys/class/power_supply/BAT1/status
+    echo "B:$bat_level% $bat_stat"
 }
 
 function my_wifi(){
     ssid=$( nmcli | head -n 1 | awk -F ' ' '{print $4}' )
+    ip=$($HOME/bin/tmuxip)
+    strength=$(wifi_strength)
     if [[ $ssid = 'hide_yo_kids_hide_yo_wi-fi' ]]; then
-        echo 'home'
+        msg='home'
     else
-        echo $ssid
+        msg=$ssid
     fi
+    echo "N:$msg $strength $ip"
 }
 
 function wifi_strength() {
@@ -44,7 +44,7 @@ function my_load() {
     average=("${(@s/ /)load}")
     if [[ "$hn" == "k-nine" ]];
     then
-        echo "R: $(free -mh | head -n2 | tail -n 1 | awk '{ print $4}')"
+        echo "R:$(free -mh | head -n2 | tail -n 1 | awk '{ print $4}')"
     else
         echo "L:$average[11,-1]"
     fi
@@ -61,20 +61,43 @@ function my_weather() {
     then
         rm $HOME/.config/weather
         $HOME/bin/weather.py > $HOME/.config/weather
-        weather='W:'$(cat $HOME/.config/weather)'F'
+        weather=' W:'$(cat $HOME/.config/weather)'F'
     else
-        weather='W:'$(cat $HOME/.config/weather)'F'
+        weather=' W:'$(cat $HOME/.config/weather)'F'
     fi
     echo $weather
 }
 
 function my_volume() {
-    echo "V:$( amixer | awk '/Playback [0-9]{0,5} \[[0-9]{0,3}%]/ {print $5 $6}' | tail -n 1)"
-}
 
 if [[ "$hn" == "k-nine" ]];
 then
-   xsetroot -name  " $(my_mail)  $(my_weather) B: $(my_bat)% $(my_bat_stat) N: $(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) L: $(my_load) D:$(dropbox status) $(my_date)"
+    echo "V:$( amixer -c 0  -- get Master| awk '/Playback [0-9]{0,5} \[[0-9]{0,3}%]/ {print $4 $6}' | tail -n 1)"
 else
-    xsetroot -name  " $(my_mail) $(my_weather) $(my_load) N:$(my_wifi) $(wifi_strength) $($HOME/bin/tmuxip) D:$(dropbox status) $(my_volume) $(my_date)"
+    echo "V:$( amixer -c 0  -- get Master| awk '/Playback [0-9]{0,5} \[[0-9]{0,3}%]/ {print $5 $6}' | tail -n 1)"
 fi
+}
+
+function dbox() {
+    box="$(dropbox status)"
+    if [[ $box = "Dropbox isn't running!" ]]
+    then
+        message="off"
+
+    else
+        message="$(echo "$box" | head -n1 )"
+    fi
+    echo "D:$message"
+}
+
+line="$(my_mail)$(my_weather)"
+
+if [[ "$hn" == "k-nine" ]];
+then
+line="$line $(my_bat)"
+fi
+line="$line $(my_wifi) $(my_load) $(dbox) $(my_volume) $(my_date)"
+
+
+xsetroot -name $line
+echo $line

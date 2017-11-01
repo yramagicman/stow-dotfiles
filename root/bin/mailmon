@@ -42,19 +42,7 @@ for f in froms:
                 not_junk['new'].append(line.strip())
         mail.close()
 
+if len(not_junk['seen']) + len(not_junk['new']):
+    message = ' M: ' + str(len(not_junk['seen']) + len(not_junk['new']))
 
-message = ''
-if len(not_junk['seen']):
-    message = message + 'seen: ' + str(len(not_junk['seen']))
-if len(not_junk['seen']) and len(not_junk['new']):
-    message = message + ' & '
-if len(not_junk['new']):
-    message = message + str(len(not_junk['new'])) + ' new'
-
-if len(not_junk['seen']) or len(not_junk['new']):
-    if len(not_junk['seen']) + len(not_junk['new']) < 2:
-        message = message + ' email | '
-    else:
-        message = message + ' emails | '
-
-print(message)
+    print(message)
