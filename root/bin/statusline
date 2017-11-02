@@ -56,10 +56,14 @@ function my_mail() {
 }
 
 function my_weather() {
+    if [[ ! "$(cat "$HOME/.config/weather")" ]];
+    then
+        $HOME/bin/weather.py > $HOME/.config/weather
+        weather=' W:'$(cat $HOME/.config/weather)
+    fi
     modified_date=$(stat $HOME/.config/weather | awk '/Modify/ {split($3, arr, ":"); print arr[1]}')
     if [[ ! "$(date +"%H" )" -eq $modified_date ]]
     then
-        rm $HOME/.config/weather
         $HOME/bin/weather.py > $HOME/.config/weather
         weather=' W:'$(cat $HOME/.config/weather)
     else
