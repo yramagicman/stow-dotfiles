@@ -61,9 +61,9 @@ function my_weather() {
     then
         rm $HOME/.config/weather
         $HOME/bin/weather.py > $HOME/.config/weather
-        weather=' W:'$(cat $HOME/.config/weather)'F'
+        weather=' W:'$(cat $HOME/.config/weather)
     else
-        weather=' W:'$(cat $HOME/.config/weather)'F'
+        weather=' W:'$(cat $HOME/.config/weather)
     fi
     echo $weather
 }
