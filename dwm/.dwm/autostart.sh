@@ -31,7 +31,7 @@ pulseaudio --start
 xset b off &
 
 if test "$( hostname )" != 'k-nine'; then
-# Autostart the Dropbox deamon
+    # Autostart the Dropbox deamon, but not on my laptop.
     (sleep 10s && dropbox start) &
 fi
 
@@ -59,6 +59,10 @@ if ! stat "$HOME/Gits/st/st" > /dev/null; then
     notify-send -u critical "st not intsalled in $HOME/Gits/st"
 fi
 
+
+if  stat "$HOME/.config/new_mail" > /dev/null; then
+    rm "$HOME/.config/new_mail"
+fi
 if test "$( hostname )" = 'k-nine'; then
     if nmcli | grep 'hide_yo_kids'; then
         "$HOME/bin/get_remote_ip"
