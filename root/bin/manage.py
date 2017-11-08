@@ -1,19 +1,15 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import os
 import sys
 import subprocess
 
+needle = 'manage.py'
 try:
-    env = os.getenv('VIRTUAL_ENV')
-    if '.virtualenvs' in env:
-        with open(env + '/.project') as f:
-            proj_root = f.readline()
-            print(proj_root.strip() + '/manage.py')
-            subprocess.call([proj_root.strip() + '/manage.py'] + sys.argv[1:])
-            f.close()
-    else:
-        proj_root = env
-        print(proj_root.strip() + '/manage.py')
-        subprocess.call([proj_root.strip() + '/manage.py'] + sys.argv[1:])
+    env = os.getenv('PROJECT_ROOT')
+    proj_root = env
+    for root, dirs, files in (os.walk(env)):
+        if needle in files:
+            print(root, files[files.index(needle)])
+            subprocess.call([root.strip() + '/' + files[files.index(needle)]] + sys.argv[1:])
 except KeyboardInterrupt:
     exit()
