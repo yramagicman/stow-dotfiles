@@ -13,7 +13,7 @@ r = requests.get(
 weather = r.json()
 try:
     display = ''
-    if hostname == 'geeko':
+    if hostname == 'geeko' or __name__ == '__main__':
         display = display + weather['weather'][0]['main']
         if weather['weather'][0]['main'] != weather['weather'][1]['main']:
             display = display + ' or '
