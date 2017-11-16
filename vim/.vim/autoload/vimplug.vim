@@ -25,12 +25,12 @@ endfunction
 
 
 function! s:read_start_dir()
-    return systemlist('ls $HOME/.vim/pack/vendor/start')
+    return split( globpath('$HOME/.vim/pack/vendor/start', '*'), '\n' )
 endfunction
 
 
 function! s:read_opt_dir()
-    return  systemlist('ls $HOME/.vim/pack/vendor/opt')
+    return split( globpath('$HOME/.vim/pack/vendor/opt', '*'), '\n' )
 endfunction
 
 
@@ -72,42 +72,83 @@ function! s:install_start()
         if !isdirectory(package[0])
             let package_name = split(package[0], '/')[-1]
             echom 'installing '. package_name
-            let j = job_start( package[1] )
+            let j = job_start(package[1] )
         endif
     endfor
 endfunction
 
 function! s:clean_plugins()
-    let start_in = s:read_start_dir()
+    let start_in = []
     let start_list = []
     for p in s:start_plugs
-        call add(start_list, split( p[0], '/' )[-1][:-1])
+        call add(start_list,  split(p[0], '/')[-1] )
     endfor
 
-    let opt_in = s:read_opt_dir()
+    for p in s:read_start_dir()
+        call add(start_in,  split(p, '/')[-1] )
+    endfor
+
+    let opt_in = []
     let opt_list = []
     for p in s:opt_plugs
-        call add(opt_list, split( p[0], '/' )[-1])
+        call add(opt_list,  split(p[0], '/')[-1] )
     endfor
+
+    for p in s:read_opt_dir()
+        call add(opt_in,  split(p, '/')[-1] )
+    endfor
+
     if len(start_in) != len(start_list)
-        echom "cleaning"
-        for p in start_in
-            if index(start_list, p) == -1
-                echom join( systemlist('rm -rfv $HOME/.vim/pack/vendor/start/'.p) )
+        echom "cleaning start"
+        for q in start_in
+            if index(start_list, q) == -1
+                echom 'removing ' . q
+                let path = '$HOME/.vim/pack/vendor/start/'
+                echom join( systemlist('rm -rf '.path.q) )
             endif
         endfor
+    else
+        echom "start clean"
     endif
 
+
+    if len(opt_in) != len(opt_list)
+        echom "cleaning opt"
+        for p in opt_in
+            if index(opt_list, p) == -1
+                let path = '$HOME/.vim/pack/vendor/opt/'
+                echom 'rm -rfv '.path.p
+                echom join( systemlist('rm -rf '.path.p) )
+            endif
+        endfor
+    else
+
+        echom "opt clean"
+    endif
 endfunction
 
-function! s:update()
+function! s:update_one(plug)
+    echom 'updating ' . a:plug
+    let j = job_start('cd '. a:plug . '; pwd; git pull --rebase --force')
+endfunction
+function! s:update_all()
+    for path in s:read_opt_dir()
+        call s:update_one(path)
+    endfor
+
+    for path in s:read_start_dir()
+        call s:update_one(path)
+    endfor
+endfunction
+
+function! s:do_update()
     if exists('g:VimPlug_Update_Frequency')
         let oneday = 24 * 60 * 60
         let today = split( system('date +%s') )[0]
         if filereadable($HOME.'/.vim/lastupdate')
             let updatetime = readfile($HOME.'/.vim/lastupdate')[1]
             if today > updatetime
-                autocmd VimLeave * PlugUpdate
+                autocmd VimEnter * call s:update_all()
                 autocmd CursorHold * echom 'updating on close'
 
                 let nextupdate = today + (oneday * g:VimPlug_Update_Frequency)
@@ -116,7 +157,7 @@ function! s:update()
                 return
             endif
         else
-            autocmd VimLeave * PlugUpdate
+            autocmd VimEnter * call s:update_all()
             autocmd CursorHold * echom 'updating on close'
             let nextupdate = today + (oneday * g:VimPlug_Update_Frequency)
             call writefile([today], $HOME.'/.vim/lastupdate')
@@ -125,9 +166,10 @@ function! s:update()
         endif
     else
         let g:VimPlug_Update_Frequency = 30
-        call s:update()
+        call s:do_update()
     endif
 endfunction
+
 function! s:install_all()
     call s:sanity_check()
     call s:install_opts()
@@ -135,10 +177,13 @@ function! s:install_all()
     silent! helptags ALL
     echom ''
 endfunction
+
 function! vimplug#load()
     autocmd VimEnter *  call s:sanity_check()
+    autocmd VimEnter *  call s:do_update()
     command! -nargs=+ PlugOpt call s:install_opt_plugins(<f-args>)
     command! -nargs=+ PlugStart call s:install_start_plugins(<f-args>)
     command! PlugInstall  call s:install_all()
     command! PlugClean  call s:clean_plugins()
+    command! PlugUpdate  call s:update_all()
 endfunction
