@@ -164,5 +164,4 @@ cnoremap <C-e>  <End>
 nnoremap <leader>dn ]czt
 nnoremap <leader>dp [czt
 "}}}
-echom "mappings"
 let g:mappingsloaded = 1
