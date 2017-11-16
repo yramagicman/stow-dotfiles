@@ -1,3 +1,25 @@
+call vimplug#load()
+
+PlugStart 'haya14busa/incsearch.vim'
+PlugStart 'editorconfig/editorconfig-vim'
+PlugStart 'haya14busa/incsearch.vim'
+PlugStart 'tpope/vim-commentary'
+PlugStart 'vim-scripts/vim-indent-object'
+PlugStart 'tpope/vim-surround'
+PlugStart 'bronson/vim-visual-star-search'
+PlugOpt 'dzeban/vim-log-syntax'
+PlugOpt 'mileszs/ack.vim'
+PlugOpt 'sjl/clam.vim'
+PlugOpt 'shougo/neocomplete.vim'
+PlugOpt 'shawncplus/phpcomplete.vim'
+PlugOpt 'leafgarland/typescript-vim'
+PlugOpt 'jceb/vim-orgmode'
+PlugOpt 'tpope/vim-speeddating'
+PlugOpt 'hail2u/vim-css3-syntax'
+PlugOpt 'vim-scripts/Sass'
+PlugOpt 'othree/html5.vim'
+
+
 "{{{ completion
 "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
@@ -70,4 +92,12 @@ let g:UltiSnipsJumpForwardTrigger="<c-f>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 
 
-cnoremap ack Ack
+command! -nargs=* Ack :packadd ack.vim | Ack <f-args>
+command! -nargs=* Clam :packadd clam.vim | Clam <f-args>
+
+
+autocmd! FileType vim,css,scss,sass,html,javascript,python,php packadd neocomplete.vim
+autocmd! FileType php packadd phpcomplete.vim
+autocmd! BufRead *.ts  set filetype=typescript
+autocmd! FileType typescript packadd typescript-vim
+autocmd! FileType html packadd html5.vim

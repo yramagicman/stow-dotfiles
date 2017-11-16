@@ -1,4 +1,3 @@
-
 function! findtags#Findtags()
     silent! set tags=''
     let index = -1

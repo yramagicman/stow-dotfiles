@@ -3,9 +3,9 @@
 let g:Gui_Editor = 'leafpad'
 "}}}
 "{{{setup stuff, for install plugin
-let g:VundleHelper_Setup_Folders = ['after', 'autoload', 'backup', 'colors', 'config', 'doc', 'snippets', 'spell', 'swaps', 'syntax', 'tags', 'undo']
-let g:VundleHelper_Plugin_File =  '/.vim/config/extensions/vundle.vim'
-let g:VundleHelper_Update_Frequency = 5
+let g:VimPlug_Setup_Folders = ['after', 'autoload', 'backup', 'colors', 'config', 'doc', 'snippets', 'spell', 'swaps', 'syntax', 'tags', 'undo']
+let g:VimPlug_Plugin_File =  '/.vim/config/extensions/vundle.vim'
+let g:VimPlug_Update_Frequency = 5
 "}}}
 "{{{ Defaults probably won't change... ever
 set updatetime=3000
@@ -557,4 +557,3 @@ let @u = "dt(,x"
 let @v = '0/\u~hi_, '
 let @q = ':wq'
 "}}}
-"
