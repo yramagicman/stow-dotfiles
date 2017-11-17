@@ -1,4 +1,4 @@
-call vimplug#load()
+call pack#load()
 
 PlugStart 'editorconfig/editorconfig-vim'
 PlugStart 'tpope/vim-commentary'

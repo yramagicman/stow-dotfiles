@@ -180,7 +180,7 @@ function! s:install_all()
     echom ''
 endfunction
 
-function! vimplug#load()
+function! pack#load()
     autocmd VimEnter *  call s:sanity_check()
     autocmd VimEnter *  call s:do_update()
     command! -nargs=+ PlugOpt call s:install_opt_plugins(<f-args>)
