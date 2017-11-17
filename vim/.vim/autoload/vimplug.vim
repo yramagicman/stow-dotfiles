@@ -98,6 +98,8 @@ function! s:clean_plugins()
         call add(opt_in,  split(p, '/')[-1] )
     endfor
 
+    echom len(start_in)
+    echom len(start_list)
     if len(start_in) != len(start_list)
         echom "cleaning start"
         for q in start_in

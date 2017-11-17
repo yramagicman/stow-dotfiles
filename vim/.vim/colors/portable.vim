@@ -20,4 +20,4 @@ hi vertsplit ctermfg=8 ctermbg=0
 hi wildmenu ctermbg=0 ctermfg=15
 hi signcolumn ctermbg=none ctermfg=15
 hi cursorline cterm=none ctermbg=8
-hi folded ctermbg=2 ctermfg=15
+hi folded ctermbg=0 ctermfg=7

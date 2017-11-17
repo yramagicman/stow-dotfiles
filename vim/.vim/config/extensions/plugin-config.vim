@@ -1,8 +1,6 @@
 call vimplug#load()
 
-PlugStart 'haya14busa/incsearch.vim'
 PlugStart 'editorconfig/editorconfig-vim'
-PlugStart 'haya14busa/incsearch.vim'
 PlugStart 'tpope/vim-commentary'
 PlugStart 'vim-scripts/vim-indent-object'
 PlugStart 'tpope/vim-surround'
@@ -19,6 +17,14 @@ PlugOpt 'hail2u/vim-css3-syntax'
 PlugOpt 'vim-scripts/Sass'
 PlugOpt 'othree/html5.vim'
 
+command! -nargs=* Ack :packadd ack.vim | Ack <f-args>
+command! -nargs=* Clam :packadd clam.vim | Clam <f-args>
+
+autocmd! FileType vim,css,scss,sass,html,javascript,python,php packadd neocomplete.vim
+autocmd! FileType php packadd phpcomplete.vim
+autocmd! BufRead *.ts  set filetype=typescript
+autocmd! FileType typescript packadd typescript-vim
+autocmd! FileType html packadd html5.vim
 
 "{{{ completion
 "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
@@ -82,22 +88,3 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 "}}}
-
-map / <Plug>(incsearch-forward)
-map ? <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-
-let g:UltiSnipsExpandTrigger="<C-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-f>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-
-
-command! -nargs=* Ack :packadd ack.vim | Ack <f-args>
-command! -nargs=* Clam :packadd clam.vim | Clam <f-args>
-
-
-autocmd! FileType vim,css,scss,sass,html,javascript,python,php packadd neocomplete.vim
-autocmd! FileType php packadd phpcomplete.vim
-autocmd! BufRead *.ts  set filetype=typescript
-autocmd! FileType typescript packadd typescript-vim
-autocmd! FileType html packadd html5.vim
