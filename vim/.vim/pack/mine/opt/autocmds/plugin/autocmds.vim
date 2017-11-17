@@ -1,4 +1,3 @@
-
 augroup mine
     autocmd!
     "{{{ Status line
@@ -59,7 +58,6 @@ augroup mine
     autocmd CursorHold,CursorMovedI,CursorMoved,Bufenter * :checktime
     autocmd Bufenter,FocusGained,BufLeave * :checktime
     " save on focus lost
-    autocmd CursorHoldI * call feedkeys("\<ESC>")
     autocmd FocusLost,BufLeave * :silent! wall
     " leave insert mode on focus lost
     autocmd FocusLost,BufLeave * call feedkeys("\<ESC>")

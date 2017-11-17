@@ -120,6 +120,7 @@ endif
 set pastetoggle=<F1>
 set path+=**
 set switchbuf=usetab  " try to reuse windows/tabs when switching buffers
+set cursorline
 "}}}
 "{{{ Make tabs as wide as four spaces
 set tabstop=4
