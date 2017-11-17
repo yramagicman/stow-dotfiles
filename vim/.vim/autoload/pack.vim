@@ -1,8 +1,8 @@
 set packpath+=$HOME/.vim/pack/
 set packpath+=$HOME/.vim/pack/vendor
 function! s:sanity_check()
-   if  exists("g:VimPlug_Setup_Folders")
-       for d in g:VimPlug_Setup_Folders
+   if  exists("g:VimPack_Setup_Folders")
+       for d in g:VimPack_Setup_Folders
            if !isdirectory($HOME.'/.vim/'.d)
                call mkdir($HOME.'/.vim/'.d)
            endif
@@ -144,7 +144,7 @@ function! s:update_all()
 endfunction
 
 function! s:do_update()
-    if exists('g:VimPlug_Update_Frequency')
+    if exists('g:VimPack_Update_Frequency')
         let oneday = 24 * 60 * 60
         let today = split( system('date +%s') )[0]
         if filereadable($HOME.'/.vim/lastupdate')
@@ -153,7 +153,7 @@ function! s:do_update()
                 autocmd VimEnter * call s:update_all()
                 autocmd CursorHold * echom 'updating on close'
 
-                let nextupdate = today + (oneday * g:VimPlug_Update_Frequency)
+                let nextupdate = today + (oneday * g:VimPack_Update_Frequency)
                 call writefile([today], $HOME.'/.vim/lastupdate')
                 call writefile([nextupdate], $HOME.'/.vim/lastupdate', "a")
                 return
@@ -161,13 +161,13 @@ function! s:do_update()
         else
             autocmd VimEnter * call s:update_all()
             autocmd CursorHold * echom 'updating on close'
-            let nextupdate = today + (oneday * g:VimPlug_Update_Frequency)
+            let nextupdate = today + (oneday * g:VimPack_Update_Frequency)
             call writefile([today], $HOME.'/.vim/lastupdate')
             call writefile([nextupdate], $HOME.'/.vim/lastupdate', "a")
             return
         endif
     else
-        let g:VimPlug_Update_Frequency = 30
+        let g:VimPack_Update_Frequency = 30
         call s:do_update()
     endif
 endfunction
