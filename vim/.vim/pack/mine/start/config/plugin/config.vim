@@ -198,7 +198,6 @@ if has("autocmd")
     "{{{Augroup VimStartup:
     augroup VimStartup
         au!
-        au VimEnter * if expand("%") == "" | e . | endif
         autocmd CursorHold * if !exists('g:mappingsloaded') | packadd mappings | endif
         autocmd CursorHold * if !exists('g:autocmdsloaded') | packadd autocmds | endif
     augroup END

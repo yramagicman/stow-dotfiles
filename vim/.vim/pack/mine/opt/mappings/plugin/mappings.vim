@@ -66,7 +66,6 @@ vnoremap --r y<Esc>:%s/<C-r>"//g<Left><Left>
 " ask for confirmation
 vnoremap -r y<Esc>:%s/<C-r>"//gc<Left><Left><Left>
 "}}}
-"{{{mappings
 "{{{ Make Vim work logically
 "paste in insert mode
 inoremap <leader>p <ESC>pa
@@ -143,7 +142,6 @@ nnoremap <Leader>f :call functions#FoldColumn()<CR>
 command! Clean :call functions#CleanScreen()
 command! Scratch :call functions#Scratch()
 command! Tw :call functions#Tw()
-"}}}
 "}}}
 "{{{splits
 "{{{window navigation & and splits

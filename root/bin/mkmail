@@ -1,0 +1,5 @@
+#!/bin/sh
+
+mkdir -vp "$HOME/.config/mail/$1/new"
+mkdir -vp "$HOME/.config/mail/$1/cur"
+mkdir -vp "$HOME/.config/mail/$1/tmp"
