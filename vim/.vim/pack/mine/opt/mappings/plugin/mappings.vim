@@ -1,3 +1,31 @@
+"{{{ set status line
+" Always show status line
+let f=system('[[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && echo "*"')
+let b=system('git branch 2>/dev/null | grep \* | sed "s/\*//g"')
+let c=split(b, '')
+set laststatus=2
+set statusline=\|\ %m\ %f\ %r\ \%y
+if len(c)
+    set statusline+=\ \%{c[0]}
+endif
+if len(f)
+    set statusline+=\ %{f[0]}
+endif
+set statusline+=%=
+set statusline+=Line:
+set statusline+=%4l/%-4L
+set statusline+=\ Column\ %2c
+set statusline+=\ \|
+"}}}
+"{{{always center when navigating
+noremap G Gzz
+noremap { {zz
+noremap ( (zz
+noremap } }zz
+noremap ) )zz
+noremap % %zz
+noremap n nzz
+"}}}
 "{{{ save and quit
 nnoremap <silent><leader>wq :wqa<CR>
 inoremap <silent><leader>wq <ESC>:wqa<CR>
@@ -25,10 +53,6 @@ inoremap qq qq
 "{{{folding
 nnoremap <Leader>z zMzvzz
 nnoremap <Leader><Leader>z zMzOzz
-"{{{ folding options
-set foldmethod=indent
-set foldcolumn=2
-"}}}
 "}}}
 "{{{ Substitute word under cursor globally
 nnoremap --r :%s/\<<C-r><C-w>\>//g<Left><Left>

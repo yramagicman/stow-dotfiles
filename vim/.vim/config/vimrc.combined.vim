@@ -7,7 +7,7 @@ let g:VimPlug_Plugin_File =  '/.vim/config/extensions/vundle.vim'
 let g:VimPlug_Update_Frequency = 5
 "}}}
 "{{{ Defaults probably won't change... ever
-set updatetime=2000
+set updatetime=1500
 set lazyredraw
 set background=dark
 set autoread
@@ -121,6 +121,14 @@ set pastetoggle=<F1>
 set path+=**
 set switchbuf=usetab  " try to reuse windows/tabs when switching buffers
 set cursorline
+
+set laststatus=2
+set statusline=\|\ %m\ %f\ %r\ \%y
+set statusline+=\ ...loading
+"}}}
+"{{{ folding options
+set foldmethod=indent
+set foldcolumn=2
 "}}}
 "{{{ Make tabs as wide as four spaces
 set tabstop=4
@@ -131,25 +139,6 @@ set shiftwidth=4
 set shiftround
 "tabs to spaces
 set expandtab
-"}}}
-"{{{ set status line
-" Always show status line
-let f=system('[[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && echo "*"')
-let b=system('git branch 2>/dev/null | grep \* | sed "s/\*//g"')
-let c=split(b, '')
-set laststatus=2
-set statusline=\|\ %m\ %f\ %r\ \%y
-if len(c)
-    set statusline+=\ \%{c[0]}
-endif
-if len(f)
-    set statusline+=\ %{f[0]}
-endif
-set statusline+=%=
-set statusline+=Line:
-set statusline+=%4l/%-4L
-set statusline+=\ Column\ %2c
-set statusline+=\ \|
 "}}}
 "{{{ netrw settings
 "let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
@@ -195,15 +184,6 @@ vnoremap <left> <Nop>
 vnoremap <down> <Nop>
 vnoremap <right> <Nop>
 vnoremap <up> <Nop>
-"}}}
-"{{{always center when navigating
-noremap G Gzz
-noremap { {zz
-noremap ( (zz
-noremap } }zz
-noremap ) )zz
-noremap % %zz
-noremap n nzz
 "}}}
 "{{{ visual block mode is better that visual mode
 nnoremap v <c-v>

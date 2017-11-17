@@ -13,8 +13,8 @@ hi diffdelete ctermfg=15 ctermbg=1
 hi difftext ctermbg=0 ctermfg=NONE
 hi pmenu ctermbg=0 ctermfg=15
 hi pmenusel cterm=REVERSE
-hi statusline ctermbg=15 ctermfg=0 term=none cterm=none
-hi statuslinenc ctermbg=0 ctermfg=15 term=none cterm=none
+hi statusline ctermbg=8 ctermfg=15 term=none cterm=none
+hi statuslinenc ctermbg=none ctermfg=7 term=none cterm=none
 hi visual ctermbg=2 ctermfg=15
 hi vertsplit ctermfg=8 ctermbg=0
 hi wildmenu ctermbg=0 ctermfg=15

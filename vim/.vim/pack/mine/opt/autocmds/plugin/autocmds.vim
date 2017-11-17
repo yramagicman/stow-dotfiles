@@ -20,11 +20,11 @@ augroup mine
     autocmd VimEnter * set vb t_vb=
     "}}}
     "{{{ fold method marker for specific files
-    autocmd FileType vim setlocal foldmethod=marker
-    autocmd FileType zsh setlocal foldmethod=marker
-    autocmd FileType lua setlocal foldmethod=marker
-    autocmd FileType muttrc setlocal foldmethod=marker
-    autocmd FileType conf setlocal foldmethod=marker
+    autocmd FileType,BufEnter vim setlocal foldmethod=marker
+    autocmd FileType,BufEnter zsh setlocal foldmethod=marker
+    autocmd FileType,BufEnter lua setlocal foldmethod=marker
+    autocmd FileType,BufEnter muttrc setlocal foldmethod=marker
+    autocmd FileType,BufEnter conf setlocal foldmethod=marker
     "}}}
     "{{{ Saving
     autocmd BufEnter,BufWritePre,CursorHold * silent! checktime
