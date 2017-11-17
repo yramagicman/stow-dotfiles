@@ -128,4 +128,3 @@ if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$SSH_TTY" ]]; then
     s tmux
 fi
 #}}}
-#
