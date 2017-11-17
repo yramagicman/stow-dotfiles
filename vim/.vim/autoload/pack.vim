@@ -119,7 +119,6 @@ function! s:clean_plugins()
         for p in opt_in
             if index(opt_list, p) == -1
                 echom 'removing ' . q
-                let path = '$HOME/.vim/pack/vendor/start/'
                 let path = '$HOME/.vim/pack/vendor/opt/'
                 echom join( systemlist('rm -rf '.path.p) )
             endif
