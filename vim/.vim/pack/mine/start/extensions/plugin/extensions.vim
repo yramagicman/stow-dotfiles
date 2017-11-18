@@ -6,6 +6,7 @@ PlugStart 'vim-scripts/vim-indent-object'
 PlugStart 'tpope/vim-surround'
 PlugStart 'bronson/vim-visual-star-search'
 PlugOpt 'dzeban/vim-log-syntax'
+PlugOpt 'w0rp/ale'
 PlugOpt 'mileszs/ack.vim'
 PlugOpt 'sjl/clam.vim'
 PlugOpt 'shougo/neocomplete.vim'
@@ -20,7 +21,8 @@ PlugOpt 'othree/html5.vim'
 command! -nargs=* Ack :packadd ack.vim | Ack <f-args>
 command! -nargs=* Clam :packadd clam.vim | Clam <f-args>
 
-autocmd! FileType vim,css,scss,sass,html,javascript,python,php packadd neocomplete.vim
+autocmd! FileType vim,css,scss,sass,html,javascript,python,php,c,typescript packadd neocomplete.vim
+autocmd! FileType vim,css,scss,sass,html,javascript,python,php,c,typescript packadd ale
 autocmd! FileType php packadd phpcomplete.vim
 autocmd! BufRead *.ts  set filetype=typescript
 autocmd! FileType typescript packadd typescript-vim
