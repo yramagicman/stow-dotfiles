@@ -125,11 +125,10 @@ endfunction
 
 function! s:update_one(plug)
     echom 'updating ' . a:plug
-    echom system( 'pwd')
-    let j = job_start('git pull --rebase --force')
+    let cmd = 'cd ' . a:plug ." && git pull"
+    let j = job_start(["/bin/sh", "-c", cmd])
     return j
 endfunction
-
 function! s:update_all()
     let opt_jobs = []
     let start_jobs = []
