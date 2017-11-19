@@ -98,10 +98,7 @@ function! s:clean_plugins()
         call add(opt_in,  split(p, '/')[-1] )
     endfor
 
-    echom len(start_in)
-    echom len(start_list)
     if len(start_in) != len(start_list)
-        echom "cleaning start"
         for q in start_in
             if index(start_list, q) == -1
                 echom 'removing ' . q
@@ -110,12 +107,10 @@ function! s:clean_plugins()
             endif
         endfor
     else
-        echom "start clean"
     endif
 
 
     if len(opt_in) != len(opt_list)
-        echom "cleaning opt"
         for p in opt_in
             if index(opt_list, p) == -1
                 echom 'removing ' . q
@@ -125,22 +120,44 @@ function! s:clean_plugins()
         endfor
     else
 
-        echom "opt clean"
     endif
 endfunction
 
 function! s:update_one(plug)
     echom 'updating ' . a:plug
-    let j = job_start('cd '. a:plug . '; pwd; git pull --rebase --force')
+
+    call system('cd '. a:plug )
+    echom system( 'pwd')
+    let j = job_start('git pull --rebase --force')
+    return j
 endfunction
+
 function! s:update_all()
+    let opt_jobs = []
+    let start_jobs = []
     for path in s:read_opt_dir()
-        call s:update_one(path)
+        call add(opt_jobs,  s:update_one(path))
     endfor
 
+    while len(opt_jobs)
+        for job in opt_jobs
+            if job_status(job) != 'run'
+                call remove(opt_jobs, index(opt_jobs, job))
+            endif
+        endfor
+    endwhile
+
     for path in s:read_start_dir()
-        call s:update_one(path)
+        call add(start_jobs,  s:update_one(path))
     endfor
+
+    while len(start_jobs)
+        for work in start_jobs
+            if job_status(work) != 'run'
+                call remove(start_jobs, index(start_jobs, work))
+            endif
+        endfor
+    endwhile
 endfunction
 
 function! s:do_update()
