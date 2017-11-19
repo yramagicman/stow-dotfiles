@@ -20,14 +20,15 @@ PlugOpt 'othree/html5.vim'
 
 command! -nargs=* Ack :packadd ack.vim | Ack <f-args>
 command! -nargs=* Clam :packadd clam.vim | Clam <f-args>
-
-autocmd! FileType vim,css,scss,sass,html,javascript,python,php,c,typescript packadd neocomplete.vim
-autocmd! FileType vim,css,scss,sass,html,javascript,python,php,c,typescript packadd ale
-autocmd! FileType php packadd phpcomplete.vim
-autocmd! BufRead *.ts  set filetype=typescript
-autocmd! FileType typescript packadd typescript-vim
-autocmd! FileType html packadd html5.vim
-
+augroup extensions
+    autocmd!
+    autocmd FileType vim,css,scss,sass,html,javascript,python,php,c,typescript packadd neocomplete.vim
+    autocmd FileType vim,css,scss,sass,html,javascript,python,php,c,typescript packadd ale
+    autocmd FileType php packadd phpcomplete.vim
+    autocmd BufRead *.ts  set filetype=typescript
+    autocmd FileType typescript packadd typescript-vim
+    autocmd FileType html packadd html5.vim
+augroup end
 "{{{ completion
 "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.

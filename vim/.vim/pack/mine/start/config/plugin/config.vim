@@ -2,9 +2,10 @@
 let g:Gui_Editor = 'leafpad'
 "}}}
 "{{{setup stuff, for install plugin
-let g:VimPack_Setup_Folders = ['after', 'autoload', 'backup', 'colors', 'config', 'doc', 'snippets', 'spell', 'swaps', 'syntax', 'tags', 'undo']
-let g:VimPack_Plugin_File =  '/.vim/config/extensions/vundle.vim'
+let g:VimPack_Setup_Folders = ['after', 'autoload', 'backup', 'colors', 'doc', 'snippets', 'spell', 'swaps', 'syntax', 'tags', 'undo']
 let g:VimPack_Update_Frequency = 5
+let g:VimPack_Auto_Install = 1
+let g:VimPack_Auto_Update = 1
 "}}}
 "{{{ Defaults probably won't change... ever
 set updatetime=1500

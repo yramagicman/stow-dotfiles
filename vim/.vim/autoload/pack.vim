@@ -41,7 +41,7 @@ function! s:install_start_plugins(plug)
     let plug = plug[:-2]
     let destination = split( &packpath, ',')[-1] . '/start/'. plug
 
-    call add(s:start_plugs, ['$HOME/.vim/pack/vendor/opt/'. plug, 'git clone --quiet --depth 4 https://github.com/'.repo[1:].'/'.plug . ' ' . destination])
+    call add(s:start_plugs, [destination, 'git clone --quiet --depth 4 https://github.com/'.repo[1:].'/'.plug . ' ' . destination])
 endfunction
 
 let s:opt_plugs = []
@@ -52,7 +52,7 @@ function! s:install_opt_plugins(plug)
     let plug = plug[:-2]
     let destination = split( &packpath, ',')[-1] . '/opt/'. plug
 
-    call add(s:opt_plugs, ['$HOME/.vim/pack/vendor/opt/'. plug, 'git clone --quiet --depth 4  https://github.com/'.repo[1:].'/'.plug . ' ' . destination])
+    call add(s:opt_plugs, [destination, 'git clone --quiet --depth 4  https://github.com/'.repo[1:].'/'.plug . ' ' . destination])
 
 endfunction
 
@@ -125,8 +125,6 @@ endfunction
 
 function! s:update_one(plug)
     echom 'updating ' . a:plug
-
-    call system('cd '. a:plug )
     echom system( 'pwd')
     let j = job_start('git pull --rebase --force')
     return j
@@ -146,7 +144,6 @@ function! s:update_all()
             endif
         endfor
     endwhile
-
     for path in s:read_start_dir()
         call add(start_jobs,  s:update_one(path))
     endfor
@@ -167,7 +164,7 @@ function! s:do_update()
         if filereadable($HOME.'/.vim/lastupdate')
             let updatetime = readfile($HOME.'/.vim/lastupdate')[1]
             if today > updatetime
-                autocmd VimEnter * call s:update_all()
+                autocmd VimLeavePre * call s:update_all()
                 autocmd CursorHold * echom 'updating on close'
 
                 let nextupdate = today + (oneday * g:VimPack_Update_Frequency)
@@ -176,7 +173,7 @@ function! s:do_update()
                 return
             endif
         else
-            autocmd VimEnter * call s:update_all()
+            autocmd VimLeavePre * call s:update_all()
             autocmd CursorHold * echom 'updating on close'
             let nextupdate = today + (oneday * g:VimPack_Update_Frequency)
             call writefile([today], $HOME.'/.vim/lastupdate')
@@ -206,3 +203,11 @@ function! pack#load()
     command! PlugClean  call s:clean_plugins()
     command! PlugUpdate  call s:update_all()
 endfunction
+
+autocmd VimEnter *  call s:sanity_check()
+if exists('g:VimPack_Auto_Install')
+    autocmd BufEnter *  call s:install_all()
+endif
+if exists('g:VimPack_Auto_Update')
+    autocmd VimEnter *  call s:do_update()
+endif
