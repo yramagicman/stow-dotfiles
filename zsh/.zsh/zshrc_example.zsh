@@ -39,7 +39,8 @@ PACKAGES=(
 PACKAGES+=(
     # If you want to use prezto themes, you may need to source this file
     # to get your current directory in the prompt
-    # 'sorin-ionescu/prezto/modules/prompt/functions/prompt-pwd'
+    # /prezto/init.zsh
+    # /prezto/modules/prompt/functions/prompt-pwd
     #
     # These files are needed if you're going to use oh-my-zsh themes.'
     # 'robbyrussell/oh-my-zsh/lib/spectrum.zsh' # color support
