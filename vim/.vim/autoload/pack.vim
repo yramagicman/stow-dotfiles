@@ -61,7 +61,7 @@ function! s:install_opts()
         if !isdirectory(package[0])
             let package_name = split(package[0], '/')[-1]
             echom 'installing '. package_name
-            let j =  job_start( package[1] )
+            let j = job_start( ["/bin/sh", "-c", package[1]] )
         endif
     endfor
 endfunction
@@ -72,7 +72,7 @@ function! s:install_start()
         if !isdirectory(package[0])
             let package_name = split(package[0], '/')[-1]
             echom 'installing '. package_name
-            let j = job_start(package[1] )
+            let j = job_start( ["/bin/sh", "-c", package[1]] )
         endif
     endfor
 endfunction
@@ -208,5 +208,5 @@ if exists('g:VimPack_Auto_Install')
     autocmd BufEnter *  call s:install_all()
 endif
 if exists('g:VimPack_Auto_Update')
-    autocmd VimEnter *  call s:do_update()
+    autocmd BufEnter *  call s:do_update()
 endif
