@@ -28,6 +28,8 @@ augroup extensions
     autocmd BufRead *.ts  set filetype=typescript
     autocmd FileType typescript packadd typescript-vim
     autocmd FileType html packadd html5.vim
+    autocmd FileType scss packadd Sass
+    autocmd FileType scss,css packadd vim-css3-syntax
 augroup end
 "{{{ completion
 "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
