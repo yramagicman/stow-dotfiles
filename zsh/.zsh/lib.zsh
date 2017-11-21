@@ -7,11 +7,11 @@ function clone_if_needed() {
         echo "$1 not found "
         mkdir -p $MODULES_DIR/$split[1]
         echo
-        git clone git@github.com:$split[1]/$split[2] $MODULES_DIR/$split[1]/$split[2]/
+        git clone --depth 3 git@github.com:$split[1]/$split[2] $MODULES_DIR/$split[1]/$split[2]/
         find $MODULES_DIR -type d -delete 2>/dev/null
         if [[ ! -d $MODULES_DIR/$split[1]/$split[2]  ]]; then
             echo "nothing cloned; trying https"
-            git clone https://github.com/$split[1]/$split[2] $MODULES_DIR/$split[1]/$split[2]/
+            git clone --depth 3 https://github.com/$split[1]/$split[2] $MODULES_DIR/$split[1]/$split[2]/
         fi
         echo
         # clean up if we don't clone anything. This won't delete directories
