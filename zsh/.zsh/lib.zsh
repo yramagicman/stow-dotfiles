@@ -98,6 +98,7 @@ function load_pkgs() {
         done
     else
         build_pkg_cache
+        source ~/.zshrc
     fi
 }
 
@@ -179,6 +180,11 @@ function check_updates() {
     then
         UPDATE_INTERVAL=30
     fi
+    if [[ -z $( cat $MODULES_DIR/.updatetime ) ]];
+    then
+        echo 0 > $MODULES_DIR/.updatetime
+    fi
+
     day=$((24 * 60 * 60 ))
     gap=$(( $UPDATE_INTERVAL * $day ))
     diff="$(( $(date +'%s') - $(cat $MODULES_DIR/.updatetime ) ))"
@@ -193,5 +199,12 @@ function check_updates() {
         date +'%s' > $MODULES_DIR/.updatetime
     fi
 }
-download_pkgs > /dev/null
+if [[ $AUTO_INSTALL ]];
+then
+    download_pkgs > /dev/null
+fi
+if [[ $AUTO_UPDATE ]];
+then
+    check_updates
+fi
 load_pkgs
