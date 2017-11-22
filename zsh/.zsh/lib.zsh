@@ -65,7 +65,7 @@ function download_pkgs() {
     if [[ ! -d $MODULES_DIR ]]; then
         mkdir -p $MODULES_DIR
     fi
-    if [[ $( echo "$num_packages" | bc ) -lt $#PACKAGES ]]; then
+    if [[ $num_packages -lt $#PACKAGES ]]; then
         if [[ $( ping -c 2 8.8.8.8 2> /dev/null ) ]]; then
             for p in $PACKAGES;
             do
@@ -117,8 +117,14 @@ function update_pkgs() {
         do
         builtin cd $f
         builtin cd ../
-        echo "updating $(pwd)"
-        git pull
+            if [[ $1 != '--silent' ]];
+            then
+                echo "updating $(pwd)"
+                git pull
+            else
+
+                git pull --quiet
+            fi
         done
     builtin cd $cwd
 }
@@ -168,6 +174,24 @@ function try_theme() {
     builtin cd $cwd
 
 }
-
+function check_updates() {
+    if [[ -z $UPDATE_INTERVAL ]];
+    then
+        UPDATE_INTERVAL=30
+    fi
+    day=$((24 * 60 * 60 ))
+    gap=$(( $UPDATE_INTERVAL * $day ))
+    diff="$(( $(date +'%s') - $(cat $MODULES_DIR/.updatetime ) ))"
+    if [[ $diff -gt $gap ]];
+    then
+        if [[ $SILENT_UPDATES ]];
+        then
+            update_pkgs --silent &
+        else
+            update_pkgs
+        fi
+        date +'%s' > $MODULES_DIR/.updatetime
+    fi
+}
 download_pkgs > /dev/null
 load_pkgs
