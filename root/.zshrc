@@ -54,9 +54,7 @@ PACKAGES+=(
     )
 #}}}
 source $HOME/.zsh/lib.zsh
-
 prompt serenity
-
 # {{{ lazy load stuff
 if [[ "$TMUX" != '' ]]; then
 

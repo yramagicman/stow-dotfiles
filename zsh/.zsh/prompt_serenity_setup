@@ -14,6 +14,18 @@ function prompt_serenity_precmd() {
     vcs_info 'prompt'
 }
 function prompt_serenity_setup() {
+setopt LOCAL_OPTIONS
+unsetopt XTRACE KSH_ARRAYS
+prompt_opts=(cr percent subst)
+
+  # Load required functions.
+  autoload -Uz add-zsh-hook
+  autoload -Uz vcs_info
+
+  # Add hook for calling vcs_info before each command.
+  add-zsh-hook precmd prompt_serenity_precmd
+
+
 # {{{ COLORS ****************************************
 if [[ $TERM = *256color* || $TERM = *rxvt* ]]; then
   _prompt_colors=(
