@@ -32,7 +32,6 @@ AUTO_UPDATE=1
 # modules.
 PACKAGES=(
     $CONFIG_DIR/runtime.zsh
-    $CONFIG_DIR/prompt.zsh
     $CONFIG_DIR/history.zsh
     $CONFIG_DIR/completion.zsh
 )
@@ -55,6 +54,9 @@ PACKAGES+=(
     )
 #}}}
 source $HOME/.zsh/lib.zsh
+
+prompt serenity
+
 # {{{ lazy load stuff
 if [[ "$TMUX" != '' ]]; then
 

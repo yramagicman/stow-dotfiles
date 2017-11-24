@@ -1,3 +1,5 @@
+fpath=("${0:h}" $fpath)
+
 function clone_if_needed() {
     split=("${(@s#/#)1}")
     if [[ ( ! -d "$MODULES_DIR/$split[1]" )  ]]; then
