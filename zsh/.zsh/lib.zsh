@@ -1,6 +1,6 @@
 fpath=("${0:h}" $fpath)
 
-function clone_if_needed() {
+function -clone_if_needed() {
     split=("${(@s#/#)1}")
     if [[ ( ! -d "$MODULES_DIR/$split[1]" )  ]]; then
         if [[ -a $1 ]]; then
@@ -26,7 +26,7 @@ function clone_if_needed() {
     fi
 }
 
-function cache_pkg () {
+function -cache_pkg () {
     if [[ ! -f $MODULES_DIR/.plugins ]]; then
         mkdir -p $MODULES_DIR
         touch $MODULES_DIR/.plugins
@@ -57,12 +57,12 @@ function cache_pkg () {
     fi
 }
 
-function clean_tmp_themes () {
+function -clean_tmp_themes () {
     tmpthemedir="$HOME/.tmptheme"
     command rm -rf $tmpthemedir
 }
 
-function download_pkgs() {
+function -download_pkgs() {
     num_packages="$( ls $CONFIG_DIR | wc -l ) + $( ls $MODULES_DIR | wc -l )"
     if [[ ! -d $MODULES_DIR ]]; then
         mkdir -p $MODULES_DIR
@@ -71,50 +71,50 @@ function download_pkgs() {
         if [[ $( ping -c 2 8.8.8.8 2> /dev/null ) ]]; then
             for p in $PACKAGES;
             do
-                clone_if_needed $p
+                -clone_if_needed $p
             done
         fi
-        build_pkg_cache
+        -build_pkg_cache
     fi
 }
 
-function build_pkg_cache() {
+function -build_pkg_cache() {
     echo "caching"
     if [[ -f $MODULES_DIR/.plugins ]]; then
         command rm  $MODULES_DIR/.plugins
     fi
     for p in $PACKAGES;
         do
-            cache_pkg $p
+            -cache_pkg $p
         done
 
     sort -u  $MODULES_DIR/.plugins > $MODULES_DIR/.plug
     command mv $MODULES_DIR/.plug $MODULES_DIR/.plugins
 }
 
-function load_pkgs() {
+function -load_pkgs() {
     if [[ -f $MODULES_DIR/.plugins ]]; then
         for p in $( cat $MODULES_DIR/.plugins )
         do
             source $p
         done
     else
-        build_pkg_cache
+        -build_pkg_cache
         source ~/.zshrc
     fi
 }
 
-function reload_pkgs() {
-    clean_tmp_themes
+function -reload_pkgs() {
+    -clean_tmp_themes
     command rm $MODULES_DIR/.plugins
     command rm -rf $MODULES_DIR/*
     clear
-    download_pkgs
+    -download_pkgs
     source ~/.zshrc
 }
 
-function update_pkgs() {
-    clean_tmp_themes
+function -update_pkgs() {
+    -clean_tmp_themes
     cwd=$(pwd)
     for f in $(find $MODULES_DIR -maxdepth 3 -type d -name '.git')
         do
@@ -132,7 +132,7 @@ function update_pkgs() {
     builtin cd $cwd
 }
 
-function try_theme() {
+function -try_theme() {
     PROMPT=''
     RPROMPT=''
     split=("${(@s#/#)1}")
@@ -177,12 +177,13 @@ function try_theme() {
     builtin cd $cwd
 
 }
-function check_updates() {
+
+function -check_updates() {
     if [[ -z $UPDATE_INTERVAL ]];
     then
         UPDATE_INTERVAL=30
     fi
-    if [[ -z $( cat $MODULES_DIR/.updatetime ) ]];
+    if [[ ! -a $MODULES_DIR/.updatetime ]];
     then
         echo 0 > $MODULES_DIR/.updatetime
     fi
@@ -194,19 +195,52 @@ function check_updates() {
     then
         if [[ $SILENT_UPDATES ]];
         then
-            update_pkgs --silent &
+            -update_pkgs --silent &
         else
-            update_pkgs
+            -update_pkgs
         fi
         date +'%s' > $MODULES_DIR/.updatetime
     fi
 }
+
+function zminus() {
+    if [[ $1 == 'install' ]];
+    then
+        -download_pkgs
+    fi
+
+    if [[ $1 == 'update' ]];
+    then
+        -check_updates
+    fi
+
+    if [[ $1 == 'force-update' ]];
+    then
+        -update_pkgs $2
+    fi
+
+    if [[ $1 == 'test_theme' ]];
+    then
+        -try_theme $2
+    fi
+
+    if [[ $1 == 'clean' ]];
+    then
+        -clean_tmp_themes
+    fi
+
+    if [[ $1 == 'reload' ]];
+    then
+        -reload_pkgs
+    fi
+}
+alias zmin="zminus"
 if [[ $AUTO_INSTALL ]];
 then
-    download_pkgs > /dev/null
+    -download_pkgs > /dev/null
 fi
 if [[ $AUTO_UPDATE ]];
 then
-    check_updates
+    -check_updates
 fi
-load_pkgs
+-load_pkgs
