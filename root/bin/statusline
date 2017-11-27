@@ -100,7 +100,7 @@ if [[ "$hn" == "k-nine" ]];
 then
 line="$line $(my_bat)"
 fi
-line="$line $(my_wifi) $(my_load) $(dbox) $(my_volume) $(my_date)"
+line="$line $(my_wifi) $(dbox) $(my_volume) $(my_date)"
 
 
 xsetroot -name $line
