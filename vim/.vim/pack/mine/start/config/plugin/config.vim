@@ -199,8 +199,8 @@ if has("autocmd")
     "{{{Augroup VimStartup:
     augroup VimStartup
         au!
-        autocmd CursorHold * if !exists('g:mappingsloaded') | packadd mappings | endif
-        autocmd CursorHold * if !exists('g:autocmdsloaded') | packadd autocmds | endif
+        autocmd CursorHold,CursorHoldI * if !exists('g:mappingsloaded') | packadd mappings | endif
+        autocmd CursorHold,CursorHoldI * if !exists('g:autocmdsloaded') | packadd autocmds | endif
     augroup END
     "}}}
 endif
