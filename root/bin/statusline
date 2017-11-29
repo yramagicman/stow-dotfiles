@@ -73,13 +73,7 @@ function my_weather() {
 }
 
 function my_volume() {
-
-if [[ "$hn" == "k-nine" ]];
-then
     echo "V:$( amixer -c 0  -- get Master| awk '/Playback [0-9]{0,5} \[[0-9]{0,3}%]/ {print $4 $6}' )"
-else
-    echo "V:$( amixer -c 0  -- get Master| awk '/Playback [0-9]{0,5} \[[0-9]{0,3}%]/ {print $4 $6}' )"
-fi
 }
 
 function dbox() {
