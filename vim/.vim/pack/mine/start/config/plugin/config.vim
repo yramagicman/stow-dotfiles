@@ -277,7 +277,7 @@ vnoremap <M <ESC>
 onoremap <M <ESC>
 cnoremap <M <ESC>
 "}}}
-"{{{ control whitespace and tabs on save
+"{{{ save
 nnoremap <leader>ss :w<CR>
 nnoremap ss :w<CR>
 inoremap <leader>ss <ESC>:w<CR>

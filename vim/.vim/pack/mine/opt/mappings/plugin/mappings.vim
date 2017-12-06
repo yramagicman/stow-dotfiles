@@ -120,6 +120,7 @@ nnoremap  qf :execute 'vimgrep /' .@/.'/g %'<CR>:copen<CR>
 nnoremap '; ;
 nnoremap ": ,
 iabbrev JOnathan Jonathan
+iabbrev GIlson Gilson
 "}}}
 "{{{ insert blank lines in normal mode
 nnoremap <leader>O O<ESC>j
