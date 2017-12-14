@@ -69,8 +69,8 @@ if [[ $num_daily -eq 7 ]]; then
     d_last=$(cat $backup_config_dir/d_last)
     echo "Merging backup $d_first with $d_last"
     ssh $remote_user@$host "$mkdir /mnt/share/backups/weekly/$backup_name/$d_first-$d_last"
-    ssh $remote_user@$host "rsync -av --link-dest /mnt/share/backups/daily/$backup_name/$d_first/  /mnt/share/backups/daily/$backup_name/$d_first/ /mnt/share/backups/weekly/$backup_name/$d_first-$d_last/"
-    ssh $remote_user@$host "rsync -av --link-dest /mnt/share/backups/daily/$backup_name/$d_last/ /mnt/share/backups/daily/$backup_name/$d_last/ /mnt/share/backups/weekly/$backup_name/$d_first-$d_last/"
+    ssh $remote_user@$host "rsync -av  /mnt/share/backups/daily/$backup_name/$d_first/ /mnt/share/backups/weekly/$backup_name/$d_first-$d_last/"
+    ssh $remote_user@$host "rsync -av /mnt/share/backups/daily/$backup_name/$d_last/ /mnt/share/backups/weekly/$backup_name/$d_first-$d_last/"
     echo $d_first-$d_last > $backup_config_dir/latest
     echo "clearing daily backups"
 

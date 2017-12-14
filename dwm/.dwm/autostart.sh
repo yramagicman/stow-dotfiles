@@ -30,10 +30,8 @@ pulseaudio --start
 ## Turn on/off system beep
 xset b off &
 
-if test "$( hostname )" != 'k-nine'; then
-    # Autostart the Dropbox deamon, but not on my laptop.
-    (sleep 10s && dropbox start) &
-fi
+# Autostart the Dropbox deamon, but not on my laptop.
+(sleep 10s && dropbox start) &
 
 # Update weather info on boot
 (sleep 45s && check_process redshift) &
