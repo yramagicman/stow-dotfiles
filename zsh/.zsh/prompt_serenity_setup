@@ -1,5 +1,3 @@
-#{{{ PROMPT ****************************************
-
 function prompt_serenity_precmd() {
     if git rev-parse --git-dir > /dev/null 2>&1; then
         str=$( git rev-parse --show-toplevel)
@@ -26,7 +24,6 @@ prompt_opts=(cr percent subst)
   add-zsh-hook precmd prompt_serenity_precmd
 
 
-# {{{ COLORS ****************************************
 if [[ $TERM = *256color* || $TERM = *rxvt* ]]; then
   _prompt_colors=(
     "%F{12}"  # Turquoise
@@ -46,8 +43,7 @@ else
     "%F{grey}"
   )
 fi
-#}}}
-# {{{ VCS in prompt options
+
 # Formats:
 #   %b - branchname
 #   %u - unstagedstr (see below)
