@@ -205,7 +205,7 @@ endfunction
 
 autocmd VimEnter *  call s:sanity_check()
 if exists('g:VimPack_Auto_Install')
-    autocmd BufEnter *  call s:install_all()
+    autocmd BufEnter *  call s:install_all() | redraw
 endif
 if exists('g:VimPack_Auto_Update')
     autocmd BufEnter *  call s:do_update()
