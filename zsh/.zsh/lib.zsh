@@ -23,8 +23,8 @@ function -clone_if_needed() {
             echo "nothing cloned"
             command rm $MODULES_DIR/.plugins
         fi
+        date +'%s' > $MODULES_DIR/.updatetime
     fi
-    date +'%s' > $MODULES_DIR/.updatetime
 }
 
 function -cache_pkg () {
