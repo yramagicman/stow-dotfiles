@@ -22,8 +22,8 @@ command! -nargs=* Ack :packadd ack.vim | Ack <f-args>
 command! -nargs=* Clam :packadd clam.vim | Clam <f-args>
 augroup extensions
     autocmd!
-    autocmd FileType vim,css,scss,sass,html,javascript,python,php,c,typescript silent! packadd neocomplete.vim | redraw
-    autocmd FileType vim,css,scss,sass,html,javascript,python,php,c,typescript silent! packadd ale | redraw
+    autocmd FileType vim,css,scss,sass,html,javascript,python,php,c,cpp,typescript,zsh,sh silent! packadd neocomplete.vim | redraw
+    autocmd FileType vim,css,scss,sass,html,javascript,python,php,c,cpp,typescript,zsh,sh silent! packadd ale | redraw
     autocmd FileType php packadd phpcomplete.vim
     autocmd BufRead *.ts  set filetype=typescript
     autocmd FileType typescript packadd typescript-vim
