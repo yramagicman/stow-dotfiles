@@ -24,6 +24,7 @@ function -clone_if_needed() {
             command rm $MODULES_DIR/.plugins
         fi
     fi
+    date +'%s' > $MODULES_DIR/.updatetime
 }
 
 function -cache_pkg () {
