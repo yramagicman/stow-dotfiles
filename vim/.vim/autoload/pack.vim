@@ -129,6 +129,7 @@ function! s:update_one(plug)
     let j = job_start(["/bin/sh", "-c", cmd])
     return j
 endfunction
+
 function! s:update_all()
     let opt_jobs = []
     let start_jobs = []
