@@ -49,7 +49,7 @@ PACKAGES+=(
     'marzocchi/zsh-notify'
     )
 #}}}
-source $HOME/.zsh/lib.zsh
+source $CONFIG_DIR/lib.zsh
 prompt serenity
 # {{{ lazy load stuff
 if [[ "$TMUX" != '' ]]; then
