@@ -1,5 +1,7 @@
 # stow-dotfiles
 
+## How I configure my computer
+
 **Welcome!!** Feel free to look around. My configs are free for the copying, but
 be aware that I've configured my environment to fit my workflow, so it may
 take some tweaking to work for you.
