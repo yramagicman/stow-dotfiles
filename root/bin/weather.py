@@ -8,11 +8,11 @@ hostname = socket.gethostname()
 
 j = json.JSONDecoder()
 r = requests.get(
-    'http://api.openweathermap.org/data/2.5/weather?zip=45449,us&units=imperial&appid=8c7a3eda698041f3d194181a7b1da8c5')
+    'http://api.openweathermap.org/data/2.5/weather?zip=45449,us&units=metric&appid=8c7a3eda698041f3d194181a7b1da8c5')
 
 weather = r.json()
 
-if weather['cod'] == '500':
+if weather['cod'] != '200':
     display = 'error'
     print(display)
 
