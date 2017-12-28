@@ -7,10 +7,11 @@ import socket
 hostname = socket.gethostname()
 
 j = json.JSONDecoder()
-r = requests.get(
-    'http://api.openweathermap.org/data/2.5/weather?zip=45449,us&units=metric&appid=8c7a3eda698041f3d194181a7b1da8c5')
+m = requests.get('http://api.openweathermap.org/data/2.5/weather?zip=45449,us&units=metric&appid=8c7a3eda698041f3d194181a7b1da8c5')
+i = requests.get('http://api.openweathermap.org/data/2.5/weather?zip=45449,us&units=imperial&appid=8c7a3eda698041f3d194181a7b1da8c5')
 
-weather = r.json()
+weather = m.json()
+imperial = i.json()
 
 if weather['cod'] != 200:
     display = 'error'
@@ -30,5 +31,6 @@ except:
         display = display + weather['weather'][0]['main']
         display = display + ' '
 display = display + str(weather['main']['temp'])
-display = display + 'C'
+display = display + 'C '
+display = display + str(imperial['main']['temp']) + 'F'
 print(display)
