@@ -83,10 +83,10 @@
     pushInsteadOf = "git://gist.github.com/"
 [url "git://gist.github.com/"]
     insteadOf = "gist:"
-[diff]
-    external = $HOME/bin/diffit
+# [diff]
+#     external = $HOME/bin/diffit
 [pager]
-    diff =
+    diff = less
 [user]
     email = jonathandavis@gilsons.org
     name = Jonathan
