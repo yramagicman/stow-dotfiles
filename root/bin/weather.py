@@ -12,7 +12,7 @@ r = requests.get(
 
 weather = r.json()
 
-if weather['cod'] != '200':
+if weather['cod'] != 200:
     display = 'error'
     print(display)
 
