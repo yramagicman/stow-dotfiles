@@ -126,6 +126,8 @@ set cursorline
 set laststatus=2
 set statusline=\|\ %m\ %f\ %r\ \%y
 set statusline+=\ ...loading
+
+set fillchars+=fold:·
 "}}}
 "{{{ folding options
 set foldmethod=indent
