@@ -12,16 +12,18 @@ xterm*utf8: 1
 XTerm*vt100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
 XTerm.vt100.scrollBar: false
 XTerm.vt100.scrollbar.width: 0
-URxvt*font:xft:Inconsolata:size=12:antialias=true:autohint=true
-URxvt*boldFont:xft:Inconsolata:weight=bold:size=12:antialias=true:autohint=true
-URxvt*scrollBar: false
+URxvt.font:xft:Inconsolata:size=12:antialias=true:autohint=true
+URxvt.boldFont:xft:Inconsolata:weight=bold:size=12:antialias=true:autohint=true
+URxvt.scrollBar: false
 URxvt.perl-ext-common: default,clipboard
 URxvt.allow_bold:true
-URxvt*depth: 32
-URxvt*buffered: true
+URxvt.depth: 32
+URxvt.buffered: true
 URxvt.secondaryScreen: 1
 URxvt.secondaryScroll: 0
 URxvt.secondaryWheel: 1
+URxvt.internalBorder: 10
+URxvt.letterSpace: 1.5
 !*******************************************************************************!
 !                                   Colors
 !*******************************************************************************!
