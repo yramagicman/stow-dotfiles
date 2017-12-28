@@ -75,4 +75,12 @@ echo '' > "$HOME/.config/fetchmail.log"
 echo '' > "$HOME/.config/procmail.log"
 echo '' > "$HOME/.config/msmtp.log"
 echo '' > "$HOME/.mpd/mpdstate"
+
+zypper pa -i | grep 'openSUSE' | cut -d '|' -f 3 | sort -u > bin/setup/default_repos
+
+zypper pa -i | grep 'packman' | cut -d '|' -f 3 | sort -u > bin/setup/packman
+
+zypper pa -i | grep 'dvd' | cut -d '|' -f 3 | sort -u > bin/setup/dvd
+
 exit
+
