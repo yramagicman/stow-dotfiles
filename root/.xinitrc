@@ -59,6 +59,8 @@ setxkbmap -option compose:menu
 setxkbmap -option caps:none
 if stat $HOME/Gits/st/st > /dev/null; then
     export TERMINAL="$HOME/Gits/st/st"
+elif which st > /dev/null; then
+    export TERMINAL=st
 elif which urxvt-256color > /dev/null; then
     export TERMINAL=urxvt-256color
 elif which urxvt > /dev/null; then
