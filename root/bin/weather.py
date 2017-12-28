@@ -30,5 +30,5 @@ except:
         display = display + weather['weather'][0]['main']
         display = display + ' '
 display = display + str(weather['main']['temp'])
-display = display + 'F'
+display = display + 'C'
 print(display)
