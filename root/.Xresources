@@ -9,9 +9,11 @@ xterm*faceName: Inconsolata:size=12:antialias=true
 xter*fontName:xft:Inconsolata:size=12:antialias=true:autohint=true
 xterm*locale: true
 xterm*utf8: 1
-XTerm*vt100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
-XTerm.vt100.scrollBar: false
-XTerm.vt100.scrollbar.width: 0
+XTerm*translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
+XTerm*scrollBar: false
+XTerm*scrollbar.width: 0
+UXTerm*scrollBar: false
+UXTerm*scrollbar.width: 0
 URxvt.font:xft:Inconsolata:size=12:antialias=true:autohint=true
 URxvt.boldFont:xft:Inconsolata:weight=bold:size=12:antialias=true:autohint=true
 URxvt.scrollBar: false

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+zypper pa -i | grep 'openSUSE' | cut -d '|' -f 3 | sort -u > bin/setup/default_repos
+
+zypper pa -i | grep 'packman' | cut -d '|' -f 3 | sort -u > bin/setup/packman
+
+zypper pa -i | grep 'dvd' | cut -d '|' -f 3 | sort -u > bin/setup/dvd
