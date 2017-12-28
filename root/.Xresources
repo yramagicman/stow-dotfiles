@@ -23,7 +23,7 @@ URxvt.secondaryScreen: 1
 URxvt.secondaryScroll: 0
 URxvt.secondaryWheel: 1
 URxvt.internalBorder: 10
-URxvt.letterSpace: 1.5
+URxvt.letterSpace: 1.2
 !*******************************************************************************!
 !                                   Colors
 !*******************************************************************************!
