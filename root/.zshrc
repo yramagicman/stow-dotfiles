@@ -8,7 +8,7 @@ CONFIG_DIR="$HOME/.zsh"
 MODULES_DIR="$HOME/.zsh_modules"
 AUTO_INSTALL=1
 AUTO_UPDATE=1
-UPDATE_INTERVAL=14
+UPDATE_INTERVAL=5
 
 # PACKAGES is an array of either absolute paths to local files or github
 # user/repo/folder paths without leading or trailing slashes. If you want to use
