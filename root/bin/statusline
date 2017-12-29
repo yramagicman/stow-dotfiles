@@ -20,7 +20,13 @@ function my_bat() {
              notify-send "Battery low " "$bat_level remaining"
          fi
     fi
-    echo "B:$bat_level% $bat_stat"
+    if [[ "$bat_stat" == "Discharging" ]]
+    then
+        indicator="\xE2\x86\x93"
+    else
+        indicator="\xE2\x86\x91"
+    fi
+    echo "B:$bat_level% $indicator"
 }
 
 function my_wifi(){
@@ -28,7 +34,7 @@ function my_wifi(){
     ip=$($HOME/bin/tmuxip)
     strength=$(wifi_strength)
     if [[ $ssid = 'hide_yo_kids_hide_yo_wi-fi' ]]; then
-        msg='home'
+        msg="\xe2\x8c\x82"
     else
         msg=$ssid
     fi
@@ -56,22 +62,49 @@ function my_mail() {
 }
 
 function my_weather() {
-    if [[ ! "$(cat "$HOME/.config/weather")" ]];
+    if [[ ! "$(cat "$HOME/.cache/weather")" ]];
     then
-        $HOME/bin/weather.py > $HOME/.config/weather
-        weather=' W:'$(cat $HOME/.config/weather)
+        $HOME/bin/weather.py > $HOME/.cache/weather
+        weather=' W:'$(cat $HOME/.cache/weather)
     fi
-    modified_date=$(stat $HOME/.config/weather | awk '/Modify/ {split($3, arr, ":"); print arr[1]}')
+    modified_date=$(stat $HOME/.cache/weather | awk '/Modify/ {split($3, arr, ":"); print arr[1]}')
     if [[ ! "$(date +"%H" )" -eq $modified_date ]]
     then
-        $HOME/bin/weather.py > $HOME/.config/weather
-        weather=' W:'$(cat $HOME/.config/weather)
+        $HOME/bin/weather.py > $HOME/.cache/weather
+        weather=' W:'$(cat $HOME/.cache/weather)
     else
-        weather=' W:'$(cat $HOME/.config/weather)
+        weather=' W:'$(cat $HOME/.cache/weather)
     fi
     echo $weather
 }
 
+
+function my_update() {
+    if [[ ! -e $HOME/.cache/updates ]];
+    then
+        sudo zypper refresh > $HOME/.cache/update_log
+        zypper lu > $HOME/.cache/updates
+        updates=' U:'$(cat $HOME/.cache/updates | wc -l)
+        notify-send "$(cat $HOME/.cache/update_log)"
+    fi
+    modified_date=$(stat $HOME/.cache/updates | awk '/Modify/ {split($2, arr, "-"); print arr[3]}')
+    if [[ ! "$(date +"%d" )" -eq $modified_date ]]
+    then
+        sudo zypper refresh > .cache/update_log
+        zypper lu > $HOME/.cache/updates
+        notify-send "$(cat $HOME/.cache/update_log)"
+    else
+        sed -e "s/Loading repository data...//g" -i $HOME/.cache/updates
+        sed -e "s/Reading installed packages...//g" -i $HOME/.cache/updates
+        sed -e "s/No updates found.//g" -i $HOME/.cache/updates
+        sed -e "/^$/d" -i $HOME/.cache/updates
+        updates=' U:'$(cat -s $HOME/.cache/updates | wc -l )
+    fi
+    if [[ $( cat $HOME/.cache/updates | wc -l  ) -gt 0 ]]
+    then
+        echo $updates
+    fi
+}
 function my_volume() {
     echo "V:$( amixer -c 0  -- get Master| awk '/Playback [0-9]{0,5} \[[0-9]{0,3}%]/ {print $4 $6}' )"
 }
@@ -85,11 +118,19 @@ function dbox() {
     else
         message="$(echo "$box" | head -n1 )"
     fi
+    if [[ $message == "Up to date" ]]
+    then
+        message="\xe2\x9c\x93"
+    fi
     echo "D:$message"
 }
 
-line="$(my_mail)$(my_weather)"
-
+if [[ "$hn" == "k-nine" && -n $( cat $HOME/.cache/updates ) && -n $( mailmon ) ]]
+then
+    line="$(my_update)$(my_mail)"
+else
+    line="$(my_update)$(my_mail)$(my_weather)"
+fi
 if [[ "$hn" == "k-nine" ]];
 then
 line="$line $(my_bat)"
