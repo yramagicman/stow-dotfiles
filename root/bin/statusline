@@ -97,6 +97,8 @@ function my_update() {
         sed -e "s/Loading repository data...//g" -i $HOME/.cache/updates
         sed -e "s/Reading installed packages...//g" -i $HOME/.cache/updates
         sed -e "s/No updates found.//g" -i $HOME/.cache/updates
+        sed '/--+/d' -i $HOME/.cache/updates
+        sed '/Name/d' -i $HOME/.cache/updates
         sed -e "/^$/d" -i $HOME/.cache/updates
         updates=' U:'$(cat -s $HOME/.cache/updates | wc -l )
     fi
