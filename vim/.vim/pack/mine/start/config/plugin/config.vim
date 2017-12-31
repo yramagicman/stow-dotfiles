@@ -134,7 +134,6 @@ set foldmethod=indent
 set foldcolumn=2
 "}}}
 "{{{ Make tabs as wide as four spaces
-set tabstop=4
 set smarttab
 set smartindent
 set autoindent
@@ -174,20 +173,6 @@ set wildignore+=node_modules,bower_components
 
 "}}}
 "{{{motions
-"{{{ kill arrow keys
-nnoremap <down> <Nop>
-nnoremap <left> <Nop>
-nnoremap <up> <Nop>
-nnoremap <right> <Nop>
-inoremap <right> <Nop>
-inoremap <down> <Nop>
-inoremap <left> <Nop>
-inoremap <up> <Nop>
-vnoremap <left> <Nop>
-vnoremap <down> <Nop>
-vnoremap <right> <Nop>
-vnoremap <up> <Nop>
-"}}}
 "{{{ visual block mode is better that visual mode
 nnoremap v <c-v>
 nnoremap <c-v> v
