@@ -102,7 +102,7 @@ function my_update() {
         sed -e "/^$/d" -i $HOME/.cache/updates
         updates=' U:'$(cat -s $HOME/.cache/updates | wc -l )
     fi
-    if [[ $( cat $HOME/.cache/updates | wc -l  ) -gt 0 ]]
+    if [[ $( cat $HOME/.cache/updates | wc -l  ) -gt 10 ]]
     then
         echo $updates
     fi
