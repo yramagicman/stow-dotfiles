@@ -38,7 +38,7 @@ function my_wifi(){
     else
         msg=$ssid
     fi
-    echo "N:$msg $strength $ip"
+    echo "N:$msg $ip"
 }
 
 function wifi_strength() {
