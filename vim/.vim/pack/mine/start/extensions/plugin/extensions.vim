@@ -26,10 +26,13 @@ augroup extensions
     autocmd FileType vim,css,scss,sass,html,javascript,python,php,c,cpp,typescript,zsh,sh silent! packadd ale | redraw
     autocmd FileType php packadd phpcomplete.vim
     autocmd BufRead *.ts  set filetype=typescript
+    autocmd BufRead *.org  set filetype=org
     autocmd FileType typescript packadd typescript-vim
     autocmd FileType html packadd html5.vim
     autocmd FileType scss packadd Sass
     autocmd FileType scss,css packadd vim-css3-syntax
+    autocmd FileType org packadd vim-speeddating
+    autocmd FileType org packadd vim-orgmode
 augroup end
 "{{{ completion
 "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
