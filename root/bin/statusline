@@ -38,7 +38,7 @@ function my_wifi(){
     else
         msg=$ssid
     fi
-    echo "N:$msg $strength $ip"
+    echo "N:$msg $ip"
 }
 
 function wifi_strength() {
@@ -87,12 +87,11 @@ function my_update() {
         updates=' U:'$(cat $HOME/.cache/updates | wc -l)
         notify-send "$(cat $HOME/.cache/update_log)"
     fi
-    modified_date=$(stat $HOME/.cache/updates | awk '/Modify/ {split($2, arr, "-"); print arr[3]}')
-    if [[ ! "$(date +"%d" )" -eq $modified_date ]]
+    mm=$(stat $HOME/.cache/updates | awk '/Modify/ {split($3, arr, ":"); print arr[2]}')
+    if [[ "$(( $(date +"%H" ) % 3 ))" -eq 0 && "$(date +"%M")" -eq 7 && ! $mm  -eq 7 ]]
     then
-        sudo zypper refresh > .cache/update_log
+        sudo zypper refresh > $HOME/.cache/update_log
         zypper lu > $HOME/.cache/updates
-        notify-send "$(cat $HOME/.cache/update_log)"
     else
         sed -e "s/Loading repository data...//g" -i $HOME/.cache/updates
         sed -e "s/Reading installed packages...//g" -i $HOME/.cache/updates
@@ -102,11 +101,12 @@ function my_update() {
         sed -e "/^$/d" -i $HOME/.cache/updates
         updates=' U:'$(cat -s $HOME/.cache/updates | wc -l )
     fi
-    if [[ $( cat $HOME/.cache/updates | wc -l  ) -gt 0 ]]
+    if [[ $( cat $HOME/.cache/updates | wc -l  ) -gt 10 ]]
     then
         echo $updates
     fi
 }
+
 function my_volume() {
     echo "V:$( amixer -c 0  -- get Master| awk '/Playback [0-9]{0,5} \[[0-9]{0,3}%]/ {print $4 $6}' )"
 }

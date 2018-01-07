@@ -30,6 +30,7 @@ except:
     if hostname == 'geeko':
         display = display + weather['weather'][0]['main']
         display = display + ' '
+
 display = display + str(weather['main']['temp'])
 display = display + 'C '
 display = display + str(imperial['main']['temp']) + 'F'

@@ -50,10 +50,6 @@ nnoremap cl :close<CR>
 inoremap q q
 inoremap qq qq
 "}}}
-"{{{folding
-nnoremap <Leader>z zMzvzz
-nnoremap <Leader><Leader>z zMzOzz
-"}}}
 "{{{ Substitute word under cursor globally
 nnoremap --r :%s/\<<C-r><C-w>\>//g<Left><Left>
 " ask for confirmation
@@ -66,15 +62,8 @@ vnoremap --r y<Esc>:%s/<C-r>"//g<Left><Left>
 " ask for confirmation
 vnoremap -r y<Esc>:%s/<C-r>"//gc<Left><Left><Left>
 "}}}
-"{{{ Make Vim work logically
 "paste in insert mode
 inoremap <leader>p <ESC>pa
-" delete till the beginning of a line
-nnoremap <leader>D d0
-inoremap <leader>D <ESC>d0xi
-"repeat last command
-nnoremap <leader>! @:
-"}}}
 "{{{ Formatting, TextMate-style
 nnoremap Q gqip
 vnoremap Q gq
@@ -159,19 +148,6 @@ noremap <localleader>= <C-w>=
 set splitbelow
 set splitright
 "}}}
-"}}}
-"{{{ Regisers
-let @r = "/returnO,mjo,m"
-let @d = "ddn"
-let @s = "vi["
-let @p = "vi("
-let @c = "vi{"
-let @q = "vi'"
-let @b = 'vi"'
-let @a = "vi<"
-let @u = "dt(,x"
-let @v = '0/\u~hi_, '
-let @q = ':wq'
 "}}}
 "{{{ command line movement mappings
 cnoremap <C-a>  <Home>
