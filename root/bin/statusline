@@ -87,8 +87,8 @@ function my_update() {
         updates=' U:'$(cat $HOME/.cache/updates | wc -l)
         notify-send "$(cat $HOME/.cache/update_log)"
     fi
-    modified_date=$(stat $HOME/.cache/updates | awk '/Modify/ {split($3, arr, ":"); print arr[1]}')
-    if [[ ! "$(date +"%H" )" -eq $modified_date ]]
+    mm=$(stat $HOME/.cache/updates | awk '/Modify/ {split($3, arr, ":"); print arr[2]}')
+    if [[ "$(( $(date +"%H" ) % 3 ))" -eq 0 && "$(date +"%M")" -eq 7 && ! $mm  -eq 7 ]]
     then
         sudo zypper refresh > $HOME/.cache/update_log
         zypper lu > $HOME/.cache/updates
