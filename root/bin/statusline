@@ -83,12 +83,11 @@ function my_update() {
     if [[ ! -e $HOME/.cache/updates ]];
     then
         sudo zypper refresh > $HOME/.cache/update_log
-        zypper lu > $HOME/.cache/updates
         updates=' U:'$(cat $HOME/.cache/updates | wc -l)
         notify-send "$(cat $HOME/.cache/update_log)"
     fi
     mm=$(stat $HOME/.cache/updates | awk '/Modify/ {split($3, arr, ":"); print arr[2]}')
-    if [[ "$(( $(date +"%H" ) % 3 ))" -eq 0 && "$(date +"%M")" -eq 7 && ! $mm  -eq 7 ]]
+    if [[ "$(( $(date +"%H" ) % 2 ))" -eq 0 && "$(date +"%M")" -eq 15 && ! $mm  -eq 15 ]]
     then
         sudo zypper refresh > $HOME/.cache/update_log
         zypper lu > $HOME/.cache/updates
