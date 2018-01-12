@@ -32,6 +32,9 @@ let getSsid = function() {
         exec('nmcli', {}, function(jsrr, out, err) {
             let id = out.split('\n')[0];
             id = id.split(' ');
+            if ( id[3] === 'hide_yo_kids_hide_yo_wi-fi') {
+                id[3] = 'home';
+            }
             ssidEvent.emit('event', id[3]);
             if (err) {
                 console.error(err);

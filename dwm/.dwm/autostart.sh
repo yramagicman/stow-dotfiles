@@ -12,7 +12,7 @@ check_process(){
 ( /home/jonathan/.screenlayout/default.sh) &
 ( nitrogen --restore) &
 
-"$HOME/bin/i3st" &
+node "$HOME/bin/statusline.js" &
 # xsetroot -solid '#082F4E'
 
 xset -dpms; xset s off &
