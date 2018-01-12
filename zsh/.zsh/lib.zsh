@@ -204,7 +204,7 @@ function -check_updates() {
     fi
 }
 
-function zminus() {
+function zmin() {
     if [[ $1 == 'install' ]];
     then
         -download_pkgs
@@ -235,7 +235,6 @@ function zminus() {
         -reload_pkgs
     fi
 }
-alias zmin="zminus"
 if [[ $AUTO_INSTALL ]];
 then
     -download_pkgs > /dev/null
