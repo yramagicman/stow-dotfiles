@@ -32,12 +32,12 @@ let getSsid = function() {
         exec('nmcli', {}, function(jsrr, out, err) {
             let id = out.split('\n')[0];
             id = id.split(' ');
-            if ( id[3] === 'hide_yo_kids_hide_yo_wi-fi') {
+            if (id[3] === 'hide_yo_kids_hide_yo_wi-fi') {
                 id[3] = 'home';
             }
             ssidEvent.emit('event', id[3]);
             if (err) {
-                console.error(err);
+                console.error(`error: ${ err }`);
             }
         });
     }
@@ -47,7 +47,7 @@ let dropboxStatus = function() {
     exec('dropbox status', {}, function(jsrr, out, err) {
         dropboxEvent.emit('event', out.trim());
         if (err) {
-            console.error(err);
+            console.error(`error: ${ err }`);
         }
     });
 };
@@ -59,7 +59,7 @@ let mail = function() {
         exec('mailmon', {}, function(jsrr, out, err) {
             mailEvent.emit('event', out.trim());
             if (err) {
-                console.error(err);
+                console.error(`error: ${ err }`);
             }
         });
     }
@@ -73,7 +73,7 @@ let weather = function() {
         exec('weather.py', {}, function(jsrr, out, err) {
             weatherEvent.emit('event', out.trim());
             if (err) {
-                console.error(err);
+                console.error(`error: ${ err }`);
             }
         });
     }
@@ -81,7 +81,7 @@ let weather = function() {
         exec('weather.py', {}, function(jsrr, out, err) {
             weatherEvent.emit('event', out.trim());
             if (err) {
-                console.error(err);
+                console.error(`error: ${ err }`);
             }
         });
     }
@@ -95,6 +95,13 @@ let network = function() {
         } catch (e) {
             return net.lo[0].address;
         }
+    } else {
+
+        try {
+            return net.enp0s31f6[0].address;
+        } catch (e) {
+            return net.lo[0].address;
+        }
     }
 };
 
@@ -105,7 +112,7 @@ let volume = function() {
         vol = vol[4].split(' ');
         volumeEvent.emit('event', vol[5] + vol[7]);
         if (err) {
-            console.error(err);
+            console.error(`error: ${ err }`);
         }
     });
 };
@@ -144,13 +151,13 @@ let updateRefresh = function() {
             output.push(data);
             writeFile(homedir() + '/.cache/update_log', output.join(''), function(err) {
                 if (err) {
-                    console.error(err);
+                    console.error(`error: ${ err }`);
                 }
             });
         });
 
         refresh.stderr.on('data', function(data) {
-            console.error(data);
+            console.error(`error: ${ data }`);
         });
     }
 };
@@ -179,7 +186,7 @@ let updateCount = function() {
             }
             writeFile(home + '/.cache/node_updates', output.join('\n'), function(err) {
                 if (err) {
-                    console.log(err);
+                    console.error(`error: ${ err }`);
                 }
             });
 
@@ -190,7 +197,7 @@ let updateCount = function() {
         });
 
         refresh.stderr.on('data', function(data) {
-            console.log(data);
+            console.error(`error: ${ data }`);
         });
 
         // refresh.on('close', function(data) {
@@ -204,7 +211,15 @@ let date = function() {
         exec('date +"%d/%m/%Y %I:%M:%S"', {}, function(jsrr, out, err) {
             dateEvent.emit('event', out.trim());
             if (err) {
-                console.log(err);
+                console.error(`error: ${ err }`);
+            }
+        });
+    } else {
+
+        exec('date +"%a %d %b %Y %I:%M:%S"', {}, function(jsrr, out, err) {
+            dateEvent.emit('event', out.trim());
+            if (err) {
+                console.error(`error: ${ err }`);
             }
         });
     }
@@ -253,19 +268,25 @@ setInterval(function() {
     mail();
     weather();
     volume();
-    battery();
+    if (hostname() === 'k-nine') {
+        battery();
+    }
     date();
     let line = ' ';
     line += `${statusLine.mail || ''} `;
-    line += `${statusLine.updateCount || ''}`;
+    line += `${statusLine.updateCount || ''} `;
     line += `W:${statusLine.weather || ''} `;
-    line += `B:${statusLine.batteryLevel || ''} ${statusLine.batteryStat ||''}`;
-    line += ` N:${statusLine.network || ''} D:${statusLine.dropbox || ''} V:${statusLine.volume || ''} ${statusLine.date || ''}`;
-    // console.log(line);
+    if (hostname() === 'k-nine') {
+        line += `B:${statusLine.batteryLevel || ''} ${statusLine.batteryStat ||''} `;
+    }
+    if (statusLine.network) {
+        line += `N:${statusLine.network || ''} `;
+    }
+    line += `D:${statusLine.dropbox || ''} V:${statusLine.volume || ''} ${statusLine.date || ''}`;
 
     let display = spawn('xsetroot', ['-name', line]);
     display.stdout.on('data', () => {});
     display.stderr.on('data', (data) => {
-        console.log(`error: ${ data }`);
+        console.error(`error: ${ data }`);
     });
 }, 1000);
