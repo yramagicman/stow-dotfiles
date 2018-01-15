@@ -19,7 +19,7 @@ if weather['cod'] != 200:
 
 try:
     display = ''
-    if hostname == 'geeko' or __name__ == '__main__':
+    if hostname == 'geeko':
         display = display + weather['weather'][0]['main']
         if weather['weather'][0]['main'] != weather['weather'][1]['main']:
             display = display + ' or '

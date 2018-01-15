@@ -190,7 +190,6 @@ let updateCount = function() {
                 }
             });
 
-
             if (output.length > 10) {
                 updateEvent.emit('event', output.length);
             }
@@ -277,7 +276,7 @@ setInterval(function() {
     line += `${statusLine.updateCount || ''} `;
     line += `W:${statusLine.weather || ''} `;
     if (hostname() === 'k-nine') {
-        line += `B:${statusLine.batteryLevel || ''} ${statusLine.batteryStat ||''} `;
+        line += `B:${statusLine.batteryLevel || ''} ${statusLine.batteryStat || ''} `;
     }
     if (statusLine.network) {
         line += `N:${statusLine.network || ''} `;
