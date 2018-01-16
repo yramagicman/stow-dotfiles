@@ -248,7 +248,7 @@ batteryEvent.on('stat', function(stat) {
 });
 
 updateEvent.on('event', function(count) {
-    statusLine.updateCount = count;
+    statusLine.updateCount = 'U: ' + count;
 });
 
 weatherEvent.on('event', function(weather) {
