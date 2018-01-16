@@ -11,8 +11,11 @@ check_process(){
 
 ( /home/jonathan/.screenlayout/default.sh) &
 ( nitrogen --restore) &
-
-node "$HOME/bin/statusline.js" &
+if test hostname == 'geeko'; then
+    node "$HOME/bin/statusline.js" &
+else
+    "$HOME/bin/i3st" &
+fi
 # xsetroot -solid '#082F4E'
 
 xset -dpms; xset s off &
