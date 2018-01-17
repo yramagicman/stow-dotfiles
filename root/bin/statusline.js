@@ -215,9 +215,6 @@ let updateCount = function() {
             console.error(`error: ${ data }`);
         });
 
-        // refresh.on('close', function(data) {
-        //     console.log(data);
-        // });
     }
 };
 
