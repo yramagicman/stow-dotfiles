@@ -25,6 +25,21 @@ const dateEvent = new MyEmitter();
 
 let statusLine = {};
 
+let updateFile = function() {
+    let home = homedir();
+    try {
+        return lstatSync(home + '/.cache/node_updates');
+    } catch (e) {
+
+        writeFile(home + '/.cache/node_updates', '\n', function(err) {
+            if (err) {
+                console.error(`error: ${ err }`);
+            }
+            return lstatSync(home + '/.cache/node_updates');
+        });
+    }
+};
+
 let getSsid = function() {
     let d = new Date();
     let seconds = d.getSeconds();
@@ -45,7 +60,7 @@ let getSsid = function() {
 
 let dropboxStatus = function() {
     exec('dropbox status', {}, function(jsrr, out, err) {
-        dropboxEvent.emit('event', out.trim());
+        dropboxEvent.emit('event', out.split('\n')[0].trim());
         if (err) {
             console.error(`error: ${ err }`);
         }
@@ -69,39 +84,37 @@ let weather = function() {
     let d = new Date();
     let hour = d.getHours();
     let minute = d.getMinutes();
-    if (hour % 3 === 0 && minute === 5) {
+    let doWeather = function() {
         exec('weather.py', {}, function(jsrr, out, err) {
             weatherEvent.emit('event', out.trim());
             if (err) {
                 console.error(`error: ${ err }`);
             }
         });
+    };
+    if (hour % 3 === 0 && minute === 5) {
+        doWeather();
     }
     if (!statusLine.weather) {
-        exec('weather.py', {}, function(jsrr, out, err) {
-            weatherEvent.emit('event', out.trim());
-            if (err) {
-                console.error(`error: ${ err }`);
-            }
-        });
+        doWeather();
     }
 };
 
 let network = function() {
     let net = networkInterfaces();
-    if (hostname() === 'k-nine') {
+    let getAddr = function(iface) {
+        console.log(net[iface][0].address);
         try {
-            return net.wlp2s0[0].address;
+            return net[iface][0].address;
         } catch (e) {
             return net.lo[0].address;
         }
-    } else {
+    };
 
-        try {
-            return net.enp0s31f6[0].address;
-        } catch (e) {
-            return net.lo[0].address;
-        }
+    if (hostname() === 'k-nine') {
+        return getAddr('wlp2s0');
+    } else {
+        return getAddr('enp0s31f6');
     }
 };
 
@@ -139,8 +152,7 @@ let battery = function() {
 
 let updateRefresh = function() {
     let hour = new Date();
-    let home = homedir();
-    let stat = lstatSync(home + '/.cache/update_log');
+    let stat = updateFile();
     let output = [];
 
     hour = hour.getHours();
@@ -165,7 +177,7 @@ let updateRefresh = function() {
 let updateCount = function() {
     let minute = new Date();
     let home = homedir();
-    let stat = lstatSync(home + '/.cache/node_updates');
+    let stat = updateFile();
     let output = [];
 
     minute = minute.getMinutes();
@@ -176,12 +188,16 @@ let updateCount = function() {
 
             let dontPrint = ['Loading repository data...\n',
                 'Reading installed packages...\n',
-                'No updates found.\n'
+                'No updates found.\n',
+                '\n'
             ];
+            console.log(data.toString());
             if (data.toString() !== '' && !dontPrint.includes(data.toString())) {
                 let d = data.toString().split('\n');
-                d.forEach(function(item) {
-                    output.push(item);
+                d.forEach(function(item, index) {
+                    if (item !== '\n' && item !== '' && index > 1) {
+                        output.push(item);
+                    }
                 });
             }
             writeFile(home + '/.cache/node_updates', output.join('\n'), function(err) {

@@ -11,7 +11,7 @@ check_process(){
 
 ( /home/jonathan/.screenlayout/default.sh) &
 ( nitrogen --restore) &
-if test hostname == 'geeko'; then
+if test "$( hostname )" == 'geeko'; then
     node "$HOME/bin/statusline.js" &
 else
     "$HOME/bin/i3st" &
