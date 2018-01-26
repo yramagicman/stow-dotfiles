@@ -208,6 +208,10 @@ let updateCount = function() {
 
             if (output.length > 10) {
                 updateEvent.emit('event', output.length);
+            } else {
+
+                updateEvent.emit('event', 0);
+
             }
         });
 
