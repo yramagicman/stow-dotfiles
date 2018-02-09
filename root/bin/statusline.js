@@ -49,7 +49,10 @@ let getSsid = function() {
             id = id.split(' ');
             if (id[3] === 'hide_yo_kids_hide_yo_wi-fi') {
                 id[3] = 'home';
+	    } else {
+		id[3] = id[3];
             }
+
             ssidEvent.emit('event', id[3]);
             if (err) {
                 console.error(`error: ${ err }`);
@@ -114,7 +117,7 @@ let network = function() {
     if (hostname() === 'k-nine') {
         return getAddr('wlp2s0');
     } else {
-        return getAddr('enp0s31f6');
+	return getAddr('enp5s0');
     }
 };
 
