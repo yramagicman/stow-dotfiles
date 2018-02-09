@@ -1,0 +1,58 @@
+autoload -Uz compinit promptinit
+compinit
+promptinit
+
+export LS_COLORS='no=00:fi=00:di=01;34:ln=00;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=41;33;01:ex=00;32:*.cmd=00;32:*.exe=01;32:*.com=01;32:*.bat=01;32:*.btm=01;32:*.dll=01;32:*.tar=00;31:*.tbz=00;31:*.tgz=00;31:*.rpm=00;31:*.deb=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.lzma=00;31:*.zip=00;31:*.zoo=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.tb2=00;31:*.tz2=00;31:*.tbz2=00;31:*.xz=00;31:*.avi=01;35:*.bmp=01;35:*.dl=01;35:*.fli=01;35:*.gif=01;35:*.gl=01;35:*.jpg=01;35:*.jpeg=01;35:*.mkv=01;35:*.mng=01;35:*.mov=01;35:*.mp4=01;35:*.mpg=01;35:*.pcx=01;35:*.pbm=01;35:*.pgm=01;35:*.png=01;35:*.ppm=01;35:*.svg=01;35:*.tga=01;35:*.tif=01;35:*.webm=01;35:*.webp=01;35:*.wmv=01;35:*.xbm=01;35:*.xcf=01;35:*.xpm=01;35:*.aiff=00;32:*.ape=00;32:*.au=00;32:*.flac=00;32:*.m4a=00;32:*.mid=00;32:*.mp3=00;32:*.mpc=00;32:*.ogg=00;32:*.voc=00;32:*.wav=00;32:*.wma=00;32:*.wv=00;32:'
+
+# load colors
+autoload -U colors && colors
+
+# The following lines were added by compinstall
+
+setopt COMPLETE_IN_WORD
+# Move cursor to the end of a completed word.
+setopt ALWAYS_TO_END
+# Perform path search even on command names with slashes.
+setopt PATH_DIRS
+# Show completion menu on a successive tab press.
+setopt AUTO_MENU
+# Automatically list choices on ambiguous completion.
+setopt AUTO_LIST
+# If completed parameter is a directory, add a trailing slash.
+setopt AUTO_PARAM_SLASH
+setopt NO_COMPLETE_ALIASES
+# Do not autoselect the first completion entry.
+unsetopt MENU_COMPLETE
+# Disable start/stop characters in shell editor.
+unsetopt FLOW_CONTROL
+
+zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
+zstyle ':completion:*' completions 1
+zstyle ':completion:*' expand prefix suffix
+zstyle ':completion:*' glob 1
+zstyle ':completion:*' ignore-parents parent pwd directory
+zstyle ':completion:*' list-colors $LS_COLORS
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' max-errors 3
+zstyle ':completion:*' menu select
+zstyle ':completion:*' prompt 'Correcting %e'
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' substitute 1
+zstyle ':completion::complete:*' use-cache on
+zstyle ':completion::complete:*' cache-path "$HOME/.zcompcache"
+zstyle :compinstall filename '/home/jonathan/.zshrc'
+zstyle ':completion:*' rehash true
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+
+# End of lines added by compinstall
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt appendhistory autocd notify
+unsetopt beep extendedglob nomatch
+bindkey -e
+# End of lines configured by zsh-newuser-install
+#
+prompt serenity
