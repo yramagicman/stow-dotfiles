@@ -208,6 +208,10 @@ let updateCount = function() {
 
             if (output.length > 10) {
                 updateEvent.emit('event', output.length);
+            } else {
+
+                updateEvent.emit('event', 0);
+
             }
         });
 
@@ -261,7 +265,12 @@ batteryEvent.on('stat', function(stat) {
 });
 
 updateEvent.on('event', function(count) {
-    statusLine.updateCount = 'U: ' + count;
+    if (count > 0 ) {
+        statusLine.updateCount = 'U: ' + count;
+    } else {
+
+        statusLine.updateCount = '';
+    }
 });
 
 weatherEvent.on('event', function(weather) {
