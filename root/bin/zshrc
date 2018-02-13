@@ -1,3 +1,7 @@
+source ~/.zsh_modules/yramagicman/zsh-aliases/init.zsh
+source ~/.zsh_modules/rupa/z/z.sh
+source ~/.zsh_modules/zsh-users/zsh-completions/zsh-completions.plugin.zsh
+
 autoload -Uz compinit promptinit
 compinit
 promptinit
