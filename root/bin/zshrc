@@ -1,6 +1,6 @@
 source ~/.zsh_modules/yramagicman/zsh-aliases/init.zsh
-source ~/.zsh_modules/rupa/z/z.sh
-source ~/.zsh_modules/zsh-users/zsh-completions/zsh-completions.plugin.zsh
+# source ~/.zsh_modules/rupa/z/z.sh
+# source ~/.zsh_modules/zsh-users/zsh-completions/zsh-completions.plugin.zsh
 
 autoload -Uz compinit promptinit
 compinit
@@ -60,3 +60,15 @@ bindkey -e
 # End of lines configured by zsh-newuser-install
 #
 prompt serenity
+
+function z() {
+    source ~/.zsh_modules/rupa/z/z.sh
+    rehash
+    _z $@
+}
+
+#{{{ start tmux,
+if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$SSH_TTY" ]]; then
+    s tmux
+fi
+#}}}
