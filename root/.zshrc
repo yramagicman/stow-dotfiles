@@ -1,3 +1,10 @@
+PROFILE_STARTUP=false
+if [[ "$PROFILE_STARTUP" == true ]]; then
+    # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
+    PS4=$'%D{%M%S%.} %N:%i> '
+    exec 3>&2 2>$HOME/startlog.$$
+    setopt xtrace prompt_subst
+fi
 #{{{ Set default, list packages to load
 
 # Set the root directory for all zsh packages. If a github url is given it will
@@ -49,7 +56,7 @@ PACKAGES+=(
     'marzocchi/zsh-notify'
     )
 #}}}
-source $CONFIG_DIR/lib.zsh
+time source $CONFIG_DIR/lib.zsh
 prompt serenity
 # {{{ lazy load stuff
 if [[ "$TMUX" != '' ]]; then
@@ -126,3 +133,9 @@ if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$SSH_TTY" ]]; then
     s tmux
 fi
 #}}}
+
+
+if [[ "$PROFILE_STARTUP" == true ]]; then
+    unsetopt xtrace
+    exec 2>&3 3>&-
+fi

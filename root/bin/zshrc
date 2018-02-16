@@ -1,6 +1,14 @@
+PROFILE_STARTUP=false
+if [[ "$PROFILE_STARTUP" == true ]]; then
+    # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
+    PS4=$'%D{%M%S%.} %N:%i> '
+    exec 3>&2 2>$HOME/startlog.$$
+    setopt xtrace prompt_subst
+fi
+
 source ~/.zsh_modules/yramagicman/zsh-aliases/init.zsh
-# source ~/.zsh_modules/rupa/z/z.sh
-# source ~/.zsh_modules/zsh-users/zsh-completions/zsh-completions.plugin.zsh
+source ~/.zsh_modules/rupa/z/z.sh
+source ~/.zsh_modules/zsh-users/zsh-completions/zsh-completions.plugin.zsh
 
 autoload -Uz compinit promptinit
 compinit
@@ -72,3 +80,9 @@ if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$SSH_TTY" ]]; then
     s tmux
 fi
 #}}}
+
+
+if [[ "$PROFILE_STARTUP" == true ]]; then
+    unsetopt xtrace
+    exec 2>&3 3>&-
+fi
