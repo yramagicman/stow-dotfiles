@@ -89,7 +89,7 @@ function -build_pkg_cache() {
             -cache_pkg $p
         done
 
-    sort -u  $MODULES_DIR/.plugins > $MODULES_DIR/.plug
+    sort -ur  $MODULES_DIR/.plugins > $MODULES_DIR/.plug
     command mv $MODULES_DIR/.plug $MODULES_DIR/.plugins
 }
 
