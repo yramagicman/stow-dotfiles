@@ -6,9 +6,7 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
     setopt xtrace prompt_subst
 fi
 
-source ~/.zsh_modules/yramagicman/zsh-aliases/init.zsh
-source ~/.zsh_modules/rupa/z/z.sh
-source ~/.zsh_modules/zsh-users/zsh-completions/zsh-completions.plugin.zsh
+fpath=("$HOME/.zsh/" $fpath)
 
 autoload -Uz compinit promptinit
 compinit
@@ -69,18 +67,18 @@ bindkey -e
 #
 prompt serenity
 
-function z() {
-    source ~/.zsh_modules/rupa/z/z.sh
-    rehash
-    _z $@
-}
+source ~/.zsh_modules/rupa/z/z.sh
+source ~/.zsh_modules/zsh-users/zsh-completions/zsh-completions.plugin.zsh
+source ~/.zsh_modules/marzocchi/zsh-notify/notify.plugin.zsh
+source ~/.zsh_modules/srijanshetty/zsh-pandoc-completion/zsh-pandoc-completion.plugin.zsh
+source ~/.zsh_modules/Tarrasch/zsh-autoenv/autoenv.plugin.zsh
+source ~/.zsh_modules/yramagicman/zsh-aliases/init.zsh
 
 #{{{ start tmux,
 if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$SSH_TTY" ]]; then
     s tmux
 fi
 #}}}
-
 
 if [[ "$PROFILE_STARTUP" == true ]]; then
     unsetopt xtrace
