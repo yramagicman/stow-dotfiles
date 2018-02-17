@@ -64,7 +64,7 @@ setopt appendhistory autocd notify
 unsetopt beep extendedglob nomatch
 bindkey -e
 # End of lines configured by zsh-newuser-install
-#
+
 prompt serenity
 
 source ~/.zsh_modules/rupa/z/z.sh
@@ -74,11 +74,9 @@ source ~/.zsh_modules/srijanshetty/zsh-pandoc-completion/zsh-pandoc-completion.p
 source ~/.zsh_modules/Tarrasch/zsh-autoenv/autoenv.plugin.zsh
 source ~/.zsh_modules/yramagicman/zsh-aliases/init.zsh
 
-#{{{ start tmux,
 if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$SSH_TTY" ]]; then
     s tmux
 fi
-#}}}
 
 if [[ "$PROFILE_STARTUP" == true ]]; then
     unsetopt xtrace
