@@ -49,8 +49,8 @@ let getSsid = function() {
             id = id.split(' ');
             if (id[3] === 'hide_yo_kids_hide_yo_wi-fi') {
                 id[3] = 'home';
-	} else {
-	id[3] = id[3];
+    } else {
+    id[3] = id[3];
             }
 
             ssidEvent.emit('event', id[3]);
@@ -125,8 +125,8 @@ let volume = function() {
     let stat;
     stat = exec('amixer -- get Master', {}, function(jsrr, out, err) {
         let vol = out.split('\n');
-	vol = vol[5].split(' ');
-	volumeEvent.emit('event', vol[6] + vol[7]);
+    vol = vol[5].split(' ');
+    volumeEvent.emit('event', vol[6] + vol[7]);
         if (err) {
             console.error(`error: ${ err }`);
         }
