@@ -7,12 +7,21 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
 fi
 
 MODULES_DIR="$HOME/.zsh_modules"
+UPDATE_INTERVAL=5
+
 function source_or_install() {
+
     if [[ -a $1 ]] then;
         source $1
     else
-        git clone "git@github.com:/$2" "$MODULES_DIR/$2"
-        date +'%s' > $MODULES_DIR/.updatetime
+        if [[ ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
+            return
+        fi
+
+        git clone --depth 3 "git@github.com:/$2" "$MODULES_DIR/$2"
+        date +'%s' > "$MODULES_DIR/$2/.updatetime"
+        echo "\n"
+        source $HOME/.zshrc
     fi
 
     if [[ -z $UPDATE_INTERVAL ]];
@@ -20,20 +29,33 @@ function source_or_install() {
         UPDATE_INTERVAL=30
     fi
 
-    if [[ ! -a $MODULES_DIR/.updatetime ]];
+    if [[ ! -a $MODULES_DIR/$2/.updatetime ]];
     then
-        echo 0 > $MODULES_DIR/.updatetime
+        echo 0 > "$MODULES_DIR/$2/.updatetime"
     fi
+
     day=$((24 * 60 * 60 ))
     gap=$(( $UPDATE_INTERVAL * $day ))
-    diff="$(( $(date +'%s') - $(cat $MODULES_DIR/.updatetime ) ))"
+    diff="$(( $(date +'%s') - $(cat $MODULES_DIR/$2/.updatetime) ))"
+
     if [[ $diff -gt $gap ]]; then
-         (
+        (
+            if [[ ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
+                return
+            fi
             echo "$(dirname $1)"
             builtin cd "$(dirname $1 )" && git pull --rebase
             echo "\n"
-         )
+        )
+        date +'%s' > "$MODULES_DIR/$2/.updatetime"
     fi
+}
+
+function force_updates() {
+    (
+        builtin cd $MODULES_DIR
+        find ./ -type f -name '.updatetime' -delete
+    )
 }
 
 source_or_install "$MODULES_DIR/yramagicman/zsh-aliases/init.zsh" yramagicman/zsh-aliases
@@ -166,7 +188,6 @@ bindkey -e
 
 prompt serenity
 
-source_or_install "$MODULES_DIR/rupa/z/z.sh" rupa/z
 source_or_install "$MODULES_DIR/zsh-users/zsh-completions/zsh-completions.plugin.zsh" zsh-users/zsh-completions
 source_or_install "$MODULES_DIR/marzocchi/zsh-notify/notify.plugin.zsh" marzocchi/zsh-notify
 source_or_install "$MODULES_DIR/srijanshetty/zsh-pandoc-completion/zsh-pandoc-completion.plugin.zsh" srijanshetty/zsh-pandoc-completion
@@ -190,6 +211,12 @@ function workon() {
     else
         echo "virtualenvwrapper.sh not at  /usr/bin/virtualenvwrapper.sh"
     fi
+}
+function z() {
+
+    source_or_install "$MODULES_DIR/rupa/z/z.sh" rupa/z
+    _z $@
+
 }
 setopt NO_BEEP
 #}}}
