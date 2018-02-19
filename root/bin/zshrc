@@ -6,16 +6,97 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
     setopt xtrace prompt_subst
 fi
 
-fpath=("$HOME/.zsh/" $fpath)
+MODULES_DIR="$HOME/.zsh_modules"
+function source_or_install() {
+    if [[ -a $1 ]] then;
+        source $1
+    else
+        git clone "git@github.com:/$2" "$MODULES_DIR/$2"
+        date +'%s' > $MODULES_DIR/.updatetime
+    fi
 
+    if [[ -z $UPDATE_INTERVAL ]];
+    then
+        UPDATE_INTERVAL=30
+    fi
+
+    if [[ ! -a $MODULES_DIR/.updatetime ]];
+    then
+        echo 0 > $MODULES_DIR/.updatetime
+    fi
+    day=$((24 * 60 * 60 ))
+    gap=$(( $UPDATE_INTERVAL * $day ))
+    diff="$(( $(date +'%s') - $(cat $MODULES_DIR/.updatetime ) ))"
+    if [[ $diff -gt $gap ]]; then
+         (
+            echo "$(dirname $1)"
+            builtin cd "$(dirname $1 )" && git pull --rebase
+            echo "\n"
+         )
+    fi
+}
+
+source_or_install "$MODULES_DIR/yramagicman/zsh-aliases/init.zsh" yramagicman/zsh-aliases
+
+
+#{{{ Set zsh options for general runtime.
+#
+# Load the prompt system and completion system and initilize them
 autoload -Uz compinit promptinit
 compinit
 promptinit
 
-export LS_COLORS='no=00:fi=00:di=01;34:ln=00;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=41;33;01:ex=00;32:*.cmd=00;32:*.exe=01;32:*.com=01;32:*.bat=01;32:*.btm=01;32:*.dll=01;32:*.tar=00;31:*.tbz=00;31:*.tgz=00;31:*.rpm=00;31:*.deb=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.lzma=00;31:*.zip=00;31:*.zoo=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.tb2=00;31:*.tz2=00;31:*.tbz2=00;31:*.xz=00;31:*.avi=01;35:*.bmp=01;35:*.dl=01;35:*.fli=01;35:*.gif=01;35:*.gl=01;35:*.jpg=01;35:*.jpeg=01;35:*.mkv=01;35:*.mng=01;35:*.mov=01;35:*.mp4=01;35:*.mpg=01;35:*.pcx=01;35:*.pbm=01;35:*.pgm=01;35:*.png=01;35:*.ppm=01;35:*.svg=01;35:*.tga=01;35:*.tif=01;35:*.webm=01;35:*.webp=01;35:*.wmv=01;35:*.xbm=01;35:*.xcf=01;35:*.xpm=01;35:*.aiff=00;32:*.ape=00;32:*.au=00;32:*.flac=00;32:*.m4a=00;32:*.mid=00;32:*.mp3=00;32:*.mpc=00;32:*.ogg=00;32:*.voc=00;32:*.wav=00;32:*.wma=00;32:*.wv=00;32:'
-
 # load colors
 autoload -U colors && colors
+
+# Use case-insensitve globbing.
+unsetopt CASE_GLOB
+
+# Automatically change directory if a directory is entered
+setopt autocd
+setopt extendedglob
+
+#
+# Smart URLs
+#
+
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+
+#
+# General
+#
+
+# Allow brace character class list expansion.
+setopt BRACE_CCL
+# Combine zero-length punctuation characters (accents) with the base character.
+setopt COMBINING_CHARS
+ # Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'.
+setopt RC_QUOTES
+# Don't print a warning message if a mail file has been accessed.
+unsetopt MAIL_WARNING
+
+#
+# Jobs
+#
+# List jobs in the long format by default.
+setopt LONG_LIST_JOBS
+# Attempt to resume existing job before creating a new process.
+setopt AUTO_RESUME
+# Report status of background jobs immediately.
+setopt NOTIFY
+# Don't run all background jobs at a lower priority.
+unsetopt BG_NICE
+# Don't kill jobs on shell exit.
+unsetopt HUP
+# Don't report on jobs when shell exit.
+unsetopt CHECK_JOBS
+
+ #}}}
+
+# {{{ ls colors
+export LS_COLORS='no=00:fi=00:di=01;34:ln=00;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=41;33;01:ex=00;32:*.cmd=00;32:*.exe=01;32:*.com=01;32:*.bat=01;32:*.btm=01;32:*.dll=01;32:*.tar=00;31:*.tbz=00;31:*.tgz=00;31:*.rpm=00;31:*.deb=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.lzma=00;31:*.zip=00;31:*.zoo=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.tb2=00;31:*.tz2=00;31:*.tbz2=00;31:*.xz=00;31:*.avi=01;35:*.bmp=01;35:*.dl=01;35:*.fli=01;35:*.gif=01;35:*.gl=01;35:*.jpg=01;35:*.jpeg=01;35:*.mkv=01;35:*.mng=01;35:*.mov=01;35:*.mp4=01;35:*.mpg=01;35:*.pcx=01;35:*.pbm=01;35:*.pgm=01;35:*.png=01;35:*.ppm=01;35:*.svg=01;35:*.tga=01;35:*.tif=01;35:*.webm=01;35:*.webp=01;35:*.wmv=01;35:*.xbm=01;35:*.xcf=01;35:*.xpm=01;35:*.aiff=00;32:*.ape=00;32:*.au=00;32:*.flac=00;32:*.m4a=00;32:*.mid=00;32:*.mp3=00;32:*.mpc=00;32:*.ogg=00;32:*.voc=00;32:*.wav=00;32:*.wma=00;32:*.wv=00;32:'
+# }}}
 
 # The following lines were added by compinstall
 
@@ -55,28 +136,119 @@ zstyle :compinstall filename '/home/jonathan/.zshrc'
 zstyle ':completion:*' rehash true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
-# End of lines added by compinstall
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
+HISTFILE="$HOME/.zhistory"
 HISTSIZE=1000
 SAVEHIST=1000
-setopt appendhistory autocd notify
+setopt appendhistory notify
 unsetopt beep extendedglob nomatch
+# Treat the '!' character specially during expansion.
+setopt BANG_HIST
+# Write to the history file immediately, not when the shell exits.
+setopt INC_APPEND_HISTORY
+# Share history between all sessions.
+setopt SHARE_HISTORY
+# Expire a duplicate event first when trimming history.
+setopt HIST_EXPIRE_DUPS_FIRST
+# Do not record an event that was just recorded again.
+setopt HIST_IGNORE_DUPS
+# Delete an old recorded event if a new event is a duplicate.
+setopt HIST_IGNORE_ALL_DUPS
+# Do not display a previously found event.
+setopt HIST_FIND_NO_DUPS
+# Do not record an event starting with a space.
+setopt HIST_IGNORE_SPACE
+# Do not write a duplicate event to the history file.
+setopt HIST_SAVE_NO_DUPS
+# Do not execute immediately upon history expansion.
+setopt HIST_VERIFY
+
 bindkey -e
-# End of lines configured by zsh-newuser-install
 
 prompt serenity
 
-source ~/.zsh_modules/rupa/z/z.sh
-source ~/.zsh_modules/zsh-users/zsh-completions/zsh-completions.plugin.zsh
-source ~/.zsh_modules/marzocchi/zsh-notify/notify.plugin.zsh
-source ~/.zsh_modules/srijanshetty/zsh-pandoc-completion/zsh-pandoc-completion.plugin.zsh
-source ~/.zsh_modules/Tarrasch/zsh-autoenv/autoenv.plugin.zsh
-source ~/.zsh_modules/yramagicman/zsh-aliases/init.zsh
+source_or_install "$MODULES_DIR/rupa/z/z.sh" rupa/z
+source_or_install "$MODULES_DIR/zsh-users/zsh-completions/zsh-completions.plugin.zsh" zsh-users/zsh-completions
+source_or_install "$MODULES_DIR/marzocchi/zsh-notify/notify.plugin.zsh" marzocchi/zsh-notify
+source_or_install "$MODULES_DIR/srijanshetty/zsh-pandoc-completion/zsh-pandoc-completion.plugin.zsh" srijanshetty/zsh-pandoc-completion
+source_or_install "$MODULES_DIR/Tarrasch/zsh-autoenv/autoenv.plugin.zsh" Tarrasch/zsh-autoenv
 
+
+# {{{ lazy load stuff
+if [[ "$TMUX" != '' ]]; then
+
+    if [[ -z "$(pgrep tmuxcopy )" ]];
+    then
+        tmuxcopy &
+    fi
+
+fi
+function workon() {
+    echo " working.."
+    if [[ -f $VIRTUALENVWRAPPER_SCRIPT ]] then
+        source $VIRTUALENVWRAPPER_SCRIPT   &> /dev/null
+        workon "$@"
+    else
+        echo "virtualenvwrapper.sh not at  /usr/bin/virtualenvwrapper.sh"
+    fi
+}
+setopt NO_BEEP
+#}}}
+#{{{ key bindings,
+
+# Allow command line editing in an external editor.
+autoload -Uz edit-command-line
+zle -N edit-command-line
+
+bindkey -M emacs "\C-X\C-E" edit-command-line
+
+#}}}
+#{{{ virtualenv stuff
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Sites
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
+#}}}
+#{{{ random user opions
+export XDG_CONFIG_HOME=$HOME/.config
+export BROWSER=firefox
+#}}}
+# {{{cdr, persistent cd
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+DIRSTACKFILE="$HOME/.cache/zsh/dirs"
+
+# make DIRSTACKFILE if it's not there
+if [[ ! -a $DIRSTACKFILE ]]; then
+    mkdir -p $DIRSTACKFILE[0,-5]
+    touch $DIRSTACKFILE
+fi
+
+if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
+    dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
+fi
+chpwd() {
+    print -l $PWD ${(u)dirstack} >>$DIRSTACKFILE
+    d="$(sort -u $DIRSTACKFILE )"
+    echo "$d" > $DIRSTACKFILE
+
+}
+
+DIRSTACKSIZE=20
+
+setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME
+
+# Remove duplicate entries
+setopt PUSHD_IGNORE_DUPS
+
+# This reverts the +/- operators.
+setopt PUSHD_MINUS
+# }}}
+#{{{ start tmux,
 if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$SSH_TTY" ]]; then
     s tmux
 fi
+#}}}
+
 
 if [[ "$PROFILE_STARTUP" == true ]]; then
     unsetopt xtrace

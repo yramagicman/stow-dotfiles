@@ -5,59 +5,174 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
     exec 3>&2 2>$HOME/startlog.$$
     setopt xtrace prompt_subst
 fi
-#{{{ Set default, list packages to load
 
-# Set the root directory for all zsh packages. If a github url is given it will
-# be cloned into this directory. This directory is created automatically when
-# zsh is loaded for the first time. Files that are refereced from disk will be
-# left in place.
-CONFIG_DIR="$HOME/.zsh"
 MODULES_DIR="$HOME/.zsh_modules"
-AUTO_INSTALL=1
-AUTO_UPDATE=1
-UPDATE_INTERVAL=5
+function source_or_install() {
+    if [[ -a $1 ]] then;
+        source $1
+    else
+        git clone "git@github.com:/$2" "$MODULES_DIR/$2"
+        date +'%s' > $MODULES_DIR/.updatetime
+    fi
 
-# PACKAGES is an array of either absolute paths to local files or github
-# user/repo/folder paths without leading or trailing slashes. If you want to use
-# a part of Oh-my-zsh you would set PACKAGES to something like:
-#
-# PACKAGES=( 'robbyrussell/oh-my-zsh/plugins/git' )
-#
-# It is recommended, however that you find stand alone packages if at all
-# possible. Frameworks have internal dependencies that bog down configurations.
-# The packages refereced from github should have a single initilization file in the
-# folder specified by the listed path. In the example above
-# 'robbyrussell/oh-my-zsh/plugins/git' contains git.plugin.zsh that happens to
-# be the entire plugin. The initilization file should be called init.zsh,
-# *.plugin.zsh, *.zsh, or *.sh in that order. init.zsh will be sourced first,
-# followed by pkg_name.plugin.zsh, followed by pkg_name.zsh, then finally
-# pkg_name.sh.
-#
-# The last thing looked for is an absolute path to a local file. If found,
-# this file is sourced directly.
+    if [[ -z $UPDATE_INTERVAL ]];
+    then
+        UPDATE_INTERVAL=30
+    fi
 
-# Set up zsh. Feel free to remove any of these and replace them with your own
-# modules.
-PACKAGES=(
-    $CONFIG_DIR/runtime.zsh
-    $CONFIG_DIR/history.zsh
-    $CONFIG_DIR/completion.zsh
-)
+    if [[ ! -a $MODULES_DIR/.updatetime ]];
+    then
+        echo 0 > $MODULES_DIR/.updatetime
+    fi
+    day=$((24 * 60 * 60 ))
+    gap=$(( $UPDATE_INTERVAL * $day ))
+    diff="$(( $(date +'%s') - $(cat $MODULES_DIR/.updatetime ) ))"
+    if [[ $diff -gt $gap ]]; then
+         (
+            echo "$(dirname $1)"
+            builtin cd "$(dirname $1 )" && git pull --rebase
+            echo "\n"
+         )
+    fi
+}
 
-PACKAGES+=(
-    # Source .zprofile every time to make sure the $PATH variable is correct.
-    $HOME/.zprofile
-    # Load the rest of the plugins.
-    'rupa/z'
-    'zsh-users/zsh-completions'
-    'yramagicman/zsh-aliases'
-    'Tarrasch/zsh-autoenv'
-    'srijanshetty/zsh-pandoc-completion'
-    'marzocchi/zsh-notify'
-    )
-#}}}
-source $CONFIG_DIR/lib.zsh
+source_or_install "$MODULES_DIR/yramagicman/zsh-aliases/init.zsh" yramagicman/zsh-aliases
+
+
+#{{{ Set zsh options for general runtime.
+#
+# Load the prompt system and completion system and initilize them
+autoload -Uz compinit promptinit
+compinit
+promptinit
+
+# load colors
+autoload -U colors && colors
+
+# Use case-insensitve globbing.
+unsetopt CASE_GLOB
+
+# Automatically change directory if a directory is entered
+setopt autocd
+setopt extendedglob
+
+#
+# Smart URLs
+#
+
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+
+#
+# General
+#
+
+# Allow brace character class list expansion.
+setopt BRACE_CCL
+# Combine zero-length punctuation characters (accents) with the base character.
+setopt COMBINING_CHARS
+ # Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'.
+setopt RC_QUOTES
+# Don't print a warning message if a mail file has been accessed.
+unsetopt MAIL_WARNING
+
+#
+# Jobs
+#
+# List jobs in the long format by default.
+setopt LONG_LIST_JOBS
+# Attempt to resume existing job before creating a new process.
+setopt AUTO_RESUME
+# Report status of background jobs immediately.
+setopt NOTIFY
+# Don't run all background jobs at a lower priority.
+unsetopt BG_NICE
+# Don't kill jobs on shell exit.
+unsetopt HUP
+# Don't report on jobs when shell exit.
+unsetopt CHECK_JOBS
+
+ #}}}
+
+# {{{ ls colors
+export LS_COLORS='no=00:fi=00:di=01;34:ln=00;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=41;33;01:ex=00;32:*.cmd=00;32:*.exe=01;32:*.com=01;32:*.bat=01;32:*.btm=01;32:*.dll=01;32:*.tar=00;31:*.tbz=00;31:*.tgz=00;31:*.rpm=00;31:*.deb=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.lzma=00;31:*.zip=00;31:*.zoo=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.tb2=00;31:*.tz2=00;31:*.tbz2=00;31:*.xz=00;31:*.avi=01;35:*.bmp=01;35:*.dl=01;35:*.fli=01;35:*.gif=01;35:*.gl=01;35:*.jpg=01;35:*.jpeg=01;35:*.mkv=01;35:*.mng=01;35:*.mov=01;35:*.mp4=01;35:*.mpg=01;35:*.pcx=01;35:*.pbm=01;35:*.pgm=01;35:*.png=01;35:*.ppm=01;35:*.svg=01;35:*.tga=01;35:*.tif=01;35:*.webm=01;35:*.webp=01;35:*.wmv=01;35:*.xbm=01;35:*.xcf=01;35:*.xpm=01;35:*.aiff=00;32:*.ape=00;32:*.au=00;32:*.flac=00;32:*.m4a=00;32:*.mid=00;32:*.mp3=00;32:*.mpc=00;32:*.ogg=00;32:*.voc=00;32:*.wav=00;32:*.wma=00;32:*.wv=00;32:'
+# }}}
+
+# The following lines were added by compinstall
+
+setopt COMPLETE_IN_WORD
+# Move cursor to the end of a completed word.
+setopt ALWAYS_TO_END
+# Perform path search even on command names with slashes.
+setopt PATH_DIRS
+# Show completion menu on a successive tab press.
+setopt AUTO_MENU
+# Automatically list choices on ambiguous completion.
+setopt AUTO_LIST
+# If completed parameter is a directory, add a trailing slash.
+setopt AUTO_PARAM_SLASH
+setopt NO_COMPLETE_ALIASES
+# Do not autoselect the first completion entry.
+unsetopt MENU_COMPLETE
+# Disable start/stop characters in shell editor.
+unsetopt FLOW_CONTROL
+
+zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
+zstyle ':completion:*' completions 1
+zstyle ':completion:*' expand prefix suffix
+zstyle ':completion:*' glob 1
+zstyle ':completion:*' ignore-parents parent pwd directory
+zstyle ':completion:*' list-colors $LS_COLORS
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' max-errors 3
+zstyle ':completion:*' menu select
+zstyle ':completion:*' prompt 'Correcting %e'
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' substitute 1
+zstyle ':completion::complete:*' use-cache on
+zstyle ':completion::complete:*' cache-path "$HOME/.zcompcache"
+zstyle :compinstall filename '/home/jonathan/.zshrc'
+zstyle ':completion:*' rehash true
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+
+HISTFILE="$HOME/.zhistory"
+HISTSIZE=1000
+SAVEHIST=1000
+setopt appendhistory notify
+unsetopt beep extendedglob nomatch
+# Treat the '!' character specially during expansion.
+setopt BANG_HIST
+# Write to the history file immediately, not when the shell exits.
+setopt INC_APPEND_HISTORY
+# Share history between all sessions.
+setopt SHARE_HISTORY
+# Expire a duplicate event first when trimming history.
+setopt HIST_EXPIRE_DUPS_FIRST
+# Do not record an event that was just recorded again.
+setopt HIST_IGNORE_DUPS
+# Delete an old recorded event if a new event is a duplicate.
+setopt HIST_IGNORE_ALL_DUPS
+# Do not display a previously found event.
+setopt HIST_FIND_NO_DUPS
+# Do not record an event starting with a space.
+setopt HIST_IGNORE_SPACE
+# Do not write a duplicate event to the history file.
+setopt HIST_SAVE_NO_DUPS
+# Do not execute immediately upon history expansion.
+setopt HIST_VERIFY
+
+bindkey -e
+
 prompt serenity
+
+source_or_install "$MODULES_DIR/rupa/z/z.sh" rupa/z
+source_or_install "$MODULES_DIR/zsh-users/zsh-completions/zsh-completions.plugin.zsh" zsh-users/zsh-completions
+source_or_install "$MODULES_DIR/marzocchi/zsh-notify/notify.plugin.zsh" marzocchi/zsh-notify
+source_or_install "$MODULES_DIR/srijanshetty/zsh-pandoc-completion/zsh-pandoc-completion.plugin.zsh" srijanshetty/zsh-pandoc-completion
+source_or_install "$MODULES_DIR/Tarrasch/zsh-autoenv/autoenv.plugin.zsh" Tarrasch/zsh-autoenv
+
+
 # {{{ lazy load stuff
 if [[ "$TMUX" != '' ]]; then
 
