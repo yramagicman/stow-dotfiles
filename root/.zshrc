@@ -7,7 +7,7 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
     setopt xtrace prompt_subst
 fi
 #}}}
-# {{{ install functions
+#{{{ install functions
 MODULES_DIR="$HOME/.zsh_modules"
 UPDATE_INTERVAL=5
 function source_or_install() {
@@ -126,7 +126,7 @@ unsetopt CHECK_JOBS
 # use emacs bindings
 bindkey -e
 
- #}}}
+#}}}
 #{{{ completion
 # The following lines were added by compinstall
 
@@ -165,7 +165,6 @@ zstyle ':completion::complete:*' cache-path "$HOME/.zcompcache"
 zstyle :compinstall filename '/home/jonathan/.zshrc'
 zstyle ':completion:*' rehash true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-
 # }}}
 #{{{ history
 HISTFILE="$HOME/.zhistory"
@@ -234,7 +233,6 @@ function z() {
 setopt NO_BEEP
 #}}}
 #{{{ key bindings,
-
 # Allow command line editing in an external editor.
 autoload -Uz edit-command-line
 zle -N edit-command-line
