@@ -19,12 +19,12 @@ function source_or_install() {
         fi
 
         git clone --depth 3 "git@github.com:/$2" "$MODULES_DIR/$2"
-        date +'%s' > "$MODULES_DIR/$2/.updatetime"
         find $MODULES_DIR -type d -delete 2>/dev/null
         if [[ ! -d $MODULES_DIR/$split[1]/$split[2]  ]]; then
             echo "nothing cloned; trying https"
             git clone --depth 3 "https://github.com/yramagicman/$2" "$MODULES_DIR/$2"
         fi
+        date +'%s' > "$MODULES_DIR/$2/.updatetime"
         echo "\n"
         source $HOME/.zshrc
     fi
