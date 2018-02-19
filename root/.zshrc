@@ -146,6 +146,10 @@ setopt NO_COMPLETE_ALIASES
 unsetopt MENU_COMPLETE
 # Disable start/stop characters in shell editor.
 unsetopt FLOW_CONTROL
+# command auto-correction
+setopt correct
+# argument auto-correction
+setopt correctall
 
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' completions 1
