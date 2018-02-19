@@ -16,6 +16,8 @@ function source_or_install() {
         source $1
     else
         if [[ ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
+            echo "NO NETWORK"
+            tput bel
             return
         fi
 
