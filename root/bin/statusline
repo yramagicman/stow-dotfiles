@@ -83,6 +83,7 @@ function my_update() {
     if [[ ! -e $HOME/.cache/updates ]];
     then
         sudo zypper refresh > $HOME/.cache/update_log
+        zypper lu > $HOME/.cache/updates
         updates=' U:'$(cat $HOME/.cache/updates | wc -l)
         notify-send "$(cat $HOME/.cache/update_log)"
     fi
