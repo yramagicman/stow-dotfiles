@@ -5,7 +5,7 @@ if ! type "stow" > /dev/null; then
     return
 fi
 
-for f in $(find ./ -maxdepth 1 -type d | grep -Ev '.git$|config' | cut -d '/' -f 2 )
+for f in $(find ./ -maxdepth 1 -type d | grep -Ev '.git$|config|zsh' | cut -d '/' -f 2 )
     stow -R $f -t ~/
 
 stow -R config -t ~/.config
