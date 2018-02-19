@@ -20,7 +20,7 @@ function source_or_install() {
 
         git clone --depth 3 "git@github.com:/$2" "$MODULES_DIR/$2"
         find $MODULES_DIR -type d -delete 2>/dev/null
-        if [[ ! -d $MODULES_DIR/$split[1]/$split[2]  ]]; then
+        if [[ ! -d $MODULES_DIR/$2  ]]; then
             echo "nothing cloned; trying https"
             git clone --depth 3 "https://github.com/$2" "$MODULES_DIR/$2"
         fi
