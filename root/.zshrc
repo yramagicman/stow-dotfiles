@@ -10,6 +10,7 @@ fi
 #{{{ install functions
 MODULES_DIR="$HOME/.zsh_modules"
 UPDATE_INTERVAL=5
+
 function source_or_install() {
 
     if [[ -a $1 ]] then;
@@ -49,6 +50,8 @@ function source_or_install() {
     if [[ $diff -gt $gap ]]; then
         (
             if [[ ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
+		echo "NO NETWORK"
+		tput bel
                 return
             fi
             echo "$( dirname $1)"
@@ -63,9 +66,10 @@ function force_updates() {
     (
         builtin cd $MODULES_DIR
         find ./ -type f -name '.updatetime' -delete
+	source $HOME/.zshrc
     )
 }
-# }}}
+#}}}
 #{{{ The base package, containing all the essentials, including my prompt
 source_or_install "$MODULES_DIR/yramagicman/zsh-aliases/init.zsh" yramagicman/zsh-aliases
 #}}}
@@ -127,7 +131,6 @@ unsetopt CHECK_JOBS
 
 # use emacs bindings
 bindkey -e
-
 #}}}
 #{{{ completion
 # The following lines were added by compinstall
@@ -212,7 +215,7 @@ source_or_install "$MODULES_DIR/marzocchi/zsh-notify/notify.plugin.zsh" marzocch
 source_or_install "$MODULES_DIR/srijanshetty/zsh-pandoc-completion/zsh-pandoc-completion.plugin.zsh" srijanshetty/zsh-pandoc-completion
 source_or_install "$MODULES_DIR/Tarrasch/zsh-autoenv/autoenv.plugin.zsh" Tarrasch/zsh-autoenv
 #}}}
-# {{{ lazy load stuff
+#{{{ lazy load stuff
 if [[ "$TMUX" != '' ]]; then
 
     if [[ -z "$(pgrep tmuxcopy )" ]];
@@ -221,6 +224,7 @@ if [[ "$TMUX" != '' ]]; then
     fi
 
 fi
+
 function workon() {
     echo " working.."
     if [[ -f $VIRTUALENVWRAPPER_SCRIPT ]] then
@@ -230,12 +234,12 @@ function workon() {
         echo "virtualenvwrapper.sh not at  /usr/bin/virtualenvwrapper.sh"
     fi
 }
-function z() {
 
+function z() {
     source_or_install "$MODULES_DIR/rupa/z/z.sh" rupa/z
     _z $@
-
 }
+
 function artisan() {
     source_or_install "$MODULES_DIR/crazybooot/laravel-zsh-plugin/laravel-artisan.plugin.zsh" crazybooot/laravel-zsh-plugin
     php artisan $*
@@ -248,7 +252,6 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 
 bindkey -M emacs "\C-X\C-E" edit-command-line
-
 #}}}
 #{{{ virtualenv stuff
 export WORKON_HOME=$HOME/.virtualenvs
@@ -260,7 +263,7 @@ export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
 export XDG_CONFIG_HOME=$HOME/.config
 export BROWSER=firefox
 #}}}
-# {{{cdr, persistent cd
+#{{{cdr, persistent cd
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
 DIRSTACKFILE="$HOME/.cache/zsh/dirs"
@@ -274,6 +277,7 @@ fi
 if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
     dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
 fi
+
 chpwd() {
     print -l $PWD ${(u)dirstack} >>$DIRSTACKFILE
     d="$(sort -u $DIRSTACKFILE )"
@@ -290,7 +294,24 @@ setopt PUSHD_IGNORE_DUPS
 
 # This reverts the +/- operators.
 setopt PUSHD_MINUS
-# }}}
+
+#}}}
+#{{{ auto-ls after cd
+function auto-ls-after-cd() {
+    emulate -L zsh
+    # Only in response to a user-initiated `cd`, not indirectly (eg. via another
+    # function).
+    if [ "$ZSH_EVAL_CONTEXT" = "toplevel:shfunc" ]; then
+	if [[ $(git rev-parse --show-toplevel 2>/dev/null) && $* == '' ]]; then
+	    cd $(git rev-parse --show-toplevel)
+	elif [[ $(cat $VIRTUAL_ENV/.project 2>/dev/null) && $@ == '' ]]; then
+	    builtin cd $(cat $VIRTUAL_ENV/.project) && ls -F ${colorflag}
+	fi
+	ls
+    fi
+}
+add-zsh-hook chpwd auto-ls-after-cd
+#}}}
 #{{{ start tmux,
 if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$SSH_TTY" ]]; then
     s tmux
