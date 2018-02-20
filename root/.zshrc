@@ -10,7 +10,7 @@ fi
 #{{{ install functions
 MODULES_DIR="$HOME/.zsh_modules"
 UPDATE_INTERVAL=5
-function net_test() {
+function _net_test() {
         if [[ -a $HOME/.network_down && ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
             touch ~/.network_down
             return 1
@@ -32,7 +32,7 @@ function source_or_install() {
     if [[ -a $1 ]] then;
         source $1
     else
-        net_test
+        _net_test
         if [[ $? -eq 1 ]]; then
             return
         fi
@@ -63,9 +63,8 @@ function source_or_install() {
 
     if [[ $diff -gt $gap ]]; then
         (
-            if [[ ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
-        echo "NO NETWORK"
-        tput bel
+            _net_test
+            if [[ $? -eq 1 ]]; then
                 return
             fi
             echo "$( dirname $1)"
