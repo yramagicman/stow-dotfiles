@@ -10,18 +10,32 @@ fi
 #{{{ install functions
 MODULES_DIR="$HOME/.zsh_modules"
 UPDATE_INTERVAL=5
-
+function net_test() {
+        if [[ -a $HOME/.network_down && ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
+            touch ~/.network_down
+            return 1
+        elif [[ ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
+            echo "NO NETWORK"
+            tput bel
+            touch ~/.network_down
+            return 1
+        elif [[ $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
+            command rm $HOME/.network_down 2>/dev/null
+            return 0
+        else
+            command rm $HOME/.network_down 2>/dev/null
+            return 0
+        fi
+}
 function source_or_install() {
 
     if [[ -a $1 ]] then;
         source $1
     else
-        if [[ ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
-            echo "NO NETWORK"
-            tput bel
+        net_test
+        if [[ $? -eq 1 ]]; then
             return
         fi
-
         git clone --depth 3 "git@github.com:/$2" "$MODULES_DIR/$2"
         find $MODULES_DIR -type d -delete 2>/dev/null
         if [[ ! -d $MODULES_DIR/$2  ]]; then
@@ -48,16 +62,13 @@ function source_or_install() {
     diff="$(( $(date +'%s') - $(cat $MODULES_DIR/$2/.updatetime) ))"
 
     if [[ $diff -gt $gap ]]; then
-        (
-            if [[ ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
-        echo "NO NETWORK"
-        tput bel
-                return
-            fi
-            echo "$( dirname $1)"
-            builtin cd "$( dirname $1 )" && git pull --rebase
-            echo "\n"
-        )
+        ( net_test
+         if [[ $? -eq 1 ]]; then
+            return
+          fi
+          echo "$( dirname $1)"
+          builtin cd "$( dirname $1 )" && git pull --rebase
+          echo "\n" )
         date +'%s' > "$MODULES_DIR/$2/.updatetime"
     fi
 }
