@@ -27,25 +27,7 @@ function _net_test() {
             return 0
         fi
 }
-function source_or_install() {
-
-    if [[ -a $1 ]] then;
-        source $1
-    else
-        _net_test
-        if [[ $? -eq 1 ]]; then
-            return
-        fi
-        git clone --depth 3 "git@github.com:/$2" "$MODULES_DIR/$2"
-        find $MODULES_DIR -type d -delete 2>/dev/null
-        if [[ ! -d $MODULES_DIR/$2  ]]; then
-            echo "nothing cloned; trying https"
-            git clone --depth 3 "https://github.com/$2" "$MODULES_DIR/$2"
-        fi
-        date +'%s' > "$MODULES_DIR/$2/.updatetime"
-        echo "\n"
-        source $HOME/.zshrc
-    fi
+function _update() {
 
     if [[ -z $UPDATE_INTERVAL ]];
     then
@@ -75,11 +57,33 @@ function source_or_install() {
     fi
 }
 
+function source_or_install() {
+
+    if [[ -a $1 ]] then;
+        source $1
+    else
+        _net_test
+        if [[ $? -eq 1 ]]; then
+            return
+        fi
+        git clone --depth 3 "git@github.com:/$2" "$MODULES_DIR/$2"
+        find $MODULES_DIR -type d -delete 2>/dev/null
+        if [[ ! -d $MODULES_DIR/$2  ]]; then
+            echo "nothing cloned; trying https"
+            git clone --depth 3 "https://github.com/$2" "$MODULES_DIR/$2"
+        fi
+        date +'%s' > "$MODULES_DIR/$2/.updatetime"
+        echo "\n"
+        source $HOME/.zshrc
+    fi
+    _update $1 $2
+}
+
 function force_updates() {
     (
         builtin cd $MODULES_DIR
         find ./ -type f -name '.updatetime' -delete
-    source $HOME/.zshrc
+        source $HOME/.zshrc
     )
 }
 #}}}
