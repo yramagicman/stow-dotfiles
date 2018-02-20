@@ -50,8 +50,8 @@ function source_or_install() {
     if [[ $diff -gt $gap ]]; then
         (
             if [[ ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
-		echo "NO NETWORK"
-		tput bel
+        echo "NO NETWORK"
+        tput bel
                 return
             fi
             echo "$( dirname $1)"
@@ -66,7 +66,7 @@ function force_updates() {
     (
         builtin cd $MODULES_DIR
         find ./ -type f -name '.updatetime' -delete
-	source $HOME/.zshrc
+    source $HOME/.zshrc
     )
 }
 #}}}
@@ -302,12 +302,12 @@ function auto-ls-after-cd() {
     # Only in response to a user-initiated `cd`, not indirectly (eg. via another
     # function).
     if [ "$ZSH_EVAL_CONTEXT" = "toplevel:shfunc" ]; then
-	if [[ $(git rev-parse --show-toplevel 2>/dev/null) && $* == '' ]]; then
-	    cd $(git rev-parse --show-toplevel)
-	elif [[ $(cat $VIRTUAL_ENV/.project 2>/dev/null) && $@ == '' ]]; then
-	    builtin cd $(cat $VIRTUAL_ENV/.project) && ls -F ${colorflag}
-	fi
-	ls
+    if [[ $(git rev-parse --show-toplevel 2>/dev/null) && $* == '' ]]; then
+        cd $(git rev-parse --show-toplevel)
+    elif [[ $(cat $VIRTUAL_ENV/.project 2>/dev/null) && $@ == '' ]]; then
+        builtin cd $(cat $VIRTUAL_ENV/.project) && ls -F ${colorflag}
+    fi
+    ls
     fi
 }
 add-zsh-hook chpwd auto-ls-after-cd
