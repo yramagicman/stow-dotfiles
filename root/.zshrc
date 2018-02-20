@@ -10,18 +10,32 @@ fi
 #{{{ install functions
 MODULES_DIR="$HOME/.zsh_modules"
 UPDATE_INTERVAL=5
-
+function net_test() {
+        if [[ -a $HOME/.network_down && ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
+            touch ~/.network_down
+            return 1
+        elif [[ ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
+            echo "NO NETWORK"
+            tput bel
+            touch ~/.network_down
+            return 1
+        elif [[ $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
+            command rm $HOME/.network_down 2>/dev/null
+            return 0
+        else
+            command rm $HOME/.network_down 2>/dev/null
+            return 0
+        fi
+}
 function source_or_install() {
 
     if [[ -a $1 ]] then;
         source $1
     else
-        if [[ ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
-            echo "NO NETWORK"
-            tput bel
+        net_test
+        if [[ $? -eq 1 ]]; then
             return
         fi
-
         git clone --depth 3 "git@github.com:/$2" "$MODULES_DIR/$2"
         find $MODULES_DIR -type d -delete 2>/dev/null
         if [[ ! -d $MODULES_DIR/$2  ]]; then
@@ -206,7 +220,7 @@ setopt HIST_VERIFY
 if [[ $(  prompt -l | grep serenity  ) ]]; then
     prompt serenity
 else
-    prompt bart
+    prompt adam2
 fi
 #}}}
 #{{{ grab the rest of the packages
@@ -302,12 +316,12 @@ function auto-ls-after-cd() {
     # Only in response to a user-initiated `cd`, not indirectly (eg. via another
     # function).
     if [ "$ZSH_EVAL_CONTEXT" = "toplevel:shfunc" ]; then
-    if [[ $(git rev-parse --show-toplevel 2>/dev/null) && $* == '' ]]; then
-        cd $(git rev-parse --show-toplevel)
-    elif [[ $(cat $VIRTUAL_ENV/.project 2>/dev/null) && $@ == '' ]]; then
-        builtin cd $(cat $VIRTUAL_ENV/.project) && ls -F ${colorflag}
-    fi
-    ls
+        if [[ $(git rev-parse --show-toplevel 2>/dev/null) && $* == '' ]]; then
+            cd $(git rev-parse --show-toplevel)
+        elif [[ $(cat $VIRTUAL_ENV/.project 2>/dev/null) && $@ == '' ]]; then
+            builtin cd $(cat $VIRTUAL_ENV/.project)
+        fi
+        ls
     fi
 }
 add-zsh-hook chpwd auto-ls-after-cd
