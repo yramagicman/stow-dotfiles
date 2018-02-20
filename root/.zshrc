@@ -11,21 +11,21 @@ fi
 MODULES_DIR="$HOME/.zsh_modules"
 UPDATE_INTERVAL=5
 function _net_test() {
-        if [[ -a $HOME/.network_down && ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
-            touch ~/.network_down
-            return 1
-        elif [[ ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
-            echo "NO NETWORK"
-            tput bel
-            touch ~/.network_down
-            return 1
-        elif [[ $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
-            command rm $HOME/.network_down 2>/dev/null
-            return 0
-        else
-            command rm $HOME/.network_down 2>/dev/null
-            return 0
-        fi
+    if [[ -a $HOME/.network_down && ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
+        touch ~/.network_down
+        return 1
+    elif [[ ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
+        echo "NO NETWORK"
+        tput bel
+        touch ~/.network_down
+        return 1
+    elif [[ $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
+        command rm $HOME/.network_down 2>/dev/null
+        return 0
+    else
+        command rm $HOME/.network_down 2>/dev/null
+        return 0
+    fi
 }
 function _update() {
 
@@ -45,13 +45,13 @@ function _update() {
 
     if [[ $diff -gt $gap ]]; then
         (
-            _net_test
-            if [[ $? -eq 1 ]]; then
-                return
-            fi
-            echo "$( dirname $1)"
-            builtin cd "$( dirname $1 )" && git pull --rebase
-            echo "\n"
+        _net_test
+        if [[ $? -eq 1 ]]; then
+            return
+        fi
+        echo "$( dirname $1)"
+        builtin cd "$( dirname $1 )" && git pull --rebase
+        echo "\n"
         )
         date +'%s' > "$MODULES_DIR/$2/.updatetime"
     fi
@@ -81,9 +81,9 @@ function source_or_install() {
 
 function force_updates() {
     (
-        builtin cd $MODULES_DIR
-        find ./ -type f -name '.updatetime' -delete
-        source $HOME/.zshrc
+    builtin cd $MODULES_DIR
+    find ./ -type f -name '.updatetime' -delete
+    source $HOME/.zshrc
     )
 }
 #}}}
