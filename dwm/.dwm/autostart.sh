@@ -10,6 +10,12 @@ check_process(){
 }
 
 ( /home/jonathan/.screenlayout/default.sh) &
+if test "$( hostname )" == 'serenity'; then
+    if test "$(xrandr | awk '/HDMI-1/ {print $2}' )" == 'connected'; then
+
+        ( /home/jonathan/.screenlayout/work.sh ) &
+    fi
+fi
 ( nitrogen --restore) &
 if test "$( hostname )" == 'geeko'; then
     node "$HOME/bin/statusline.js" &

@@ -47,6 +47,7 @@ typeset -gU cdpath fpath mailpath path
 path=(
   $HOME/bin
   $HOME/.gem/ruby/2.4.0/bin
+  $HOME/.config/composer/vendor/bin
   /usr/local/{bin,sbin}
   $path
 )

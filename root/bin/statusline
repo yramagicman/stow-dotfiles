@@ -133,7 +133,7 @@ then
 else
     line="$(my_update)$(my_mail)$(my_weather)"
 fi
-if [[ "$hn" == "k-nine" ]];
+if [[ "$hn" == "k-nine" || "$hn" == "serenity" ]];
 then
 line="$line $(my_bat)"
 fi

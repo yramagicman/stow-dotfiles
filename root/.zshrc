@@ -318,11 +318,11 @@ function auto-ls-after-cd() {
     # Only in response to a user-initiated `cd`, not indirectly (eg. via another
     # function).
     if [ "$ZSH_EVAL_CONTEXT" = "toplevel:shfunc" ]; then
-        if [[ $(git rev-parse --show-toplevel 2>/dev/null) && $* == '' ]]; then
-            cd $(git rev-parse --show-toplevel)
-        elif [[ $(cat $VIRTUAL_ENV/.project 2>/dev/null) && $@ == '' ]]; then
-            builtin cd $(cat $VIRTUAL_ENV/.project)
-        fi
+        # if [[ $(git rev-parse --show-toplevel 2>/dev/null) && $* == '' ]]; then
+        #     cd $(git rev-parse --show-toplevel)
+        # elif [[ $(cat $VIRTUAL_ENV/.project 2>/dev/null) && $@ == '' ]]; then
+        #     builtin cd $(cat $VIRTUAL_ENV/.project)
+        # fi
         ls
     fi
 }
