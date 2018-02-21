@@ -11,19 +11,20 @@ fi
 MODULES_DIR="$HOME/.zsh_modules"
 UPDATE_INTERVAL=5
 function _net_test() {
-    if [[ -a $HOME/.network_down && ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
-        touch ~/.network_down
+    netflag="/tmp/network_down"
+    touch $netflag
+    if [[ $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
+        command rm $netflag >/dev/null
+        return 0
+    elif [[ -a $netflag ]]; then
         return 1
     elif [[ ! $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
         echo "NO NETWORK"
         tput bel
-        touch ~/.network_down
+        touch $netflag
         return 1
-    elif [[ $(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')  -eq 3 ]]; then
-        command rm $HOME/.network_down 2>/dev/null
-        return 0
     else
-        command rm $HOME/.network_down 2>/dev/null
+        command rm $netflag >/dev/null
         return 0
     fi
 }
@@ -328,9 +329,9 @@ function auto-ls-after-cd() {
 add-zsh-hook chpwd auto-ls-after-cd
 #}}}
 #{{{ start tmux,
-if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$SSH_TTY" ]]; then
-    s tmux
-fi
+# if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$SSH_TTY" ]]; then
+#     s tmux
+# fi
 #}}}
 #{{{ end profiling script
 if [[ "$PROFILE_STARTUP" == true ]]; then

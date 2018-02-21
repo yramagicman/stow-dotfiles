@@ -24,8 +24,8 @@ URxvt.buffered: true
 URxvt.secondaryScreen: 1
 URxvt.secondaryScroll: 0
 URxvt.secondaryWheel: 1
-URxvt.internalBorder: 10
-URxvt.letterSpace: 1.2
+URxvt.internalBorder: 3
+! URxvt.letterSpace: 1.2
 !*******************************************************************************!
 !                                   Colors
 !*******************************************************************************!
