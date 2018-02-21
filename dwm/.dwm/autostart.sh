@@ -56,9 +56,9 @@ echo "" > "$HOME/.xsession-errors"
 if ! stat "$HOME/.xsession-errors.old" > /dev/null; then
     rm "$HOME/.xsession-errors.old"
 fi
-if ! stat "$HOME/Gits/st/st" > /dev/null; then
-    notify-send -u critical "st not intsalled in $HOME/Gits/st"
-fi
+# if ! stat "$HOME/Gits/st/st" > /dev/null; then
+#     notify-send -u critical "st not intsalled in $HOME/Gits/st"
+# fi
 
 
 if  stat "$HOME/.config/new_mail" > /dev/null; then
