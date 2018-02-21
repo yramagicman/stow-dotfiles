@@ -329,10 +329,12 @@ function auto-ls-after-cd() {
 add-zsh-hook chpwd auto-ls-after-cd
 #}}}
 #{{{ start tmux,
-# if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$SSH_TTY" ]]; then
-#     s tmux
-# fi
-#}}}
+if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$SSH_TTY" ]]; then
+    if [[ ! $( pgrep tmux ) ]]; then
+        s tmux
+    fi
+fi
+# }}}
 #{{{ end profiling script
 if [[ "$PROFILE_STARTUP" == true ]]; then
     unsetopt xtrace
