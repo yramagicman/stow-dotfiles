@@ -279,3 +279,4 @@ vnoremap <leader>cl <ESC>:close!
 nnoremap cl <ESC>:close
 vnoremap cl <ESC>:close
 "}}}
+iabbrev *dp* [deploy:ProductionDigitalOcean]
