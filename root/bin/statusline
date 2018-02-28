@@ -30,7 +30,7 @@ function my_bat() {
 }
 
 function my_wifi(){
-    ssid=$( nmcli | head -n 1 | awk -F ' ' '{print $4}' )
+    ssid=$( nmcli connection | tail -n 1 | awk -F ' ' '{print $1}' )
     ip=$($HOME/bin/tmuxip)
     strength=$(wifi_strength)
     if [[ $ssid = 'hide_yo_kids_hide_yo_wi-fi' ]]; then
@@ -62,7 +62,7 @@ function my_mail() {
 }
 
 function my_weather() {
-    if [[ ! "$(cat "$HOME/.cache/weather")" ]];
+    if [[ -z "$(cat "$HOME/.cache/weather")" ]];
     then
         $HOME/bin/weather.py > $HOME/.cache/weather
         weather=' W:'$(cat $HOME/.cache/weather)
@@ -127,13 +127,21 @@ function dbox() {
     echo "D:$message"
 }
 
+function screenlayout() {
+    if [[ "$(xrandr | awk '/HDMI-1/ {print $2}')" == 'connected' ]]; then
+        $HOME/.screenlayout/work.sh
+    else
+        $HOME/.screenlayout/default.sh
+    fi
+}
+screenlayout
 if [[ "$hn" == "k-nine" && -n $( cat $HOME/.cache/updates ) && -n $( mailmon ) ]]
 then
     line="$(my_update)$(my_mail)"
 else
     line="$(my_update)$(my_mail)$(my_weather)"
 fi
-if [[ "$hn" == "k-nine" || "$hn" == "serenity" ]];
+if [[ "$hn" == "k-nine" || "$hn" == "serenity" || "$hn" == "linux-tda4" ]];
 then
 line="$line $(my_bat)"
 fi

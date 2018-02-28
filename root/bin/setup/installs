@@ -1,49 +1,58 @@
-sudo zypper in apache2
-sudo zypper in apache2-mod_php7 php7 php7-bz2 php7-ctype php7-dom php7-gd php7-gettext php7-iconv php7-json php7-mbstring php7-mysql php7-openssl php7-pdo php7-pear php7-pear-Archive_Tar php7-phar php7-sqlite php7-tokenizer php7-xmlwriter php7-zip php7-zlib php-composer phpMyAdmin
-sudo zypper in arandr
-sudo zypper in chromium
-sudo zypper in --from vlc vlc
-sudo zypper in gcc
-sudo zypper in google-inconsolata-fonts
-sudo zypper in i3 i3lock i3status
-sudo zypper in libX11-devel
-sudo zypper in libXft-devel
-sudo zypper in libXinerama-devel
-sudo zypper in make
-sudo zypper in mariadb mariadb-client
-sudo zypper in MozillaThunderbird
-sudo zypper in mpclient
-sudo zypper in ncmpcpp
-sudo zypper in nitrogen
-sudo zypper in nmap zenmap
-sudo zypper in nodejs6 nodejs6-devel nodejs6-common
-sudo zypper in pass
-sudo zypper in password-store password-store-dmenu
-sudo zypper in patch
-sudo zypper in php7-curl
-sudo zypper in php7-fileinfo
-sudo zypper in php7-imap
-sudo zypper in php7-xmlreader
-sudo zypper in procmail
-sudo zypper in pulseaudio pulseaudio-bash-completion pulseaudio-utils
-sudo zypper in pwgen
-sudo zypper in ranger
-sudo zypper in readline-devel readline-doc
-sudo zypper in redshift
-sudo zypper in rsync
-sudo zypper in ruby
-sudo zypper in rxvt-unicode urxvt-perls
-sudo zypper in sqlite3
-sudo zypper in tcpdump
-sudo zypper in tmux ack urlview mutt youtube-dl
-sudo zypper in urlview urlscan
-sudo zypper in w3m w3m-inline-image
-sudo zypper in wget
-sudo zypper in xkill
-sudo zypper in xsetroot
+sudo zypper in -y apache2
+sudo zypper in -y apache2-mod_php7 php7 php7-bz2 php7-ctype php7-dom php7-gd php7-gettext php7-iconv php7-json php7-mbstring php7-mysql php7-openssl php7-pdo php7-pear php7-pear-Archive_Tar php7-phar php7-sqlite php7-tokenizer php7-xmlwriter php7-zip php7-zlib php-composer phpMyAdmin
+sudo zypper in -y arandr
+sudo zypper in -y stow
+sudo zypper in -y chromium
+sudo zypper in -y gcc
+sudo zypper in -y google-inconsolata-fonts
+sudo zypper in -y i3 i3lock i3status
+sudo zypper in -y libX11-devel
+sudo zypper in -y libXft-devel
+sudo zypper in -y libXinerama-devel
+sudo zypper in -y make
+sudo zypper in -y mariadb mariadb-client
+sudo systemctl start mysql
+sudo mysql_secure_installation
+sudo zypper in -y MozillaThunderbird
+sudo zypper in -y mpclient
+sudo zypper in -y ncmpcpp
+sudo zypper in -y nitrogen
+sudo zypper in -y nmap zenmap
+sudo zypper in -y nodejs6 nodejs6-devel nodejs6-common
+sudo zypper in -y pass
+sudo zypper in -y password-store password-store-dmenu
+sudo zypper in -y patch
+sudo zypper in -y php7-curl
+sudo zypper in -y php7-fileinfo
+sudo zypper in -y php7-imap
+sudo zypper in -y php7-xmlreader
+sudo zypper in -y procmail
+sudo zypper in -y pulseaudio pulseaudio-bash-completion pulseaudio-utils
+sudo zypper in -y pwgen
+sudo zypper in -y ranger
+sudo zypper in -y readline-devel readline-doc
+sudo zypper in -y redshift
+sudo zypper in -y rsync
+sudo zypper in -y ruby
+sudo zypper in -y rxvt-unicode urxvt-perls
+sudo zypper in -y sqlite3
+sudo zypper in -y tcpdump
+sudo zypper in -y tmux ack urlview mutt youtube-dl
+sudo zypper in -y urlview urlscan
+sudo zypper in -y w3m w3m-inline-image
+sudo zypper in -y wget
+sudo zypper in -y xkill
+sudo zypper in -y xsetroot
 sudo zypper rm -u icewm
-sudo zypper in powertop
-sudo zypper in hwinfo
-sudo zypper in fetchmail
-sudo zypper in procmail
-sudo zypper in msmtp
+sudo zypper in -y powertop
+sudo zypper in -y hwinfo
+sudo zypper in -y fetchmail
+sudo zypper in -y procmail
+sudo zypper in -y msmtp
+sudo zypper in gparted
+sudo zypper in pandoc
+sudo zypper in htop
+sudo zypper in webkit2gtk3
+sudo zypper in ctags
+sudo zypper in php7-readline
+sudo zypper in iotop

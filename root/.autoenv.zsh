@@ -1,3 +1,3 @@
-if [[ $(which deactivate > /dev/null) ]]; then
+if [[ -n "$(which deactivate > /dev/null)" ]]; then
     deactivate
 fi

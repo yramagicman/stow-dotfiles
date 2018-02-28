@@ -219,11 +219,11 @@ setopt HIST_SAVE_NO_DUPS
 setopt HIST_VERIFY
 #}}}
 #{{{ prompt. If serenity isn't there use a default
-if [[ $(  prompt -l | grep serenity  ) ]]; then
+# if [[ $(  prompt -l | grep serenity ) ]]; then
     prompt serenity
-else
-    prompt adam2
-fi
+# else
+#     prompt adam2
+# fi
 #}}}
 #{{{ grab the rest of the packages
 source_or_install "$MODULES_DIR/zsh-users/zsh-completions/zsh-completions.plugin.zsh" zsh-users/zsh-completions
@@ -313,24 +313,26 @@ setopt PUSHD_MINUS
 
 #}}}
 #{{{ auto-ls after cd
-function auto-ls-after-cd() {
-    emulate -L zsh
-    # Only in response to a user-initiated `cd`, not indirectly (eg. via another
-    # function).
-    if [ "$ZSH_EVAL_CONTEXT" = "toplevel:shfunc" ]; then
-        # if [[ $(git rev-parse --show-toplevel 2>/dev/null) && $* == '' ]]; then
-        #     cd $(git rev-parse --show-toplevel)
-        # elif [[ $(cat $VIRTUAL_ENV/.project 2>/dev/null) && $@ == '' ]]; then
-        #     builtin cd $(cat $VIRTUAL_ENV/.project)
-        # fi
-        ls
-    fi
-}
-add-zsh-hook chpwd auto-ls-after-cd
+# function auto-ls-after-cd() {
+#     emulate -L zsh
+#     # Only in response to a user-initiated `cd`, not indirectly (eg. via another
+#     # function).
+#     if [ "$ZSH_EVAL_CONTEXT" = "toplevel:shfunc" ]; then
+#         echo $1
+#         # if [[ -n "$(git rev-parse --show-toplevel 2>/dev/null)" && $@ == '' ]]; then
+#         #     cd $(git rev-parse --show-toplevel)
+#         # elif [[ -n "$(cat $VIRTUAL_ENV/.project 2>/dev/null)" && $@ == '' ]]; then
+#         #     builtin cd $(cat $VIRTUAL_ENV/.project)
+#         # else
+#         #     cd $@
+#         # fi
+#     fi
+# }
+# add-zsh-hook chpwd auto-ls-after-cd $1
 #}}}
 #{{{ start tmux,
 if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$SSH_TTY" ]]; then
-    if [[ ! $( pgrep tmux ) ]]; then
+    if [[ -z $( pgrep tmux$ ) ]] then
         s tmux
     fi
 fi
