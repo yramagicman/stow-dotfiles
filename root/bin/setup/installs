@@ -49,10 +49,10 @@ sudo zypper in -y hwinfo
 sudo zypper in -y fetchmail
 sudo zypper in -y procmail
 sudo zypper in -y msmtp
-sudo zypper in gparted
-sudo zypper in pandoc
-sudo zypper in htop
-sudo zypper in webkit2gtk3
-sudo zypper in ctags
-sudo zypper in php7-readline
-sudo zypper in iotop
+sudo zypper in -y gparted
+sudo zypper in -y pandoc
+sudo zypper in -y htop
+sudo zypper in -y webkit2gtk3
+sudo zypper in -y ctags
+sudo zypper in -y php7-readline
+sudo zypper in -y iotop
