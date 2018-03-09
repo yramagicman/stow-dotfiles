@@ -96,6 +96,7 @@ function my_update() {
         cower -u > $HOME/.cache/u
         checkupdates >> $HOME/.cache/u
         sort -u $HOME/.cache/u > $HOME/.cache/updates
+        rm $HOME/.cache/u
         msg="$(head -n 15 $HOME/.cache/updates) <br>with $(wc -l $HOME/.cache/updates | cut -d ' ' -f 1) total updates"
         notify-send $msg
     else

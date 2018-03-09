@@ -73,7 +73,6 @@ fi
 
 if  stat "$HOME/.cache/updates" > /dev/null; then
     rm "$HOME/.cache/updates"
-    rm "$HOME/.cache/u"
 fi
 if test "$( hostname )" = 'k-nine'; then
     if nmcli | grep 'hide_yo_kids'; then
