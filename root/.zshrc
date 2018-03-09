@@ -1,3 +1,6 @@
+if [[ -z $DISPLAY ]]; then
+    source ~/.colors/tartan.sh
+fi
 #{{{ profiling tools
 PROFILE_STARTUP=false
 if [[ "$PROFILE_STARTUP" == true ]]; then
@@ -89,6 +92,7 @@ function force_updates() {
 }
 #}}}
 #{{{ The base package, containing all the essentials, including my prompt
+source ~/.zprofile
 source_or_install "$MODULES_DIR/yramagicman/zsh-aliases/init.zsh" yramagicman/zsh-aliases
 #}}}
 # {{{ ls colors

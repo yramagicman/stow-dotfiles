@@ -83,8 +83,9 @@
 # of ranger.
 # ===================================================================
 
+import re
+from collections import deque
 from ranger.api.commands import *
-
 
 class alias(Command):
     """:alias <newcommand> <oldcommand>
@@ -382,6 +383,7 @@ class setlocal(set_):
 
     Gives an option a new value.
     """
+    import re
     PATH_RE = re.compile(r'^\s*path="?(.*?)"?\s*$')
 
     def execute(self):

@@ -130,7 +130,7 @@ set statusline+=\ ...loading
 set fillchars+=fold:·
 "}}}
 "{{{ folding options
-set foldmethod=indent
+set foldmethod=marker
 set foldcolumn=2
 "}}}
 "{{{ Make tabs as wide as four spaces

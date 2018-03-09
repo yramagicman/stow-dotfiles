@@ -1,0 +1,12 @@
+# Static table lookup for hostnames.
+# See hosts(5) for details.
+127.0.0.1     localhost
+::1           localhost
+127.0.0.1     serenity
+127.0.0.1     mccore.dev
+127.0.0.1     dscore.dev
+127.0.0.1     underscore.dev
+127.0.0.1     catalog.dev
+127.0.0.1     phpmyadmin.dev
+127.0.0.1     admin.dev
+127.0.0.1     commandcenter.dev

@@ -17,6 +17,8 @@ PlugOpt 'tpope/vim-speeddating'
 PlugOpt 'hail2u/vim-css3-syntax'
 PlugOpt 'vim-scripts/Sass'
 PlugOpt 'othree/html5.vim'
+PlugOpt 'jwalton512/vim-blade'
+PlugOpt 'posva/vim-vue'
 
 command! -nargs=* Ack :packadd ack.vim | Ack <f-args>
 command! -nargs=* Clam :packadd clam.vim | Clam <f-args>
@@ -33,6 +35,10 @@ augroup extensions
     autocmd FileType scss,css packadd vim-css3-syntax
     autocmd FileType org packadd vim-speeddating
     autocmd FileType org packadd vim-orgmode
+    autocmd BufRead *.blade.php silent! packadd vim-blade | redraw
+    autocmd BufRead *.blade.php silent! set filetype=blade | redraw
+    autocmd BufRead *.vue silent! packadd vim-vue | redraw
+    autocmd BufRead *.vue silent! set filetype=vue | redraw
 augroup end
 "{{{ completion
 "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!

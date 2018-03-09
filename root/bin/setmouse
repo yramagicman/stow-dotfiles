@@ -32,3 +32,4 @@ for p in mouse_props:
     setprop('Horizontal Scroll',  p, 0)
     setprop('Accel Speed', p, 0.3)
     setprop('Disable While Typing', p, 1)
+    setprop('Tapping Enabled', p, 1)
