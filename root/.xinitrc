@@ -7,6 +7,10 @@
 #
 # In case everything goes wrong, we at least fall back to a plain xterm
 #
+if test "$(hostname)"="serenity"; then
+    (cd $HOME/Gits/dots/; git checkout work)
+    exit
+fi
 failsafe="xterm -ls -T Failsafe -geometry 80x24-0-0"
 trap "exec $failsafe" EXIT SIGHUP SIGINT SIGPIPE SIGTERM SIGIO
 
