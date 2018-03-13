@@ -110,6 +110,8 @@ autoload -U colors && colors
 
 # Use case-insensitve globbing.
 unsetopt CASE_GLOB
+# glob dotfiles as well
+setopt GLOBDOTS
 
 # Automatically change directory if a directory is entered
 setopt autocd
@@ -151,8 +153,12 @@ unsetopt HUP
 # Don't report on jobs when shell exit.
 unsetopt CHECK_JOBS
 
+# turn on corrections
+setopt correct
+
 # use emacs bindings
 bindkey -e
+
 #}}}
 #{{{ completion
 #{{{ options
