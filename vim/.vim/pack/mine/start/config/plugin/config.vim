@@ -280,3 +280,4 @@ nnoremap cl <ESC>:close
 vnoremap cl <ESC>:close
 "}}}
 iabbrev *dp* [deploy:ProductionDigitalOcean]
+nnoremap <C-q> :qa!<cr>

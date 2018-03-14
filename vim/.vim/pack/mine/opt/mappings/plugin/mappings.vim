@@ -162,5 +162,8 @@ cnoremap <C-e>  <End>
 "{{{ Diff motions
 nnoremap <leader>dn ]czt
 nnoremap <leader>dp [czt
+
+nnoremap ]c ]czt
+nnoremap [c [czt
 "}}}
 let g:mappingsloaded = 1

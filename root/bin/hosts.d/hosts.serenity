@@ -3,10 +3,10 @@
 127.0.0.1     localhost
 ::1           localhost
 127.0.0.1     serenity
-127.0.0.1     mccore.dev
-127.0.0.1     dscore.dev
-127.0.0.1     underscore.dev
-127.0.0.1     catalog.dev
-127.0.0.1     phpmyadmin.dev
-127.0.0.1     admin.dev
-127.0.0.1     commandcenter.dev
+127.0.0.1     mccore.local
+127.0.0.1     dscore.local
+127.0.0.1     underscore.local
+127.0.0.1     catalog.local
+127.0.0.1     phpmyadmin.local
+127.0.0.1     admin.local
+127.0.0.1     commandcenter.local
