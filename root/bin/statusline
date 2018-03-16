@@ -15,7 +15,7 @@ function my_bat() {
     bat_stat=$( cat /sys/class/power_supply/BAT1/status )
     if [[ $(date +'%S') -eq 30 ]]
     then
-         if [[ $( echo "$bat_level < 20" | bc) -eq 1 && (  $notify_when -eq 0 )  ]]
+        if [[ $( echo "$bat_level < 20" | bc) -eq 1 && (  $notify_when -eq 0 ) && $status != 'Charging'  ]]
          then
              notify-send "Battery low " "$bat_level remaining"
          fi
@@ -95,13 +95,13 @@ function my_update() {
         checkupdates >> $HOME/.cache/u
         sort -u $HOME/.cache/u > $HOME/.cache/updates
         rm $HOME/.cache/u
-        msg="$(head -n 15 $HOME/.cache/updates) <br>with $(wc -l $HOME/.cache/updates | cut -d ' ' -f 1) total updates"
-        notify-send $msg
     else
         updates=' U:'$(cat -s $HOME/.cache/updates | wc -l )
     fi
     if [[ $( cat $HOME/.cache/updates | wc -l  ) -gt 10 ]]
     then
+        msg="$(head -n 15 $HOME/.cache/updates) <br>with $(wc -l $HOME/.cache/updates | cut -d ' ' -f 1) total updates"
+        notify-send $msg
         echo $updates
     fi
 }

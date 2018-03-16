@@ -34,7 +34,5 @@ ff00::0         ipv6-mcastprefix
 ff02::1         ipv6-allnodes
 ff02::2         ipv6-allrouters
 ff02::3         ipv6-allhosts
-0.0.0.0 pornhub.com
-0.0.0.0 xvideos.com
-0.0.0.0 tube8.com
-0.0.0.0 beautifulagony.com
+
+0.0.0.0         hs-analytics.net
