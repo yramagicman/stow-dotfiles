@@ -10,21 +10,12 @@ augroup mine
     autocmd BufLeave * set nocursorline
     "}}}
     "{{{ auto-reload vim files, auto resize splits on window resize
-    autocmd BufWritePost $HOME/.vim/config/* :source %
-    autocmd BufWritePost $HOME/.vim/config/* :set visualbell
-    autocmd BufWritePost $HOME/.vim/config/* :set foldmethod=marker
+    autocmd BufWritePost $HOME/.vim/config/** :source %
+    autocmd BufWritePost $HOME/.vim/config/** :set visualbell
     autocmd BufWritePost $HOME/.vimrc :source %
     autocmd BufWritePost $HOME/.vimrc :set visualbell
-    autocmd BufWritePost $HOME/.vimrc :set foldmethod=marker
     autocmd VimResized * exe "normal! \<c-w>="
     autocmd VimEnter * set vb t_vb=
-    "}}}
-    "{{{ fold method marker for specific files
-    autocmd FileType,BufEnter vim setlocal foldmethod=marker
-    autocmd FileType,BufEnter zsh setlocal foldmethod=marker
-    autocmd FileType,BufEnter lua setlocal foldmethod=marker
-    autocmd FileType,BufEnter muttrc setlocal foldmethod=marker
-    autocmd FileType,BufEnter conf setlocal foldmethod=marker
     "}}}
     "{{{ Saving
     autocmd BufEnter,BufWritePre,CursorHold * silent! checktime

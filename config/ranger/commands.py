@@ -83,8 +83,9 @@
 # of ranger.
 # ===================================================================
 
+import re
+from collections import deque
 from ranger.api.commands import *
-
 
 class alias(Command):
     """:alias <newcommand> <oldcommand>
