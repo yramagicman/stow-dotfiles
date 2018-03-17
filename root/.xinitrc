@@ -7,7 +7,7 @@
 #
 # In case everything goes wrong, we at least fall back to a plain xterm
 #
-if test "$(hostname)"="serenity"; then
+if test "$(hostname)" = "serenity"; then
     (cd $HOME/Gits/dots/; git checkout work)
     exit
 fi
