@@ -123,6 +123,7 @@ cnoreabbrev ga !git add %
 cnoreabbrev gac !git add %
 cnoreabbrev ga% !git add %
 cnoreabbrev gcm !git commit -m
+cnoreabbrev gco !git checkout %
 cnoreabbrev b ls<CR> :b
 cnoreabbrev find ls<CR> :find
 "}}}
