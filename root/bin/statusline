@@ -126,21 +126,6 @@ function dbox() {
     echo "D:$message"
 }
 
-function screenlayout() {
-    if [[ "$(xrandr | awk '/HDMI1/ {print $2}')" == 'connected' ]]; then
-        $HOME/.screenlayout/work.sh
-        $HOME/.fehbg
-        rm $HOME/.cache/single
-        touch $HOME/.cache/dual
-    else
-        xrandr --output HDMI1 --off
-        $HOME/.screenlayout/default.sh
-        rm $HOME/.cache/dual
-        touch $HOME/.cache/single
-
-    fi
-}
-screenlayout
 line="$(my_update)$(my_mail)$(my_weather)"
 line="$line $(my_bat)"
 line="$line $(my_wifi) $(dbox) $(my_volume) $(my_date)"
