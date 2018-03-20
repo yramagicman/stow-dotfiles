@@ -22,3 +22,4 @@ hi signcolumn ctermbg=none ctermfg=15
 " hi cursorline cterm=REVERSE
 hi folded ctermbg=0 ctermfg=7
 hi error ctermfg=1 ctermbg=0
+hi matchparen cterm=none ctermfg=9 ctermbg=0 term=none

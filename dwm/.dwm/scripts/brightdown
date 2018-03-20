@@ -1,0 +1,9 @@
+#!/bin/sh
+
+killall i3st
+xbacklight -dec 2
+xsetroot -name "$( xbacklight )"
+sleep 5s
+if test -z "$(pgrep i3st)"; then
+    "$HOME/bin/i3st"
+fi

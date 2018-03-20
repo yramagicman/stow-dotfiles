@@ -1,3 +1,3 @@
 colorscheme badwolf
-set guioptions -=m
-set guioptions -=T
+""set guioptions -=m
+""set guioptions -=T

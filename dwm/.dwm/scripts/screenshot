@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+screenshotsdir="$HOME/Pictures/screenshots"
+filename="screenshot_$(date +'%F_%H%M%S').png"
+mkdir -p "$screenshotsdir"
+maim > "$screenshotsdir/$filename"
+
+notify-send "$filename saved"
