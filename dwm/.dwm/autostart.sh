@@ -88,5 +88,7 @@ echo '' > "$HOME/.config/fetchmail.log"
 echo '' > "$HOME/.config/procmail.log"
 echo '' > "$HOME/.config/msmtp.log"
 echo '' > "$HOME/.mpd/mpdstate"
+rm "$HOME/slacklogs"
+rm "$HOME/nohup"
 
 exit

@@ -328,24 +328,6 @@ setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_MINUS
 
 #}}}
-#{{{ auto-ls after cd
-# function auto-ls-after-cd() {
-#     emulate -L zsh
-#     # Only in response to a user-initiated `cd`, not indirectly (eg. via another
-#     # function).
-#     if [ "$ZSH_EVAL_CONTEXT" = "toplevel:shfunc" ]; then
-#         echo $1
-#         # if [[ -n "$(git rev-parse --show-toplevel 2>/dev/null)" && $@ == '' ]]; then
-#         #     cd $(git rev-parse --show-toplevel)
-#         # elif [[ -n "$(cat $VIRTUAL_ENV/.project 2>/dev/null)" && $@ == '' ]]; then
-#         #     builtin cd $(cat $VIRTUAL_ENV/.project)
-#         # else
-#         #     cd $@
-#         # fi
-#     fi
-# }
-# add-zsh-hook chpwd auto-ls-after-cd $1
-#}}}
 #{{{ start tmux,
 if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$SSH_TTY" ]]; then
     if [[ -z $( pgrep tmux$ ) ]] then

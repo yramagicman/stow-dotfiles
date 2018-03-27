@@ -47,14 +47,10 @@ function wifi_strength() {
 }
 
 function my_load() {
-    load=$(uptime)
-    average=("${(@s/ /)load}")
-    if [[ "$hn" == "k-nine" ]];
-    then
-        echo "R:$(free -mh | head -n2 | tail -n 1 | awk '{ print $4}')"
-    else
-        echo "L:$average[11,-1]"
-    fi
+    load=$( ps -eo cmd,%cpu --sort=-%cpu | awk -F ' ' '{sum += $(NF)} END {print sum/4}' )
+    cmd=$( ps -eo cmd,%cpu --sort=-%cpu | awk -F ' ' '{print $1}' | head -n 2 | tail -n 1 )
+    temp=$(sensors | awk '/Package/ {print $4}')
+    echo "Top CMD:$cmd CPU:$load% TEMP:$temp"
 }
 
 
@@ -95,13 +91,15 @@ function my_update() {
         checkupdates >> $HOME/.cache/u
         sort -u $HOME/.cache/u > $HOME/.cache/updates
         rm $HOME/.cache/u
+        if [[ $( cat $HOME/.cache/updates | wc -l  ) -gt 10 ]]; then
+            msg="$(head -n 15 $HOME/.cache/updates) <br>with $(wc -l $HOME/.cache/updates | cut -d ' ' -f 1) total updates"
+            notify-send "$msg"
+        fi
     else
         updates=' U:'$(cat -s $HOME/.cache/updates | wc -l )
     fi
     if [[ $( cat $HOME/.cache/updates | wc -l  ) -gt 10 ]]
     then
-        msg="$(head -n 15 $HOME/.cache/updates) <br>with $(wc -l $HOME/.cache/updates | cut -d ' ' -f 1) total updates"
-        notify-send $msg
         echo $updates
     fi
 }
@@ -126,7 +124,7 @@ function dbox() {
     echo "D:$message"
 }
 
-line="$(my_update)$(my_mail)$(my_weather)"
+line="$(my_update)$(my_mail)$(my_weather) $(my_load)"
 line="$line $(my_bat)"
 line="$line $(my_wifi) $(dbox) $(my_volume) $(my_date)"
 
