@@ -5,6 +5,7 @@ PlugStart 'tpope/vim-commentary'
 PlugStart 'vim-scripts/vim-indent-object'
 PlugStart 'tpope/vim-surround'
 PlugStart 'bronson/vim-visual-star-search'
+PlugStart 'junegunn/fzf.vim'
 PlugOpt 'dzeban/vim-log-syntax'
 PlugOpt 'w0rp/ale'
 PlugOpt 'mileszs/ack.vim'
@@ -102,3 +103,7 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 "}}}
+cnoreabbrev b Buffers<CR>
+cnoreabbrev find Files<CR>
+cnoreabbrev gf GFiles<CR>
+cnoreabbrev fg GFiles<CR>

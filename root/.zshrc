@@ -246,6 +246,10 @@ source_or_install "$MODULES_DIR/Tarrasch/zsh-autoenv/autoenv.plugin.zsh" Tarrasc
 if [[ -f /usr/share/doc/pkgfile/command-not-found.zsh ]]; then
     source /usr/share/doc/pkgfile/command-not-found.zsh
 fi
+if [[ -d /usr/share/fzf ]]; then
+    source /usr/share/fzf/key-bindings.zsh
+    source /usr/share/fzf/completion.zsh
+fi
 #}}}
 #{{{ lazy load stuff
 if [[ "$TMUX" != '' ]]; then
@@ -294,6 +298,8 @@ export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
 #{{{ random user opions
 export XDG_CONFIG_HOME=$HOME/.config
 export BROWSER=firefox
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+export FZF_CTRL_T_COMMAND='ag --hidden --ignore .git -g ""'
 #}}}
 #{{{cdr, persistent cd
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
