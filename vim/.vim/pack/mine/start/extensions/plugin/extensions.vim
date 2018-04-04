@@ -41,6 +41,7 @@ augroup extensions
     autocmd BufRead *.vue silent! packadd vim-vue | redraw
     autocmd BufRead *.vue silent! set filetype=vue | redraw
 augroup end
+
 "{{{ completion
 "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
@@ -103,6 +104,7 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 "}}}
+
 cnoreabbrev b Buffers<CR>
 cnoreabbrev find Files<CR>
 cnoreabbrev gf GFiles<CR>
