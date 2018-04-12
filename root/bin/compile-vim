@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sudo zypper in libXtst-devel ruby-devel python-devel python-devel python3-devel lua51-devel gtk2-devel libXt-devel libXpm-devel ncurses-devel
+sudo zypper in libXtst-devel ruby-devel python-devel python-devel python3-devel lua53-devel gtk2-devel libXt-devel libXpm-devel ncurses-devel
 cd /tmp || exit
 git clone --depth 4 https://github.com/vim/vim.git
 cd vim || exit

@@ -24,3 +24,6 @@ vim/.vim/pack/vendor/
 vim/.vim/plugged/
 vim/.vim/undo/
 zsh/.zsh/zsh_modules/
+newsboat/.newsboat/cache.db
+newsboat/.newsboat/history.cmdline
+newsboat/.newsboat/history.search

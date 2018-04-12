@@ -232,24 +232,17 @@ setopt HIST_SAVE_NO_DUPS
 setopt HIST_VERIFY
 #}}}
 #{{{ prompt. If serenity isn't there use a default
-# if [[ $(  prompt -l | grep serenity ) ]]; then
+if [[ $(  prompt -l | grep serenity  ) ]]; then
     prompt serenity
-# else
-#     prompt adam2
-# fi
+else
+    prompt adam2
+fi
 #}}}
 #{{{ grab the rest of the packages
 source_or_install "$MODULES_DIR/zsh-users/zsh-completions/zsh-completions.plugin.zsh" zsh-users/zsh-completions
-source_or_install "$MODULES_DIR/marzocchi/zsh-notify/notify.plugin.zsh" marzocchi/zsh-notify
+# source_or_install "$MODULES_DIR/marzocchi/zsh-notify/notify.plugin.zsh" marzocchi/zsh-notify
 source_or_install "$MODULES_DIR/srijanshetty/zsh-pandoc-completion/zsh-pandoc-completion.plugin.zsh" srijanshetty/zsh-pandoc-completion
-source_or_install "$MODULES_DIR/Tarrasch/zsh-autoenv/autoenv.plugin.zsh" Tarrasch/zsh-autoenv
-if [[ -f /usr/share/doc/pkgfile/command-not-found.zsh ]]; then
-    source /usr/share/doc/pkgfile/command-not-found.zsh
-fi
-if [[ -d /usr/share/fzf ]]; then
-    source /usr/share/fzf/key-bindings.zsh
-    source /usr/share/fzf/completion.zsh
-fi
+# source_or_install "$MODULES_DIR/Tarrasch/zsh-autoenv/autoenv.plugin.zsh" Tarrasch/zsh-autoenv
 #}}}
 #{{{ lazy load stuff
 if [[ "$TMUX" != '' ]]; then

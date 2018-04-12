@@ -169,8 +169,8 @@ set_from_resource $urgent_border i3wm.color15 #900000
 bar {
         position top
         separator_symbol "#"
-        # i3bar_command i3bar
-        status_command i3status
+        i3bar_command i3bar
+        status_command exec /home/jonathan/bin/i3st
 
         colors {
                 background $bg
