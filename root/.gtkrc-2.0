@@ -3,10 +3,11 @@
 
 include "/home/jonathan/.gtkrc-2.0.mine"
 gtk-theme-name="Adwaita"
-gtk-icon-theme-name="openSUSE-Xfce"
-gtk-font-name="Roboto Light 10"
-gtk-cursor-theme-size=0
-gtk-toolbar-style=GTK_TOOLBAR_BOTH
+gtk-icon-theme-name="Adwaita"
+gtk-font-name="Sans 10"
+gtk-cursor-theme-name="Adwaita"
+gtk-cursor-theme-size=18
+gtk-toolbar-style=GTK_TOOLBAR_BOTH_HORIZ
 gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
 gtk-button-images=1
 gtk-menu-images=1

@@ -115,7 +115,7 @@ function dbox() {
         message="off"
 
     else
-        message="$(echo "$box" | head -n1 )"
+        message="$(echo "$box" | head -n1 | cut -d ' ' -f 1)"
     fi
     if [[ $message == "Up to date" ]]
     then
