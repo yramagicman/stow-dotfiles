@@ -243,7 +243,7 @@ source_or_install "$MODULES_DIR/zsh-users/zsh-completions/zsh-completions.plugin
 # source_or_install "$MODULES_DIR/marzocchi/zsh-notify/notify.plugin.zsh" marzocchi/zsh-notify
 source_or_install "$MODULES_DIR/srijanshetty/zsh-pandoc-completion/zsh-pandoc-completion.plugin.zsh" srijanshetty/zsh-pandoc-completion
 # source_or_install "$MODULES_DIR/Tarrasch/zsh-autoenv/autoenv.plugin.zsh" Tarrasch/zsh-autoenv
-#if [[ -f /usr/share/doc/pkgfile/command-not-found.zsh ]]; then
+if [[ -f /usr/share/doc/pkgfile/command-not-found.zsh ]]; then
     source /usr/share/doc/pkgfile/command-not-found.zsh
 fi
 if [[ -d /usr/share/fzf ]]; then
