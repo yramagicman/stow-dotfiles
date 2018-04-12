@@ -110,6 +110,8 @@ autoload -U colors && colors
 
 # Use case-insensitve globbing.
 unsetopt CASE_GLOB
+# glob dotfiles as well
+setopt GLOBDOTS
 
 # Automatically change directory if a directory is entered
 setopt autocd
@@ -150,6 +152,9 @@ unsetopt BG_NICE
 unsetopt HUP
 # Don't report on jobs when shell exit.
 unsetopt CHECK_JOBS
+
+# turn on corrections
+setopt correct
 
 # use emacs bindings
 bindkey -e
@@ -318,22 +323,6 @@ setopt PUSHD_IGNORE_DUPS
 # This reverts the +/- operators.
 setopt PUSHD_MINUS
 
-#}}}
-#{{{ auto-ls after cd
-function auto-ls-after-cd() {
-    emulate -L zsh
-    # Only in response to a user-initiated `cd`, not indirectly (eg. via another
-    # function).
-    if [ "$ZSH_EVAL_CONTEXT" = "toplevel:shfunc" ]; then
-        # if [[ $(git rev-parse --show-toplevel 2>/dev/null) && $* == '' ]]; then
-        #     cd $(git rev-parse --show-toplevel)
-        # elif [[ $(cat $VIRTUAL_ENV/.project 2>/dev/null) && $@ == '' ]]; then
-        #     builtin cd $(cat $VIRTUAL_ENV/.project)
-        # fi
-        ls
-    fi
-}
-add-zsh-hook chpwd auto-ls-after-cd
 #}}}
 #{{{ start tmux,
 if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$SSH_TTY" ]]; then

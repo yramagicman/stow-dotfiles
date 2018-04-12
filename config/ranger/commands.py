@@ -383,6 +383,7 @@ class setlocal(set_):
 
     Gives an option a new value.
     """
+    import re
     PATH_RE = re.compile(r'^\s*path="?(.*?)"?\s*$')
 
     def execute(self):

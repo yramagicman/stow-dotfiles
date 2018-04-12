@@ -40,7 +40,7 @@ pulseaudio --start
 xset b off &
 
 # Autostart the Dropbox deamon, but not on my laptop.
-(sleep 10s && dropbox start) &
+(sleep 100s && dropbox start) &
 
 # Update weather info on boot
 (sleep 45s && check_process redshift) &
