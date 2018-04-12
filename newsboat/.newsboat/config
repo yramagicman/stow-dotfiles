@@ -30,11 +30,7 @@ color article cyan default
 
 browser linkhandler
 macro , open-in-browser
-<<<<<<< HEAD
 macro v set browser "vlc"; open-in-browser ; set browser linkhandler
-=======
-macro v set browser "i3 exec mpv"; open-in-browser ; set browser linkhandler
->>>>>>> 393a51b... add config
 macro y set browser "spawndl"; open-in-browser ; set browser linkhandler
 macro w set browser "w3m"; open-in-browser ; set browser linkhandler
 macro p set browser "dmenuhandler"; open-in-browser ; set browser linkhandler
