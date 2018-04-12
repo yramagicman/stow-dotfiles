@@ -48,3 +48,4 @@ sudo zypper in fetchmail
 sudo zypper in procmail
 sudo zypper in msmtp
 sudo zypper install gparted
+sudo zypper in newsboat
