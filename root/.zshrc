@@ -234,7 +234,7 @@ fi
 #}}}
 #{{{ grab the rest of the packages
 source_or_install "$MODULES_DIR/zsh-users/zsh-completions/zsh-completions.plugin.zsh" zsh-users/zsh-completions
-source_or_install "$MODULES_DIR/marzocchi/zsh-notify/notify.plugin.zsh" marzocchi/zsh-notify
+# source_or_install "$MODULES_DIR/marzocchi/zsh-notify/notify.plugin.zsh" marzocchi/zsh-notify
 source_or_install "$MODULES_DIR/srijanshetty/zsh-pandoc-completion/zsh-pandoc-completion.plugin.zsh" srijanshetty/zsh-pandoc-completion
 # source_or_install "$MODULES_DIR/Tarrasch/zsh-autoenv/autoenv.plugin.zsh" Tarrasch/zsh-autoenv
 #}}}

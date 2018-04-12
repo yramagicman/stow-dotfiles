@@ -21,19 +21,19 @@ bind-key D pb-download
 bind-key U show-urls
 bind-key x pb-delete
 
-color listnormal cyan default
-color listfocus black yellow standout bold
-color listnormal_unread blue default
-color listfocus_unread yellow default bold
-color info red black bold
-color article cyan default
+# color listnormal cyan default
+# color listfocus black yellow standout bold
+# color listnormal_unread blue default
+# color listfocus_unread yellow default bold
+# color info red black bold
+# color article cyan default
 
-browser linkhandler
+browser firefox
 macro , open-in-browser
-macro v set browser "vlc"; open-in-browser ; set browser linkhandler
-macro y set browser "spawndl"; open-in-browser ; set browser linkhandler
-macro w set browser "w3m"; open-in-browser ; set browser linkhandler
-macro p set browser "dmenuhandler"; open-in-browser ; set browser linkhandler
+macro v set browser "cvlc --play-and-exit"; open-in-browser ; set browser firefox
+macro y set browser "spawndl"; open-in-browser ; set browser firefox
+macro w set browser "w3m"; open-in-browser ; set browser firefox
+macro p set browser "dmenuhandler"; open-in-browser ; set browser firefox
 # c copies the link to the clipboard.
 # The line below is probably the skiddiest line I've ever written.
-macro c set browser "copy(){ echo $1 | xclip ;}; copy "; open-in-browser ; set browser linkhandler
+macro c set browser "copy(){ echo $1 | xclip ;}; copy "; open-in-browser ; set browser firefox
