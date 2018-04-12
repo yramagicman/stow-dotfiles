@@ -209,42 +209,42 @@ endif
 " inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : "\'\'\<Left>"
 "}}}
 "{{{ filetype specific mappings for characters and shortcuts
-augroup abbrevs
-    autocmd!
-    autocmd FileType * iabbrev <buffer> api API
-    autocmd FileType * iabbrev <buffer> iso ISO
-    autocmd FileType * iabbrev <buffer> csv CSV
-    autocmd FileType * iabbrev <buffer> etap Etapestry
-    autocmd FileType * iabbrev <buffer> durpal Drupal
-    autocmd FileType * iabbrev <buffer> drupal Drupal
-    autocmd FileType mail,text,gitcommit,scheme inoremap <buffer> ' '
-    autocmd FileType vim inoremap <buffer> " "
-augroup end
+" augroup abbrevs
+"     autocmd!
+"     autocmd FileType * iabbrev <buffer> api API
+"     autocmd FileType * iabbrev <buffer> iso ISO
+"     autocmd FileType * iabbrev <buffer> csv CSV
+"     autocmd FileType * iabbrev <buffer> etap Etapestry
+"     autocmd FileType * iabbrev <buffer> durpal Drupal
+"     autocmd FileType * iabbrev <buffer> drupal Drupal
+"     autocmd FileType mail,text,gitcommit,scheme inoremap <buffer> ' '
+"     autocmd FileType vim inoremap <buffer> " "
+" augroup end
 "}}}
 "{{{ Make backspace work nicely with autopairs
-function! Backspace()
-    let l:current = strpart(getline('.'), col('.')-1, 1)
-    let l:prev = strpart(getline('.'), col('.')-2, 1)
-    if l:current == '"' || l:current == "'" || l:current == "]" || l:current == ")" || l:current == "}" || l:current == ">"
-        if l:current == l:prev
-            return "\<Right>\<BS>\<BS>"
-        elseif l:prev == '[' && l:current == ']'
-            return "\<Right>\<BS>\<BS>"
-        elseif l:prev == "{" && l:current == "}"
-            return "\<Right>\<BS>\<BS>"
-        elseif l:prev == "(" && l:current == ")"
-            echom 'bs'
-            return "\<Right>\<BS>\<BS>"
-        elseif l:prev == "<" && l:current == ">"
-            return "\<Right>\<BS>\<BS>"
-        else
-            return "\<BS>"
-        endif
-    else
-        return "\<BS>"
-    endif
-endfunction
-inoremap <expr> <BS> Backspace()
+" function! Backspace()
+"     let l:current = strpart(getline('.'), col('.')-1, 1)
+"     let l:prev = strpart(getline('.'), col('.')-2, 1)
+"     if l:current == '"' || l:current == "'" || l:current == "]" || l:current == ")" || l:current == "}" || l:current == ">"
+"         if l:current == l:prev
+"             return "\<Right>\<BS>\<BS>"
+"         elseif l:prev == '[' && l:current == ']'
+"             return "\<Right>\<BS>\<BS>"
+"         elseif l:prev == "{" && l:current == "}"
+"             return "\<Right>\<BS>\<BS>"
+"         elseif l:prev == "(" && l:current == ")"
+"             echom 'bs'
+"             return "\<Right>\<BS>\<BS>"
+"         elseif l:prev == "<" && l:current == ">"
+"             return "\<Right>\<BS>\<BS>"
+"         else
+"             return "\<BS>"
+"         endif
+"     else
+"         return "\<BS>"
+"     endif
+" endfunction
+" inoremap <expr> <BS> Backspace()
 "}}}
 "}}}
 "{{{ remap escape for easier access
