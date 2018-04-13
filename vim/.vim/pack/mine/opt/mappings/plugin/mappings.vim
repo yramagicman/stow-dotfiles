@@ -62,8 +62,9 @@ vnoremap --r y<Esc>:%s/<C-r>"//g<Left><Left>
 " ask for confirmation
 vnoremap -r y<Esc>:%s/<C-r>"//gc<Left><Left><Left>
 "}}}
-"paste in insert mode
+" {{{ paste in insert mode
 inoremap <leader>p <ESC>pa
+"}}}
 "{{{ Formatting, TextMate-style
 nnoremap Q gqip
 vnoremap Q gq
@@ -119,8 +120,6 @@ nnoremap <leader>O O<ESC>j
 nnoremap <leader>o o<ESC>k
 "}}}
 "{{{ Command line abbreviations
-cnoreabbrev clam Clam
-cnoreabbrev tw Tw
 cnoreabbrev gab !git add %
 cnoreabbrev ga !git add %
 cnoreabbrev gac !git add %
@@ -133,7 +132,6 @@ nnoremap <silent><leader>le :call functions#LineEndings()<CR>
 nnoremap <Leader>f :call functions#FoldColumn()<CR>
 command! Clean :call functions#CleanScreen()
 command! Scratch :call functions#Scratch()
-command! Tw :call functions#Tw()
 "}}}
 "{{{splits
 "{{{window navigation & and splits
