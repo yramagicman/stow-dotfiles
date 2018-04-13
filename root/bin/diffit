@@ -1,2 +1,2 @@
 #!/bin/sh
-vimdiff -c 'colorscheme muttclone' "$2" "$5"
+vimdiff "$2" "$5"
