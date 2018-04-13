@@ -28,7 +28,7 @@ augroup mine
     autocmd BufLeave,CursorHold * silent! if @% != ''| silent! wall
     autocmd BufEnter,FileType * if &ft != 'qf' | nnoremap <CR> @@ | else | nnoremap <CR> <CR> | endif
     "}}}
-    "{{{ Treat Leave files as .js
+    "{{{ Treat JSON files as .js
     autocmd BufLeave,BufRead *.json setfiletype json syntax=javascript
     "}}}
     "{{{ scheme coding standards
