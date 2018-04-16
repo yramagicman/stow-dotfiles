@@ -233,10 +233,10 @@ function! InsertTabWrapper()
     if !col || getline('.')[col - 1] !~ '\k'
         return "\<tab>"
     else
-        return silent! "\<c-n>"
+        return "\<c-n>"
     endif
 endfunction
-inoremap <expr> <tab> InsertTabWrapper()
+inoremap <expr> <tab> silent! InsertTabWrapper()
 inoremap <s-tab> <c-n>
 
 cnoremap <expr> %% expand('%:h').'/'
