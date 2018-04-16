@@ -85,11 +85,8 @@ noremap <silent><leader>w <ESC>:set wrap!<CR>
 inoremap <silent><leader>w <ESC>:set wrap!<CR>i
 "toggle file explorer
 noremap <silent><leader>e <ESC>:Explore<CR>
-"kill search highlighting
-noremap <silent><leader><space> <ESC>:set nohlsearch<CR>
-noremap / <ESC>:set hlsearch<CR>/
-noremap n <ESC>:set hlsearch<CR>n
-noremap N <ESC>:set hlsearch<CR>N
+"toggle search highlighting
+noremap <silent><leader><space> <ESC>:set hlsearch!<CR>
 "uppercase words
 inoremap <C-u> <ESC>mzgUiwea
 nnoremap <C-u> <ESC>mzgUiwe

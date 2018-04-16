@@ -48,7 +48,7 @@ set modelines=4
 " Enable per-directory .vimrc files and disable unsafe commands in them
 "set exrc
 set secure
-" Highlight searches
+" Highlight searchee
 set hlsearch
 " Ignore case of searches
 set ignorecase
