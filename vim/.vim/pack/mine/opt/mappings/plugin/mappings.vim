@@ -86,7 +86,9 @@ inoremap <silent><leader>w <ESC>:set wrap!<CR>i
 "toggle file explorer
 noremap <silent><leader>e <ESC>:Explore<CR>
 "toggle search highlighting
-noremap <silent><leader><space> <ESC>:set hlsearch!<CR>
+noremap <leader><space> <ESC>:set hlsearch!<CR>
+noremap <leader>/ <ESC>:let @/=''<CR>
+
 "uppercase words
 inoremap <C-u> <ESC>mzgUiwea
 nnoremap <C-u> <ESC>mzgUiwe
