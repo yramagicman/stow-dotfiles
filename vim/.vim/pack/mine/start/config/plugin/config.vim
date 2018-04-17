@@ -236,7 +236,7 @@ function! InsertTabWrapper()
         return "\<c-n>"
     endif
 endfunction
-inoremap <expr> <tab> silent! InsertTabWrapper()
+inoremap <expr> <tab> InsertTabWrapper()
 inoremap <s-tab> <c-n>
 
 cnoremap <expr> %% expand('%:h').'/'
