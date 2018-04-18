@@ -1,6 +1,6 @@
 #!/usr/bin/zsh
 while;
 do
-statusline
+$HOME/bin/statusline
 sleep 1s;
 done
