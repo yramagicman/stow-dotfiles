@@ -14,6 +14,7 @@ PlugOpt 'mileszs/ack.vim'
 PlugOpt 'leafgarland/typescript-vim'
 " PlugOpt 'jceb/vim-orgmode'
 " PlugOpt 'tpope/vim-speeddating'
+PlugOpt 'shawncplus/phpcomplete.vim'
 PlugOpt 'hail2u/vim-css3-syntax'
 PlugOpt 'vim-scripts/Sass'
 PlugOpt 'othree/html5.vim'
@@ -33,6 +34,7 @@ augroup extensions
     autocmd FileType scss,css packadd vim-css3-syntax
     autocmd FileType org packadd vim-speeddating
     autocmd FileType org packadd vim-orgmode
+    autocmd FileType php silent! packadd  phpcomplete.vim | redraw
     autocmd BufRead *.blade.php silent! packadd vim-blade | redraw
     autocmd BufRead *.blade.php silent! set filetype=blade | redraw
     autocmd BufRead *.vue silent! packadd vim-vue | redraw
