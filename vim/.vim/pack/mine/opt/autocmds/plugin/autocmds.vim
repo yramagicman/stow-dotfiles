@@ -22,7 +22,7 @@ augroup mine
     autocmd BufLeave,BufWritePre,CursorHold * silent! call functions#StripWhitespace()
     autocmd BufLeave,BufWritePre * silent! call functions#Knl()
     autocmd BufLeave,BufWritePre * silent! call functions#LineEndings()
-    autocmd BufLeave,BufWritePre,CursorHold * silent! %retab
+    autocmd BufLeave,BufWritePre,CursorHold * silent! %retab!
     autocmd BufLeave,BufWritePre,CursorHold *.py silent! %s/#\w/# &/g
     autocmd BufLeave,BufWritePre,CursorHold *.py silent! %s/# #/# /g
     autocmd BufLeave,CursorHold * silent! if @% != ''| silent! wall

@@ -88,7 +88,6 @@ set synmaxcol=300
 set scrolloff=2
 set nolist wrap linebreak sidescrolloff=15
 set listchars=tab:▸\ ,trail:·,eol:¬,extends:❯,precedes:❮
-set list
 set showbreak=....
 if exists('+breakindent')
     set breakindent

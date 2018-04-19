@@ -94,8 +94,8 @@
     required = true
     clean = git media clean %f
     smudge = git media smudge %f
-[init]
-    templatedir = ~/.git_template
+# [init]
+    # templatedir = ~/.git_template
 [filter "hawser"]
     clean = git hawser clean %f
     smudge = git hawser smudge %f

@@ -30,7 +30,7 @@ bind-key x pb-delete
 
 browser firefox
 macro , open-in-browser
-macro v set browser "cvlc --play-and-exit"; open-in-browser ; set browser firefox
+macro v set browser "vlc --play-and-exit"; open-in-browser ; set browser firefox
 macro y set browser "spawndl"; open-in-browser ; set browser firefox
 macro w set browser "w3m"; open-in-browser ; set browser firefox
 macro p set browser "dmenuhandler"; open-in-browser ; set browser firefox
