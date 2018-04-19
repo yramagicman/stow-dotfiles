@@ -10,10 +10,10 @@ PlugOpt 'dzeban/vim-log-syntax'
 PlugOpt 'w0rp/ale'
 PlugOpt 'mileszs/ack.vim'
 " PlugOpt 'shougo/neocomplete.vim' REMOVE AFTER 30/4/2018 IF STILL COMMENTED
-PlugOpt 'shawncplus/phpcomplete.vim'
 PlugOpt 'leafgarland/typescript-vim'
 " PlugOpt 'jceb/vim-orgmode'
 " PlugOpt 'tpope/vim-speeddating'
+PlugOpt 'shawncplus/phpcomplete.vim'
 PlugOpt 'hail2u/vim-css3-syntax'
 PlugOpt 'vim-scripts/Sass'
 PlugOpt 'othree/html5.vim'
@@ -25,7 +25,6 @@ augroup extensions
     autocmd!
     "autocmd FileType vim,css,scss,sass,html,javascript,python,php,c,cpp,typescript,zsh,sh silent! packadd neocomplete.vim | redraw REMOVE AFTER 30/4/2018 IF STILL COMMENTED{{{}}}
     autocmd FileType vim,css,scss,sass,html,javascript,python,php,c,cpp,typescript,zsh,sh silent! packadd ale | redraw
-    autocmd FileType php packadd phpcomplete.vim
     autocmd BufRead *.ts  set filetype=typescript
     autocmd BufRead *.org  set filetype=org
     autocmd FileType typescript packadd typescript-vim
@@ -34,6 +33,7 @@ augroup extensions
     autocmd FileType scss,css packadd vim-css3-syntax
     autocmd FileType org packadd vim-speeddating
     autocmd FileType org packadd vim-orgmode
+    autocmd FileType php silent! packadd  phpcomplete.vim | redraw
     autocmd BufRead *.blade.php silent! packadd vim-blade | redraw
     autocmd BufRead *.blade.php silent! set filetype=blade | redraw
     autocmd BufRead *.vue silent! packadd vim-vue | redraw
@@ -109,3 +109,8 @@ cnoreabbrev b Buffers<CR>
 cnoreabbrev find Files<CR>
 cnoreabbrev gf GFiles<CR>
 cnoreabbrev fg GFiles<CR>
+
+
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'

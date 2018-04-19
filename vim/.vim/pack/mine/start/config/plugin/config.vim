@@ -233,7 +233,7 @@ function! InsertTabWrapper()
     if !col || getline('.')[col - 1] !~ '\k'
         return "\<tab>"
     else
-        return "\<c-x><c-o>"
+        return "\<c-n>"
     endif
 endfunction
 inoremap <expr> <tab> InsertTabWrapper()

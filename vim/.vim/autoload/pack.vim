@@ -40,7 +40,6 @@ function! s:install_start_plugins(plug)
     let plug = split( a:plug, '/' )[1]
     let plug = plug[:-2]
     let destination = split( &packpath, ',')[-1] . '/start/'. plug
-
     call add(s:start_plugs, [destination, 'git clone --quiet --depth 4 https://github.com/'.repo[1:].'/'.plug . ' ' . destination])
 endfunction
 
@@ -51,9 +50,7 @@ function! s:install_opt_plugins(plug)
     let plug = split( a:plug, '/' )[1]
     let plug = plug[:-2]
     let destination = split( &packpath, ',')[-1] . '/opt/'. plug
-
     call add(s:opt_plugs, [destination, 'git clone --quiet --depth 4  https://github.com/'.repo[1:].'/'.plug . ' ' . destination])
-
 endfunction
 
 function! s:install_opts()
