@@ -230,6 +230,8 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_SAVE_NO_DUPS
 # Do not execute immediately upon history expansion.
 setopt HIST_VERIFY
+# Show timestamp in history
+setopt EXTENDED_HISTORY
 #}}}
 #{{{ prompt. If serenity isn't there use a default
 if [[ $(  prompt -l | grep serenity  ) ]]; then
