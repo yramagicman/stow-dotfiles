@@ -29,7 +29,7 @@ tmux new-window -t $1 -c "$HOME/Sites/$1" -n sass
 tmux send-keys -t $1:sass "cd $HOME/Sites/$1" Enter
 tmux send-keys -t $1:sass "npm run watch" Enter
 
-tmux new-window -t $1 -c "$HOME/Sites/$1" -n chrome
-tmux send-keys -t $1:chrome "nohup chromium --incognito http://$(cat $HOME/Sites/$1/.siteurl) &" Enter
-tmux send-keys -t $1:chrome "exit" Enter
+# tmux new-window -t $1 -c "$HOME/Sites/$1" -n chrome
+# tmux send-keys -t $1:chrome "nohup chromium --incognito http://$(cat $HOME/Sites/$1/.siteurl) &" Enter
+# tmux send-keys -t $1:chrome "exit" Enter
 $HOME/bin/switch_or_attach $1:shell.left
