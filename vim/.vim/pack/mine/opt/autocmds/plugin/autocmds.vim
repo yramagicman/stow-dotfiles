@@ -54,6 +54,7 @@ augroup mine
     autocmd FocusLost,BufLeave * call feedkeys("\<ESC>")
     autocmd FileType * set textwidth=80
     autocmd FileType mail set textwidth=0
+    autocmd BufRead,BufEnter .env :ALEDisableBuffer
     " }}}
 augroup end
 
