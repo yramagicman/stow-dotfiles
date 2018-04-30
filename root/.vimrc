@@ -5,6 +5,9 @@ set nocompatible
 " Enable file type detection and do language-dependent indenting.
 filetype plugin indent on
 
+" Switch syntax highlighting on
+syntax on
+
 colorscheme portable
 set background=dark
 
@@ -71,8 +74,6 @@ set shell=zsh
 " Make backspace behave in a sane manner.
 set backspace=indent,eol,start
 
-" Switch syntax highlighting on
-syntax on
 
 " enable Omnicomplete
 set omnifunc=syntaxcomplete#Complete
@@ -82,6 +83,9 @@ packadd! editexisting
 
 set autoread
 set autowrite
+
+set lazyredraw
+set ttyfast
 
 " Centralize backups, swapfiles and undo history
 if exists("&backupdir")
@@ -202,11 +206,11 @@ let s:dontwrite = ['!zsh']
 augroup defaults
     autocmd!
     autocmd InsertLeave * silent w
-    autocmd CursorMoved * if &mod && index( s:dontwrite, bufname("%") ) == -1 | silent w | endif
+    autocmd CursorMoved * if &mod && ! &readonly && index( s:dontwrite, bufname("%") ) == -1 | silent w | endif
     autocmd BufWritePost $MYVIMRC source %
-    autocmd BufWritePre,InsertLeave,CursorMoved * :%s/\s\+$//e
-    autocmd BufWritePre,InsertLeave,CursorMoved * silent! :%s#\($\n\s*\)\+\%$##
-    autocmd BufWritePre,InsertLeave,CursorMoved * silent! :retab!
+    autocmd BufWritePre,InsertLeave * :%s/\s\+$//e
+    autocmd BufWritePre,InsertLeave * silent! :%s#\($\n\s*\)\+\%$##
+    autocmd BufWritePre,InsertLeave * silent! :retab!
     autocmd BufEnter * set cursorline
     autocmd BufLeave * set nocursorline
     autocmd BufEnter,BufWritePost,ShellCmdPost * let f=system('[[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && echo "*"')
@@ -233,5 +237,5 @@ inoremap <left>  <Nop>
 inoremap <down>  <Nop>
 inoremap <up>    <Nop>
 inoremap <right> <Nop>
-hi ExtraWhitespace ctermbg=9
+hi ExtraWhitespace cterm=underline
 match ExtraWhitespace /\s\+$/
