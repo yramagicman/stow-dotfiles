@@ -204,9 +204,9 @@ augroup defaults
     autocmd InsertLeave * silent w
     autocmd CursorMoved * if &mod && index( s:dontwrite, bufname("%") ) == -1 | silent w | endif
     autocmd BufWritePost $MYVIMRC source %
-    autocmd BufWritePre * :%s/\s\+$//e
-    autocmd BufWritePre * silent! :%s#\($\n\s*\)\+\%$##
-    autocmd BufWritePre * silent! :retab!
+    autocmd BufWritePre,InsertLeave,CursorMoved * :%s/\s\+$//e
+    autocmd BufWritePre,InsertLeave,CursorMoved * silent! :%s#\($\n\s*\)\+\%$##
+    autocmd BufWritePre,InsertLeave,CursorMoved * silent! :retab!
     autocmd BufEnter * set cursorline
     autocmd BufLeave * set nocursorline
     autocmd BufEnter,BufWritePost,ShellCmdPost * let f=system('[[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && echo "*"')
@@ -222,6 +222,7 @@ augroup defaults
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
     autocmd FileType clojure setlocal omnifunc=clojurecomplete#Complete
     autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
+    autocmd BufRead,BufEnter .env :ALEDisableBuffer
 augroup end
 
 noremap <left>  <Nop>
@@ -232,3 +233,5 @@ inoremap <left>  <Nop>
 inoremap <down>  <Nop>
 inoremap <up>    <Nop>
 inoremap <right> <Nop>
+hi ExtraWhitespace ctermbg=9
+match ExtraWhitespace /\s\+$/
