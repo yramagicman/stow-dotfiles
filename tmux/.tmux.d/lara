@@ -7,29 +7,34 @@ if test "$1" = ''; then
     exit
 fi
 
-if tmux has-session -t $1 2> /dev/null; then
-  $HOME/bin/switch_or_attach $1
+if tmux has-session -t "$1" 2> /dev/null; then
+  "$HOME/bin/switch_or_attach" "$1"
   exit
 fi
 
-if [[ -z $(pgrep httpd) && -z $(pgrep mysqld) ]] ; then
+if [ -z "$(pgrep httpd)" ] && [ -z "$(pgrep mysqld)" ] ; then
     server-up
 fi
-tmux new-session -c "$HOME/Sites/$1" -d -s $1 -n dev
-tmux send-keys -t $1:dev "cd $HOME/Sites/$1" Enter
-tmux send-keys -t $1:dev "vim $HOME/Sites/$1" Enter
 
-tmux new-window -t $1 -c "$HOME/Sites/$1" -n shell
+if [ -z "$(pgrep redis)" ]; then
+    sudo systemctl start redis
+fi
+
+tmux new-session -c "$HOME/Sites/$1" -d -s "$1" -n dev
+tmux send-keys -t "$1":dev "cd $HOME/Sites/$1" Enter
+tmux send-keys -t "$1":dev "vim $HOME/Sites/$1" Enter
+
+tmux new-window -t "$1" -c "$HOME/Sites/$1" -n shell
 
 
-tmux new-window -t $1 -c "$HOME/Sites/$1" -n hangups
-tmux send-keys -t $1:hangups "node $HOME/Sites/Slackadaisical/dist/index.js" Enter
+tmux new-window -t "$1" -c "$HOME/Sites/$1" -n hangups
+tmux send-keys -t "$1":hangups "node $HOME/Sites/Slackadaisical/dist/index.js" Enter
 
-tmux new-window -t $1 -c "$HOME/Sites/$1" -n sass
-tmux send-keys -t $1:sass "cd $HOME/Sites/$1" Enter
-tmux send-keys -t $1:sass "npm run watch" Enter
+tmux new-window -t "$1" -c "$HOME/Sites/$1" -n sass
+tmux send-keys -t "$1":sass "cd $HOME/Sites/$1" Enter
+tmux send-keys -t "$1":sass "npm run watch" Enter
 
 # tmux new-window -t $1 -c "$HOME/Sites/$1" -n chrome
 # tmux send-keys -t $1:chrome "nohup chromium --incognito http://$(cat $HOME/Sites/$1/.siteurl) &" Enter
 # tmux send-keys -t $1:chrome "exit" Enter
-$HOME/bin/switch_or_attach $1:shell.left
+"$HOME/bin/switch_or_attach" "$1":shell.left

@@ -201,6 +201,8 @@ set statusline+=\ Column\ %2c
 set statusline+=\ \|
 
 set hidden
+set winheight=2
+set winminheight=2
 
 let s:dontwrite = ['!zsh']
 augroup defaults
@@ -209,7 +211,7 @@ augroup defaults
     autocmd CursorMoved * if &mod && ! &readonly && index( s:dontwrite, bufname("%") ) == -1 | silent w | endif
     autocmd BufWritePost $MYVIMRC source %
     autocmd BufWritePre,InsertLeave * :%s/\s\+$//e
-    autocmd BufWritePre,InsertLeave * silent! :%s#\($\n\s*\)\+\%$##
+    autocmd BufWritePre * silent! :%s#\($\n\s*\)\+\%$##
     autocmd BufWritePre,InsertLeave * silent! :retab!
     autocmd BufEnter * set cursorline
     autocmd BufLeave * set nocursorline
