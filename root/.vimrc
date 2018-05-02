@@ -124,7 +124,7 @@ endif
 
 set nojoinspaces
 
-set equalalways
+" set equalalways
 set splitbelow
 set splitright
 set scrolloff=2

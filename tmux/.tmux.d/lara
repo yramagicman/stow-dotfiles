@@ -27,8 +27,8 @@ tmux send-keys -t "$1":dev "vim $HOME/Sites/$1" Enter
 tmux new-window -t "$1" -c "$HOME/Sites/$1" -n shell
 
 
-tmux new-window -t "$1" -c "$HOME/Sites/$1" -n hangups
-tmux send-keys -t "$1":hangups "node $HOME/Sites/Slackadaisical/dist/index.js" Enter
+tmux new-window -t "$1" -c "$HOME/Sites/$1" -n slack
+tmux send-keys -t "$1":slack "weechat" Enter
 
 tmux new-window -t "$1" -c "$HOME/Sites/$1" -n sass
 tmux send-keys -t "$1":sass "cd $HOME/Sites/$1" Enter
