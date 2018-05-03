@@ -80,6 +80,11 @@ set omnifunc=syntaxcomplete#Complete
 packadd! matchit
 packadd! editexisting
 
+if !has('nvim') && &ttimeoutlen == -1
+  set ttimeout
+  set ttimeoutlen=100
+endif
+
 set autoread
 set autowrite
 

@@ -11,6 +11,9 @@ emacs/.emacs.d/ido.last
 emacs/.emacs.d/projectile-bookmarks.eld
 emacs/.emacs.d/.python-environments/default/lib/
 emacs/.emacs.d/undohist/
+newsboat/.newsboat/cache.db
+newsboat/.newsboat/history.cmdline
+newsboat/.newsboat/history.search
 root/.mpd/mpd.db
 root/.mpd/mpd.log
 root/.mpd/mpdstate
@@ -22,8 +25,6 @@ vim/.vim/lastupdate
 vim/.vim/.netrwhist
 vim/.vim/pack/vendor/
 vim/.vim/plugged/
+vim/.vim/swaps/
 vim/.vim/undo/
 zsh/.zsh/zsh_modules/
-newsboat/.newsboat/cache.db
-newsboat/.newsboat/history.cmdline
-newsboat/.newsboat/history.search
