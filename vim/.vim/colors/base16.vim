@@ -10,18 +10,18 @@ hi  ErrorMsg      ctermfg=8   ctermbg=0
 hi  Exception     ctermfg=8
 hi  FoldColumn    ctermfg=13  ctermbg=none
 hi  Folded        ctermfg=3   ctermbg=1
-hi  IncSearch     ctermfg=1   ctermbg=9  cterm=none
+hi  IncSearch     ctermfg=1   ctermbg=8  cterm=none
 hi  Italic                               cterm=none
 hi  Macro         ctermfg=8
 hi  MatchParen    ctermfg=0   ctermbg=3
 hi  ModeMsg       ctermfg=11
 hi  MoreMsg       ctermfg=11
 hi  Question      ctermfg=14
-hi  Search        ctermfg=3   ctermbg=10
+hi  Search        ctermfg=1   ctermbg=5
 hi  SpecialKey    ctermfg=3
 hi  TooLong       ctermfg=8
 hi  Underlined    ctermfg=8
-hi  Visual        ctermfg=2
+hi  Visual        ctermfg=7 ctermbg=2
 hi  VisualNOS     ctermfg=8
 hi  WarningMsg    ctermfg=10
 hi  WildMenu      ctermfg=8
