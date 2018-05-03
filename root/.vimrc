@@ -8,7 +8,7 @@ filetype plugin indent on
 " Switch syntax highlighting on
 syntax on
 
-colorscheme portable
+colorscheme base16
 set background=dark
 
 let g:VimPack_Setup_Folders = ['after', 'autoload', 'backup', 'colors', 'doc', 'snippets', 'spell', 'swaps', 'syntax', 'tags', 'undo']
@@ -218,7 +218,7 @@ augroup defaults
     autocmd BufEnter,BufWritePost,ShellCmdPost * let f=system('[[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && echo "*"')
     autocmd VimEnter,BufEnter,ShellCmdPost * let b=system('git branch 2>/dev/null | grep \* | sed "s/\*//g"')
     autocmd VimEnter,BufEnter,ShellCmdPost * let c=split(b, '')
-    autocmd BufEnter * source $MYVIMRC
+    autocmd VimEnter * source $MYVIMRC
     autocmd FileType * set textwidth=80
     autocmd FileType mail set textwidth=0
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -241,3 +241,6 @@ inoremap <up>    <Nop>
 inoremap <right> <Nop>
 hi ExtraWhitespace cterm=underline
 match ExtraWhitespace /\s\+$/
+
+inoremap <space><space> <Esc>
+vnoremap <space><space> <Esc>
