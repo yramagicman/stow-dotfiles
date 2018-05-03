@@ -74,7 +74,6 @@ set shell=zsh
 " Make backspace behave in a sane manner.
 set backspace=indent,eol,start
 
-
 " enable Omnicomplete
 set omnifunc=syntaxcomplete#Complete
 
