@@ -208,11 +208,11 @@ set hidden
 set winheight=2
 set winminheight=2
 
-let s:dontwrite = ['!zsh']
+" let s:dontwrite = ['!zsh', '[No Name]']
 augroup defaults
     autocmd!
     autocmd InsertLeave * silent w
-    autocmd CursorMoved * if &mod && ! &readonly && index( s:dontwrite, bufname("%") ) == -1 | silent w | endif
+    autocmd CursorMoved * if filewritable( expand('%')) == 1 | silent w | endif
     autocmd BufWritePost $MYVIMRC source %
     autocmd BufWritePre,InsertLeave * :%s/\s\+$//e
     autocmd BufWritePre * silent! :%s#\($\n\s*\)\+\%$##
