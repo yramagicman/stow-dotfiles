@@ -211,7 +211,7 @@ set winminheight=2
 " let s:dontwrite = ['!zsh', '[No Name]']
 augroup defaults
     autocmd!
-    autocmd InsertLeave * silent w
+    autocmd InsertLeave * if filewritable( expand('%')) == 1 | silent w | endif
     autocmd CursorMoved * if filewritable( expand('%')) == 1 | silent w | endif
     autocmd BufWritePost $MYVIMRC source %
     autocmd BufWritePre,InsertLeave * :%s/\s\+$//e
@@ -245,6 +245,5 @@ inoremap <up>    <Nop>
 inoremap <right> <Nop>
 hi ExtraWhitespace cterm=underline
 match ExtraWhitespace /\s\+$/
-
 inoremap <space><space> <Esc>
 vnoremap <space><space> <Esc>
