@@ -209,8 +209,8 @@ set hidden
 let s:dontwrite = ['!zsh']
 augroup defaults
     autocmd!
-    autocmd InsertLeave * silent w
-    autocmd CursorMoved * if &mod && index( s:dontwrite, bufname("%") ) == -1 | silent w | endif
+    autocmd InsertLeave * if filewritable( expand('%')) == 1 | silent w | endif
+    autocmd CursorMoved * if filewritable( expand('%')) == 1 | silent w | endif
     autocmd BufWritePost $MYVIMRC source %
     autocmd BufWritePre * :%s/\s\+$//e
     autocmd BufWritePre * silent! :%s#\($\n\s*\)\+\%$##
@@ -242,6 +242,5 @@ inoremap <up>    <Nop>
 inoremap <right> <Nop>
 hi ExtraWhitespace cterm=underline
 match ExtraWhitespace /\s\+$/
-
 inoremap <space><space> <Esc>
 vnoremap <space><space> <Esc>
