@@ -137,9 +137,6 @@ set t_Co=256
 "Use os clipboard
 set clipboard^=unnamedplus,unnamed
 set incsearch
-set noerrorbells
-set novisualbell
-set hlsearch
 
 " Ignore case of searches
 set ignorecase
