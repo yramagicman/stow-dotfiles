@@ -1,3 +1,8 @@
+scriptencoding utf-8
+if filereadable(expand('$VIMRUNTIME/defaults.vim'))
+    unlet! g:skip_defaults_vim
+    source $VIMRUNTIME/defaults.vim
+endif
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
@@ -139,7 +144,6 @@ set clipboard^=unnamedplus,unnamed
 set incsearch
 set noerrorbells
 set novisualbell
-set hlsearch
 
 " Ignore case of searches
 set ignorecase
@@ -161,29 +165,6 @@ if exists('&belloff')
     set belloff=all
 endif
 
-function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    elseif pumvisible()
-        return "\<C-n>"
-    else
-        return "\<c-x>\<c-o>"
-    endif
-endfunction
-
-inoremap <expr> <tab> InsertTabWrapper()
-inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
-cnoremap <expr> %% expand('%:h').'/'
-inoremap <c-f> <c-x><c-f>
-
-if &diff
-    nnoremap <C-q> :qa!<cr>
-endif
-
-let mapleader=","
-nnoremap <leader><space> :set hlsearch!<cr>
-nnoremap <leader><leader> <C-^>
 
 set statusline=\|\ %m\ %f\ %r\ \%y
 " Always show status line
@@ -247,3 +228,32 @@ hi ExtraWhitespace cterm=underline
 match ExtraWhitespace /\s\+$/
 inoremap <space><space> <Esc>
 vnoremap <space><space> <Esc>
+nnoremap .<space> i<space><Esc>
+
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    elseif pumvisible()
+        return "\<C-n>"
+    else
+        return "\<c-n>"
+    endif
+endfunction
+
+inoremap <expr> <tab> InsertTabWrapper()
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+cnoremap <expr> %% expand('%:h').'/'
+inoremap <c-f> <c-x><c-f>
+
+if &diff
+    nnoremap <C-q> :qa!<cr>
+    set foldmethod=diff
+    set list
+    set nowrap
+endif
+
+let mapleader=","
+nnoremap <leader><space> :set hlsearch!<cr>
+nnoremap <leader><leader> <C-^>
+nnoremap * :set hlsearch<cr>*
