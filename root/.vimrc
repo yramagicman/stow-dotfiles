@@ -209,6 +209,7 @@ augroup defaults
     autocmd FileType clojure setlocal omnifunc=clojurecomplete#Complete
     autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
     autocmd BufRead,BufEnter .env :ALEDisableBuffer
+    autocmd CursorHold * :w
 augroup end
 
 noremap <left>  <Nop>
