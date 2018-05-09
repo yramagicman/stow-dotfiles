@@ -34,8 +34,6 @@ PlugOpt 'dzeban/vim-log-syntax'
 PlugOpt 'w0rp/ale'
 PlugOpt 'mileszs/ack.vim'
 PlugOpt 'leafgarland/typescript-vim'
-" PlugOpt 'jceb/vim-orgmode'
-" PlugOpt 'tpope/vim-speeddating'
 PlugOpt 'shawncplus/phpcomplete.vim'
 PlugOpt 'hail2u/vim-css3-syntax'
 PlugOpt 'vim-scripts/Sass'
@@ -191,7 +189,6 @@ set winminheight=2
 augroup defaults
     autocmd!
     autocmd InsertLeave * if filewritable( expand('%')) == 1 | silent w | endif
-    autocmd CursorMoved * if filewritable( expand('%')) == 1 | silent w | endif
     autocmd BufWritePost $MYVIMRC source %
     autocmd BufWritePre,InsertLeave * :%s/\s\+$//e
     autocmd BufWritePre * silent! :%s#\($\n\s*\)\+\%$##
@@ -224,9 +221,10 @@ inoremap <up>    <Nop>
 inoremap <right> <Nop>
 hi ExtraWhitespace cterm=underline
 match ExtraWhitespace /\s\+$/
-inoremap <space><space> <Esc>
-vnoremap <space><space> <Esc>
-nnoremap .<space> i<space><Esc>
+inoremap <space><space> <Esc>:w<cr>
+vnoremap <space><space> <Esc>:w<cr>
+nnoremap <space><space> :w<cr>
+nnoremap .<space> i<space><Esc>:w<cr>
 
 function! InsertTabWrapper()
     let col = col('.') - 1
