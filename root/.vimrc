@@ -113,6 +113,7 @@ set relativenumber
 set expandtab
 set eol
 set nowrapscan
+set showcmd
 
 set foldcolumn=2
 set foldmethod=marker
