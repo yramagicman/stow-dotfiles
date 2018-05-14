@@ -196,6 +196,7 @@ augroup defaults
     autocmd BufWritePre,InsertLeave * silent! :retab!
     autocmd BufEnter * set cursorline
     autocmd BufLeave * set nocursorline
+    autocmd BufEnter,BufLeave,BufWritePost * redraw!
     autocmd BufEnter,BufWritePost,ShellCmdPost * let f=system('[[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && echo "*"')
     autocmd VimEnter,BufEnter,ShellCmdPost * let b=system('git branch 2>/dev/null | grep \* | sed "s/\*//g"')
     autocmd VimEnter,BufEnter,ShellCmdPost * let c=split(b, '')
