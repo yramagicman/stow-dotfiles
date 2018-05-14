@@ -13,7 +13,7 @@ filetype plugin indent on
 " Switch syntax highlighting on
 syntax on
 
-colorscheme base16
+colorscheme portable
 set background=dark
 
 let g:VimPack_Setup_Folders = ['after', 'autoload', 'backup', 'colors', 'doc', 'snippets', 'spell', 'swaps', 'syntax', 'tags', 'undo']
