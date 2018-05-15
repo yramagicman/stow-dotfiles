@@ -125,7 +125,7 @@ set autoindent
 set smartindent
 set nolist wrap linebreak sidescrolloff=15
 set listchars=tab:▸\ ,trail:·,eol:¬,extends:❯,precedes:❮
-set showbreak=....
+set showbreak=…→
 if exists('+breakindent')
     set breakindent
 endif
@@ -186,7 +186,6 @@ set hidden
 set winheight=2
 set winminheight=2
 
-" let s:dontwrite = ['!zsh', '[No Name]']
 augroup defaults
     autocmd!
     autocmd InsertLeave * if filewritable( expand('%')) == 1 | silent w | endif
@@ -211,7 +210,7 @@ augroup defaults
     autocmd FileType clojure setlocal omnifunc=clojurecomplete#Complete
     autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
     autocmd BufRead,BufEnter .env :ALEDisableBuffer
-    autocmd CursorHold * :w
+    autocmd CursorHold * if filewritable(expand('%')) == 1 | silent w | endif
 augroup end
 
 noremap <left>  <Nop>
