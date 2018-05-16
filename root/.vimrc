@@ -188,11 +188,12 @@ set winminheight=2
 
 augroup defaults
     autocmd!
-    autocmd InsertLeave * if filewritable( expand('%')) == 1 | silent w | endif
     autocmd BufWritePost $MYVIMRC source %
+    autocmd BufWritePre,InsertLeave * checktime
     autocmd BufWritePre,InsertLeave * :%s/\s\+$//e
     autocmd BufWritePre * silent! :%s#\($\n\s*\)\+\%$##
     autocmd BufWritePre,InsertLeave * silent! :retab!
+    autocmd InsertLeave * if filewritable( expand('%')) == 1 | silent w | endif
     autocmd BufEnter * set cursorline
     autocmd BufLeave * set nocursorline
     autocmd BufEnter,BufLeave,BufWritePost * redraw!
@@ -210,6 +211,7 @@ augroup defaults
     autocmd FileType clojure setlocal omnifunc=clojurecomplete#Complete
     autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
     autocmd BufRead,BufEnter .env :ALEDisableBuffer
+    autocmd CursorHold * checktime
     autocmd CursorHold * if filewritable(expand('%')) == 1 | silent w | endif
 augroup end
 
@@ -255,3 +257,6 @@ let mapleader=","
 nnoremap <leader><space> :set hlsearch!<cr>
 nnoremap <leader><leader> <C-^>
 nnoremap * :set hlsearch<cr>*
+nnoremap <F1> :set relativenumber!<cr>
+nnoremap <F2> :set wrap!<cr>
+nnoremap <F3> :set list!<cr>
