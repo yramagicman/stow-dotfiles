@@ -57,4 +57,6 @@ else
     export TERMINAL=xterm
 fi
 
+
+exec $HOME/.dwm/autostart.sh &
 exec $HOME/bin/dwmrestart
