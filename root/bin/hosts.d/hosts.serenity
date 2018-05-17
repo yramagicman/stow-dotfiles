@@ -1,15 +1,18 @@
 # Static table lookup for hostnames.
 # See hosts(5) for details.
-127.0.0.1     localhost
-::1           localhost
-127.0.0.1     serenity
-127.0.0.1     mccore.local
-127.0.0.1     dscore.local
-127.0.0.1     underscore.local
-127.0.0.1     catalog.local
-127.0.0.1     phpmyadmin.local
-127.0.0.1     admin.local
-127.0.0.1     commandcenter.local
-127.0.0.1     multicore.local
-127.0.0.1     jonshvac2.local
-127.0.0.1     jonshvac.local
+
+127.0.0.1  localhost
+::1        localhost
+127.0.0.1  serenity
+127.0.0.1  mccore.local
+127.0.0.1  dscore.local
+127.0.0.1  underscore.local
+127.0.0.1  catalog.local
+127.0.0.1  phpmyadmin.local
+127.0.0.1  admin.local
+127.0.0.1  commandcenter.local
+127.0.0.1  plugin.commandcenter.local
+127.0.0.1  multicore.local
+127.0.0.1  jonshvac2.local
+127.0.0.1  jonshvac.local
+0.0.0.0    hvac.media3.net
