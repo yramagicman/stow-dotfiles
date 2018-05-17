@@ -33,14 +33,14 @@ sed -i "s/$(awk '/char background1/ {print $6}' $dwm_dir/config.h)//" "$dwm_dir/
 sed -i "s/$(awk '/char background2/ {print $6}' $dwm_dir/config.h)//" "$dwm_dir/config.h"
 sed -i "s/$(awk '/char foreground1/ {print $6}' $dwm_dir/config.h)//" "$dwm_dir/config.h"
 # sed -i "s/$(awk '/char foreground2/ {print $6}' $dwm_dir/config.h)//" "$dwm_dir/config.h"
-# sed -i "s/$(awk '/char border1/ {print $6}' $dwm_dir/config.h)//" "$dwm_dir/config.h"
-sed -i "s/$(awk '/char border2/ {print $6}' $dwm_dir/config.h)//" "$dwm_dir/config.h"
+sed -i "s/$(awk '/char border1/ {print $6}' $dwm_dir/config.h)//" "$dwm_dir/config.h"
+# sed -i "s/$(awk '/char border2/ {print $6}' $dwm_dir/config.h)//" "$dwm_dir/config.h"
 
 sed -i "s/char background1\[\]\s*=/& \"$(awk '/*.color0/ {print $2}' $HOME/.Xresources)\"/" "$dwm_dir/config.h"
 sed -i "s/char background2\[\]\s*=/& \"$(awk '/*.color13:/ {print $2}' $HOME/.Xresources)\"/" "$dwm_dir/config.h"
 sed -i "s/char foreground1\[\]\s*=/& \"$(awk '/*.color7:/ {print $2}' $HOME/.Xresources)\"/" "$dwm_dir/config.h"
 sed -i "s/char foreground2\[\]\s*=/& \"$(awk '/*.color0:/ {print $2}' $HOME/.Xresources)\"/" "$dwm_dir/config.h"
-sed -i "s/char border1\[\]\s*=/& \"$(awk '/*.color0:/ {print $2}' $HOME/.Xresources)\"/" "$dwm_dir/config.h"
+sed -i "s/char border1\[\]\s*=/& \"$(awk '/*.color8:/ {print $2}' $HOME/.Xresources)\"/" "$dwm_dir/config.h"
 sed -i "s/char border2\[\]\s*=/& \"$(awk '/*.color13:/ {print $2}' $HOME/.Xresources)\"/" "$dwm_dir/config.h"
 sed -i 's/"\s$/";/g' "$dwm_dir/config.h"
 builtin cd $dwm_dir
