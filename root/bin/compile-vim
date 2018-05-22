@@ -1,7 +1,7 @@
 #!/bin/sh
 
-sudo zypper in libXtst-devel ruby-devel python-devel python-devel python3-devel lua53-devel gtk2-devel libXt-devel libXpm-devel ncurses-devel
-cd /tmp || exit
+# sudo zypper in libXtst-devel ruby-devel python-devel python-devel python3-devel lua53-devel gtk2-devel libXt-devel libXpm-devel ncurses-devel
+# cd /tmp || exit
 git clone --depth 4 https://github.com/vim/vim.git
 cd vim || exit
 ./configure --with-features=huge \
@@ -15,6 +15,6 @@ cd vim || exit
             --enable-cscope
 make
 sudo make install
-rm -rf /tmp/vim
+# rm -rf /tmp/vim
 
-sudo zypper rm -u libXtst-devel ruby-devel python-devel python-devel python3-devel lua53-devel gtk2-devel libXt-devel libXpm-devel
+# sudo zypper rm -u libXtst-devel ruby-devel python-devel python-devel python3-devel lua53-devel gtk2-devel libXt-devel libXpm-devel

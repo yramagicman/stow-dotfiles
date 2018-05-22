@@ -110,7 +110,7 @@ set shiftwidth=4
 set softtabstop=4
 set autoindent
 set smartindent
-set nolist wrap linebreak sidescrolloff=15
+set list wrap linebreak sidescrolloff=15
 set listchars=tab:▸\ ,trail:·,eol:¬,extends:❯,precedes:❮
 set showbreak=…→
 
@@ -151,6 +151,8 @@ if &diff
     set foldmethod=diff
     set list
     set nowrap
+    autocmd! VimEnter * ALEDisable
+    autocmd! VimEnter * %retab!
 endif
 if !has('nvim') && &ttimeoutlen == -1
   set ttimeout
@@ -256,4 +258,5 @@ nnoremap * :set hlsearch<cr>*
 nnoremap <F1> :set relativenumber!<cr>
 nnoremap <F2> :call functions#WrapToggle()<cr>
 nnoremap <F3> :set list!<cr>
+nnoremap <F4> :call functions#StatusToggle()<cr>
 "}}}

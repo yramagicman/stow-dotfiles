@@ -32,7 +32,7 @@ function! functions#WrapToggle()
     endif
 endfunction
 "}}}
-"{{{
+"{{{ tab completion
 function! functions#InsertTabWrapper()
     let col = col('.') - 1
     if !col || getline('.')[col - 1] !~ '\k'
@@ -41,6 +41,15 @@ function! functions#InsertTabWrapper()
         return "\<C-n>"
     else
         return "\<c-n>"
+    endif
+endfunction
+"}}}
+"{{{
+function! functions#StatusToggle()
+    if &laststatus == 2
+        set laststatus=0
+    else
+        set laststatus=2
     endif
 endfunction
 "}}}
