@@ -44,12 +44,19 @@ function! functions#InsertTabWrapper()
     endif
 endfunction
 "}}}
-"{{{
+"{{{ toggle status line
 function! functions#StatusToggle()
     if &laststatus == 2
         set laststatus=0
     else
         set laststatus=2
+    endif
+endfunction
+"}}}
+"{{{ saving
+function! functions#Save()
+    if filewritable(expand('%')) == 1
+        silent w
     endif
 endfunction
 "}}}

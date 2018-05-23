@@ -42,11 +42,14 @@ PlugOpt 'othree/html5.vim'
 PlugOpt 'jwalton512/vim-blade'
 PlugOpt 'posva/vim-vue'
 if system('which fzf')[:-2] != 'fzf not found'
-    PlugStart 'junegunn/fzf.vim'
-    cnoreabbrev b Buffers<CR>
-    cnoreabbrev find Files<CR>
-    cnoreabbrev gf GFiles<CR>
-    cnoreabbrev fg GFiles<CR>
+    if filereadable('/usr/share/vim/vimfiles/plugin/fzf.vim')
+        source /usr/share/vim/vimfiles/plugin/fzf.vim
+        PlugStart 'junegunn/fzf.vim'
+        cnoreabbrev b Buffers<CR>
+        cnoreabbrev find Files<CR>
+        cnoreabbrev gf GFiles<CR>
+        cnoreabbrev fg GFiles<CR>
+    endif
 endif
 command! -nargs=* Ack :packadd ack.vim | Ack <f-args>
 "}}}
@@ -151,8 +154,10 @@ if &diff
     set foldmethod=diff
     set list
     set nowrap
-    autocmd! VimEnter * ALEDisable
-    autocmd! VimEnter * %retab!
+    augroup diff
+        autocmd!
+        autocmd VimEnter * ALEDisable
+    augroup end
 endif
 if !has('nvim') && &ttimeoutlen == -1
   set ttimeout
@@ -205,7 +210,7 @@ augroup defaults
     autocmd BufWritePre,InsertLeave * :%s/\s\+$//e
     autocmd BufWritePre * silent! :%s#\($\n\s*\)\+\%$##
     autocmd BufWritePre,InsertLeave * silent! :retab!
-    autocmd InsertLeave * if filewritable( expand('%')) == 1 | silent w | endif
+    autocmd InsertLeave * call functions#Save()
     autocmd BufEnter * set cursorline
     autocmd BufLeave * set nocursorline
     autocmd BufEnter,BufLeave,BufWritePost * redraw!
@@ -223,8 +228,8 @@ augroup defaults
     autocmd FileType clojure setlocal omnifunc=clojurecomplete#Complete
     autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
     autocmd BufRead,BufEnter .env :ALEDisableBuffer
-    autocmd CursorHold * checktime
-    autocmd CursorHold * if filewritable(expand('%')) == 1 | silent w | endif
+    autocmd BufEnter,CursorHold * checktime
+    autocmd CursorHold * call functions#Save()
 augroup end"}}}
 hi ExtraWhitespace cterm=underline
 match ExtraWhitespace /\s\+$/
@@ -240,10 +245,10 @@ inoremap <up>    <Nop>
 inoremap <right> <Nop>
 "}}}
 "{{{ escape and save
-inoremap <space><space> <Esc>:wall<cr>
-vnoremap <space><space> <Esc>:wall<cr>
-nnoremap <space><space> :wall<cr>
-nnoremap .<space> i<space><Esc>:w<cr>
+inoremap <space><space> <Esc>:call functions#Save()<cr>
+vnoremap <space><space> <Esc>:call functions#Save()<cr>
+nnoremap <space><space> :call functions#Save()<cr>
+nnoremap .<space> i<space><Esc>:call functions#Save()<cr>
 "}}}
 "{{{ Tab complete keywords
 inoremap <expr> <tab> functions#InsertTabWrapper()
