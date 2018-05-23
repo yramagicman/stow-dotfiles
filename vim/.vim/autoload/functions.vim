@@ -8,12 +8,11 @@ endfunction
 "}}}
 "{{{ open scratch buffer
 function! functions#Scratch()
-    new
+    botright new
     setlocal buftype=nofile
     setlocal bufhidden=hide
     setlocal noswapfile
     setlocal nobuflisted
-    resize -15
 endfunction
 "}}}
 "{{{ Maximize

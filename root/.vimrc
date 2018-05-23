@@ -264,4 +264,6 @@ nnoremap <F1> :set relativenumber!<cr>
 nnoremap <F2> :call functions#WrapToggle()<cr>
 nnoremap <F3> :set list!<cr>
 nnoremap <F4> :call functions#StatusToggle()<cr>
+nnoremap <C-w>m :call functions#Maximize()<cr>
+command! Scratch call functions#Scratch()
 "}}}
