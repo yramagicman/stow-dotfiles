@@ -1,6 +1,7 @@
 #{{{ profiling tools
 PROFILE_STARTUP=false
 if [[ "$PROFILE_STARTUP" == true ]]; then
+    zmodload zsh/zprof
     # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
     PS4=$'%D{%M%S%.} %N:%i> '
     exec 3>&2 2>$HOME/startlog.$$
@@ -346,5 +347,6 @@ fi
 if [[ "$PROFILE_STARTUP" == true ]]; then
     unsetopt xtrace
     exec 2>&3 3>&-
+    zprof > ~/zshprofile
 fi
 #}}}
