@@ -1,1 +1,2 @@
-set foldmethod=manual
+setlocal foldmethod=syntax
+setlocal noexpandtab
