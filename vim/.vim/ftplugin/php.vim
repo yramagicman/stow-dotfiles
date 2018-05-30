@@ -6,4 +6,4 @@ function! Runtests()
     normal :!./vendor/bin/phpunit ./tests/Unit/*
 
 endfunction
-nnoremap <F5> :wa<cr>:!( arclear > /dev/null 2>&1) && ./vendor/bin/phpunit ./tests/Unit/*<cr>
+nnoremap <F5> :wa<cr>:!( arclear > /dev/null 2>&1) && ./vendor/bin/phpunit $(find ./tests/Unit -type f -name '*.php')<cr>

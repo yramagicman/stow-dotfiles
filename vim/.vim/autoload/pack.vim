@@ -161,8 +161,8 @@ function! s:do_update()
         if filereadable($HOME.'/.vim/lastupdate')
             let updatetime = readfile($HOME.'/.vim/lastupdate')[1]
             if today > updatetime
-                autocmd VimLeavePre * call s:update_all()
-                autocmd CursorHold * echom 'updating on close'
+                autocmd! VimLeavePre * call s:update_all()
+                autocmd! CursorHold * echom 'updating on close'
 
                 let nextupdate = today + (oneday * g:VimPack_Update_Frequency)
                 call writefile([today], $HOME.'/.vim/lastupdate')
@@ -170,8 +170,8 @@ function! s:do_update()
                 return
             endif
         else
-            autocmd VimLeavePre * call s:update_all()
-            autocmd CursorHold * echom 'updating on close'
+            autocmd! VimLeavePre * call s:update_all()
+            autocmd! CursorHold * echom 'updating on close'
             let nextupdate = today + (oneday * g:VimPack_Update_Frequency)
             call writefile([today], $HOME.'/.vim/lastupdate')
             call writefile([nextupdate], $HOME.'/.vim/lastupdate', "a")
