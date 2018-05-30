@@ -246,10 +246,10 @@ inoremap <up>    <Nop>
 inoremap <right> <Nop>
 "}}}
 "{{{ escape and save
-inoremap <space><space> <Esc>:call functions#Save()<cr>
-vnoremap <space><space> <Esc>:call functions#Save()<cr>
+inoremap <space><space> <Esc>
+vnoremap <space><space> <Esc>
 nnoremap <space><space> :call functions#Save()<cr>
-nnoremap .<space> i<space><Esc>:call functions#Save()<cr>
+nnoremap .<space> i<space><Esc>
 "}}}
 "{{{ Tab complete keywords
 inoremap <expr> <tab> functions#InsertTabWrapper()
