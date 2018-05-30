@@ -106,8 +106,9 @@ set eol
 set nowrapscan
 set showcmd
 set foldcolumn=2
-set foldmethod=marker
+set foldmethod=indent
 set wildmenu
+set foldlevel=999
 set wildmode=full
 set shiftwidth=4
 set softtabstop=4
@@ -217,7 +218,7 @@ augroup defaults
     autocmd CursorHold,BufEnter,BufWritePost,ShellCmdPost * let f=system('[[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && echo "*"')
     autocmd CursorHold,VimEnter,BufEnter,ShellCmdPost * let b=system('git branch 2>/dev/null | grep \* | sed "s/\*//g"')
     autocmd CursorHold,VimEnter,BufEnter,ShellCmdPost * let c=split(b, '')
-    autocmd VimEnter * source $MYVIMRC
+    " autocmd VimEnter * source $MYVIMRC
     autocmd FileType * set textwidth=80
     autocmd FileType mail set textwidth=0
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -231,7 +232,8 @@ augroup defaults
     autocmd BufEnter,CursorHold * checktime
     autocmd CursorHold * call functions#Save()
     autocmd BufWritePost *.vue call functions#CompileJS()
-augroup end"}}}
+augroup end
+"}}}
 hi ExtraWhitespace cterm=underline
 match ExtraWhitespace /\s\+$/
 
