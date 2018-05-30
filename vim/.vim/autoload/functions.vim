@@ -61,10 +61,9 @@ endfunction
 "}}}
 " {{{ compile javascript
 function! functions#CompileJS()
-    echom 'compiling'
-    call term_start(['/bin/sh', '-c', 'npm run dev'], {'term_rows': 5, 'term_finish': 'close'})
-    echom 'done'
-    " sleep 1
-    redraw!
+    if !bufexists('compiling-js')
+        call term_start(['/bin/sh', '-c', 'npm run dev'], {'term_rows': 5, 'term_finish': 'close' , 'term_name': 'compiling-js'})
+        redraw!
+    endif
 endfunction
 " }}}
