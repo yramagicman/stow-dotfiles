@@ -59,3 +59,10 @@ function! functions#Save()
     endif
 endfunction
 "}}}
+function! functions#CompileJS()
+    echom 'compiling'
+    call term_start(['/bin/sh', '-c', 'npm run dev'], {'term_rows': 5, 'term_finish': 'close'})
+    echom 'done'
+    " sleep 1
+    redraw!
+endfunction
