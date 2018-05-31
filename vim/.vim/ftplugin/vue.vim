@@ -1,1 +1,1 @@
-js.vim
+javascript.vim
