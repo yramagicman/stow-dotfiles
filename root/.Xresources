@@ -31,74 +31,74 @@ URxvt.internalBorder: 3
 !*******************************************************************************!
 
 ! special
-i3wm.foreground:   #cfd7cb
-i3wm.background:   #090908
-i3wm.cursorColor:  #cfd7cb
+i3wm.foreground:   #adadad
+i3wm.background:   #000000
+i3wm.cursorColor:  #adadad
 
 ! black
-i3wm.color0:       #101110
-i3wm.color8:       #d09d3f
+i3wm.color0:       #000000
+i3wm.color8:       #555555
 
 ! red
-i3wm.color1:       #1a1b19
-i3wm.color9:       #8adf27
+i3wm.color1:       #e6193c
+i3wm.color9:       #ff4060
 
 ! green
-i3wm.color2:       #2b2d2a
-i3wm.color10:      #f88eac
+i3wm.color2:       #29a329
+i3wm.color10:      #45bf45
 
 ! yellow
-i3wm.color3:       #424541
-i3wm.color11:      #95cdf5
+i3wm.color3:       #c3c322
+i3wm.color11:      #dede38
 
 ! blue
-i3wm.color4:       #60645e
-i3wm.color12:      #fbbfce
+i3wm.color4:       #3d62f5
+i3wm.color12:      #5273f5
 
 ! magenta
-i3wm.color5:       #848981
-i3wm.color13:      #cf87e9
+i3wm.color5:       #ad2bee
+i3wm.color13:      #b544ee
 
 ! cyan
-i3wm.color6:       #adb4aa
-i3wm.color14:      #53c3ff
+i3wm.color6:       #1999b3
+i3wm.color14:      #2aa7c1
 
 ! white
-i3wm.color7:       #dde5d9
-i3wm.color15:      #81d317
+i3wm.color7:       #adadad
+i3wm.color15:      #d0d0d0
 ! special
-*.foreground:   #cfd7cb
-*.background:   #090908
-*.cursorColor:  #cfd7cb
+*.foreground:   #adadad
+*.background:   #000000
+*.cursorColor:  #adadad
 
 ! black
-*.color0:       #101110
-*.color8:       #d09d3f
+*.color0:       #000000
+*.color8:       #555555
 
 ! red
-*.color1:       #1a1b19
-*.color9:       #8adf27
+*.color1:       #e6193c
+*.color9:       #ff4060
 
 ! green
-*.color2:       #2b2d2a
-*.color10:      #f88eac
+*.color2:       #29a329
+*.color10:      #45bf45
 
 ! yellow
-*.color3:       #424541
-*.color11:      #95cdf5
+*.color3:       #c3c322
+*.color11:      #dede38
 
 ! blue
-*.color4:       #60645e
-*.color12:      #fbbfce
+*.color4:       #3d62f5
+*.color12:      #5273f5
 
 ! magenta
-*.color5:       #848981
-*.color13:      #cf87e9
+*.color5:       #ad2bee
+*.color13:      #b544ee
 
 ! cyan
-*.color6:       #adb4aa
-*.color14:      #53c3ff
+*.color6:       #1999b3
+*.color14:      #2aa7c1
 
 ! white
-*.color7:       #dde5d9
-*.color15:      #81d317
+*.color7:       #adadad
+*.color15:      #d0d0d0

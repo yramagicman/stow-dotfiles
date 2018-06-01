@@ -1,3 +1,9 @@
+"{{{ defaults
+scriptencoding utf-8
+if filereadable(expand('$VIMRUNTIME/defaults.vim'))
+    unlet! g:skip_defaults_vim
+    source $VIMRUNTIME/defaults.vim
+endif
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
@@ -7,10 +13,10 @@ filetype plugin indent on
 
 " Switch syntax highlighting on
 syntax on
-
+"}}}
 colorscheme portable
 set background=dark
-
+"{{{ Plugin loading and settings
 let g:VimPack_Setup_Folders = ['after', 'autoload', 'backup', 'colors', 'doc', 'snippets', 'spell', 'swaps', 'syntax', 'tags', 'undo']
 let g:VimPack_Update_Frequency = 5
 let g:VimPack_Auto_Install = 1
@@ -29,8 +35,6 @@ PlugOpt 'dzeban/vim-log-syntax'
 PlugOpt 'w0rp/ale'
 PlugOpt 'mileszs/ack.vim'
 PlugOpt 'leafgarland/typescript-vim'
-" PlugOpt 'jceb/vim-orgmode'
-" PlugOpt 'tpope/vim-speeddating'
 PlugOpt 'shawncplus/phpcomplete.vim'
 PlugOpt 'hail2u/vim-css3-syntax'
 PlugOpt 'vim-scripts/Sass'
@@ -38,14 +42,18 @@ PlugOpt 'othree/html5.vim'
 PlugOpt 'jwalton512/vim-blade'
 PlugOpt 'posva/vim-vue'
 if system('which fzf')[:-2] != 'fzf not found'
-    PlugStart 'junegunn/fzf.vim'
-    cnoreabbrev b Buffers<CR>
-    cnoreabbrev find Files<CR>
-    cnoreabbrev gf GFiles<CR>
-    cnoreabbrev fg GFiles<CR>
+    if filereadable('/usr/share/vim/vimfiles/plugin/fzf.vim')
+        source /usr/share/vim/vimfiles/plugin/fzf.vim
+        PlugStart 'junegunn/fzf.vim'
+        cnoreabbrev b Buffers<CR>
+        cnoreabbrev find Files<CR>
+        cnoreabbrev gf GFiles<CR>
+        cnoreabbrev fg GFiles<CR>
+    endif
 endif
-
 command! -nargs=* Ack :packadd ack.vim | Ack <f-args>
+"}}}
+"{{{ autocommands for loading extensions
 augroup extensions
     autocmd!
     autocmd FileType vim,css,scss,sass,html,javascript,python,php,c,cpp,typescript,zsh,sh silent! packadd ale | redraw
@@ -63,11 +71,15 @@ augroup extensions
     autocmd BufRead *.vue silent! packadd vim-vue | redraw
     autocmd BufRead *.vue silent! set filetype=vue | redraw
 augroup end
+"}}}
+"{{{ ale settings
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+"}}}
+let mapleader=","
 
 set shell=zsh
 
@@ -76,33 +88,15 @@ set backspace=indent,eol,start
 
 " enable Omnicomplete
 set omnifunc=syntaxcomplete#Complete
-
+"{{{ builtin plugins
 packadd! matchit
 packadd! editexisting
-
-if !has('nvim') && &ttimeoutlen == -1
-  set ttimeout
-  set ttimeoutlen=100
-endif
-
+"}}}
 set autoread
 set autowrite
 
 set lazyredraw
 set ttyfast
-
-" Centralize backups, swapfiles and undo history
-if exists("&backupdir")
-    set backupdir=~/.vim/backup//
-endif
-if exists("&directory")
-    set directory=~/.vim/swaps//
-endif
-if exists("&undodir")
-    set undolevels=5000
-    set undodir=~/.vim/undo//
-    set undofile
-endif
 
 set laststatus=2
 set number
@@ -110,21 +104,19 @@ set relativenumber
 set expandtab
 set eol
 set nowrapscan
-
+set showcmd
 set foldcolumn=2
-set foldmethod=marker
+set foldmethod=indent
 set wildmenu
+set foldlevel=999
 set wildmode=full
 set shiftwidth=4
 set softtabstop=4
 set autoindent
 set smartindent
-set nolist wrap linebreak sidescrolloff=15
+set list wrap linebreak sidescrolloff=15
 set listchars=tab:▸\ ,trail:·,eol:¬,extends:❯,precedes:❮
-set showbreak=....
-if exists('+breakindent')
-    set breakindent
-endif
+set showbreak=…→
 
 set nojoinspaces
 
@@ -137,54 +129,58 @@ set t_Co=256
 "Use os clipboard
 set clipboard^=unnamedplus,unnamed
 set incsearch
-set noerrorbells
-set novisualbell
-set hlsearch
 
 " Ignore case of searches
 set ignorecase
 set smartcase
 set startofline
-
-set shortmess+=A " ignore annoying swapfile messages
+set shortmess+=A " ignore annoying swapfile messages{{{
 set shortmess+=I " no splash screen
 set shortmess+=O " file-read message overwrites previous
 set shortmess+=T " truncate non-file messages in middle
 set shortmess+=W " don't echo "[w]"/"[written]" when writing
 set shortmess+=a " use abbreviations in messages eg. `[RO]` instead of `[readonly]`
 set shortmess+=o " overwrite file-written messages
-set shortmess+=t " truncate file messages at start
-
+set shortmess+=t " truncate file messages at start}}}
+"{{{ turn off error bells
 set novisualbell
 set noerrorbells
 if exists('&belloff')
     set belloff=all
 endif
-
-function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    elseif pumvisible()
-        return "\<C-n>"
-    else
-        return "\<c-x>\<c-o>"
-    endif
-endfunction
-
-inoremap <expr> <tab> InsertTabWrapper()
-inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
-cnoremap <expr> %% expand('%:h').'/'
-inoremap <c-f> <c-x><c-f>
-
+"}}}
+"{{{ conditional settings
 if &diff
     nnoremap <C-q> :qa!<cr>
+    set foldmethod=diff
+    set list
+    set nowrap
+    augroup diff
+        autocmd!
+        autocmd VimEnter * ALEDisable
+    augroup end
+endif
+if !has('nvim') && &ttimeoutlen == -1
+  set ttimeout
+  set ttimeoutlen=100
 endif
 
-let mapleader=","
-nnoremap <leader><space> :set hlsearch!<cr>
-nnoremap <leader><leader> <C-^>
-
+if exists('+breakindent')
+    set breakindent
+endif
+" Centralize backups, swapfiles and undo history
+if exists("&backupdir")
+    set backupdir=~/.vim/backup//
+endif
+if exists("&directory")
+    set directory=~/.vim/swaps//
+endif
+if exists("&undodir")
+    set undolevels=5000
+    set undodir=~/.vim/undo//
+    set undofile
+endif"}}}
+"{{{ statusline
 set statusline=\|\ %m\ %f\ %r\ \%y
 " Always show status line
 let f=system('[[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && echo "*"')
@@ -203,25 +199,26 @@ set statusline+=Line:
 set statusline+=%4l/%-4L
 set statusline+=\ Column\ %2c
 set statusline+=\ \|
-
+"}}}
 set hidden
 set winheight=2
 set winminheight=2
-
+"{{{ autocmds for everything else
 augroup defaults
     autocmd!
-    autocmd InsertLeave * if filewritable( expand('%')) == 1 | silent w | endif
-    autocmd CursorMoved * if filewritable( expand('%')) == 1 | silent w | endif
     autocmd BufWritePost $MYVIMRC source %
+    autocmd BufWritePre,InsertLeave * checktime
     autocmd BufWritePre,InsertLeave * :%s/\s\+$//e
     autocmd BufWritePre * silent! :%s#\($\n\s*\)\+\%$##
     autocmd BufWritePre,InsertLeave * silent! :retab!
+    autocmd InsertLeave * call functions#Save()
     autocmd BufEnter * set cursorline
     autocmd BufLeave * set nocursorline
-    autocmd BufEnter,BufWritePost,ShellCmdPost * let f=system('[[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && echo "*"')
-    autocmd VimEnter,BufEnter,ShellCmdPost * let b=system('git branch 2>/dev/null | grep \* | sed "s/\*//g"')
-    autocmd VimEnter,BufEnter,ShellCmdPost * let c=split(b, '')
-    autocmd VimEnter * source $MYVIMRC
+    autocmd BufEnter,BufLeave,BufWritePost * redraw!
+    autocmd CursorHold,BufEnter,BufWritePost,ShellCmdPost * let f=system('[[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && echo "*"')
+    autocmd CursorHold,VimEnter,BufEnter,ShellCmdPost * let b=system('git branch 2>/dev/null | grep \* | sed "s/\*//g"')
+    autocmd CursorHold,VimEnter,BufEnter,ShellCmdPost * let c=split(b, '')
+    " autocmd VimEnter * source $MYVIMRC
     autocmd FileType * set textwidth=80
     autocmd FileType mail set textwidth=0
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -232,8 +229,15 @@ augroup defaults
     autocmd FileType clojure setlocal omnifunc=clojurecomplete#Complete
     autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
     autocmd BufRead,BufEnter .env :ALEDisableBuffer
+    autocmd BufEnter,CursorHold * checktime
+    autocmd CursorHold * call functions#Save()
+    autocmd BufWritePost *.vue call functions#CompileJS()
 augroup end
+"}}}
+hi ExtraWhitespace cterm=underline
+match ExtraWhitespace /\s\+$/
 
+"{{{ kill arrow keys
 noremap <left>  <Nop>
 noremap <down>  <Nop>
 noremap <up>    <Nop>
@@ -242,7 +246,27 @@ inoremap <left>  <Nop>
 inoremap <down>  <Nop>
 inoremap <up>    <Nop>
 inoremap <right> <Nop>
-hi ExtraWhitespace cterm=underline
-match ExtraWhitespace /\s\+$/
+"}}}
+"{{{ escape and save
 inoremap <space><space> <Esc>
 vnoremap <space><space> <Esc>
+nnoremap <space><space> :call functions#Save()<cr>
+nnoremap .<space> i<space><Esc>
+"}}}
+"{{{ Tab complete keywords
+inoremap <expr> <tab> functions#InsertTabWrapper()
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+cnoremap <expr> %% expand('%:h').'/'
+inoremap <c-f> <c-x><c-f>
+"}}}
+"{{{ mappings
+nnoremap <leader><space> :set hlsearch!<cr>
+nnoremap <leader><leader> <C-^>
+nnoremap * :set hlsearch<cr>*
+nnoremap <F1> :set relativenumber!<cr>
+nnoremap <F2> :call functions#WrapToggle()<cr>
+nnoremap <F3> :set list!<cr>
+nnoremap <F4> :call functions#StatusToggle()<cr>
+nnoremap <C-w>m :call functions#Maximize()<cr>
+command! Scratch call functions#Scratch()
+"}}}
