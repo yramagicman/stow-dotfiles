@@ -231,7 +231,7 @@ augroup defaults
     autocmd BufRead,BufEnter .env :ALEDisableBuffer
     autocmd BufEnter,CursorHold * checktime
     autocmd CursorHold * call functions#Save()
-    autocmd BufWritePost *.vue call functions#CompileJS()
+    autocmd BufWritePost *.vue,*.js call functions#CompileJS()
 augroup end
 "}}}
 hi ExtraWhitespace cterm=underline
