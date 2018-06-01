@@ -16,12 +16,10 @@ if test "$( hostname )" == 'serenity'; then
         ( /home/jonathan/.screenlayout/work.sh ) &
     fi
 fi
-( feh --bg-scale --no-xinerama ~/Pictures/WallpaperFusion-spiral-Original-3840x1080.jpg ) &
-if test "$( hostname )" == 'geeko'; then
-    node "$HOME/bin/statusline.js" &
-else
-    "$HOME/bin/i3st" &
-fi
+("$HOME/.fehbg") &
+
+"$HOME/bin/i3st" &
+
 xsetroot -solid '#83F4E'
 
 xset -dpms; xset s off &
@@ -39,8 +37,8 @@ pulseaudio --start
 ## Turn on/off system beep
 xset b off &
 
-# Autostart the Dropbox deamon, but not on my laptop.
-(sleep 100s && dropbox start) &
+# Autostart the Dropbox deamon
+(sleep 100s && dropbox-cli start) &
 
 # Update weather info on boot
 (sleep 45s && check_process redshift) &
@@ -66,24 +64,11 @@ fi
 #     notify-send -u critical "st not intsalled in $HOME/Gits/st"
 # fi
 
-
-if  stat "$HOME/.config/new_mail" > /dev/null; then
-    rm "$HOME/.config/new_mail"
-fi
-
 if  stat "$HOME/.cache/updates" > /dev/null; then
     rm "$HOME/.cache/updates"
 fi
-if test "$( hostname )" = 'k-nine'; then
-    if nmcli | grep 'hide_yo_kids'; then
-        "$HOME/bin/get_remote_ip"
-    fi
-
-    if ! grep "$(cat "$HOME/.config/rip")" /etc/sysconfig/proxy; then
-        notify-send -u critical "Remote IP and Proxy URL are different"
-    fi
-fi
 fetchmail &
+
 echo '' > "$HOME/.config/fetchmail.log"
 echo '' > "$HOME/.config/procmail.log"
 echo '' > "$HOME/.config/msmtp.log"
