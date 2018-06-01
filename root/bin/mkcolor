@@ -4,24 +4,35 @@ set -e
 st_dir=$HOME/Gits/st/
 dwm_dir=$HOME/Gits/dwm/
 config_dir="$HOME/Gits/dots/root/"
+
 if [[ $1 == '' ]]; then
     echo "You're currently using: "
     grep '.colors'  $st_dir/config.h | cut -d '/' -f 5 | cut -d '.' -f 1
     echo
     echo "To switch themes, please provide one of the following arguments:"
-    ls $HOME/.colors/ | cut -d '.' -f 1 | sort | uniq
+    ls $HOME/.colors/ | cut -d '.' -f 1 | sort  -u
     exit
 fi
 
-echo $config_dir
+#remove color info from .xresources
 sed -e 's/i3wm.*$//' -i $config_dir/.Xresources
 sed -e 's/^\*.*$//' -i $config_dir/.Xresources
 sed -e 's/! [a-z]*$//' -i $config_dir/.Xresources
+
+# make sure i3wm has the right color info. For some reason it doesn't respect
+# wildcard colors.
 sed -e 's/\*/i3wm/' $HOME/.colors/$1'.xresources'  >> $config_dir/.Xresources
+
+# append the rest of the colors so everything else gets the right info
 cat $HOME/.colors/$1'.xresources' >> $config_dir/.Xresources
+
+# make sure there aren't any extra blank lines
 cat -s $config_dir/.Xresources > $config_dir/Xresources
+
+# move the new file into place
 mv  $config_dir/Xresources $config_dir/.Xresources
 
+# make sure st color file has the necessary values, and isn't static anywhere
 if [[ -z $(grep defaultrcs $HOME/.colors/$1'.h') ]]; then
     sed -i -n 'p; s/defaultcs/defaultrcs/p' $HOME/.colors/$1'.h'
     sed -i 's/defaultrcs = 257/defaultrcs = 256/g' $HOME/.colors/$1'.h'
@@ -29,6 +40,8 @@ if [[ -z $(grep defaultrcs $HOME/.colors/$1'.h') ]]; then
     grep defaultrcs $HOME/.colors/$1'.h'
 fi
 
+# Remove colors from DWM config. Since some colors are duplicated, this only
+# needs to be done for the unique colors.
 sed -i "s/$(awk '/char background1/ {print $6}' $dwm_dir/config.h)//" "$dwm_dir/config.h"
 sed -i "s/$(awk '/char background2/ {print $6}' $dwm_dir/config.h)//" "$dwm_dir/config.h"
 sed -i "s/$(awk '/char foreground1/ {print $6}' $dwm_dir/config.h)//" "$dwm_dir/config.h"
@@ -36,19 +49,39 @@ sed -i "s/$(awk '/char foreground1/ {print $6}' $dwm_dir/config.h)//" "$dwm_dir/
 sed -i "s/$(awk '/char border1/ {print $6}' $dwm_dir/config.h)//" "$dwm_dir/config.h"
 # sed -i "s/$(awk '/char border2/ {print $6}' $dwm_dir/config.h)//" "$dwm_dir/config.h"
 
+# Set new dwm colors from .xresources file.
 sed -i "s/char background1\[\]\s*=/& \"$(awk '/*.color0/ {print $2}' $HOME/.Xresources)\"/" "$dwm_dir/config.h"
 sed -i "s/char background2\[\]\s*=/& \"$(awk '/*.color13:/ {print $2}' $HOME/.Xresources)\"/" "$dwm_dir/config.h"
 sed -i "s/char foreground1\[\]\s*=/& \"$(awk '/*.color7:/ {print $2}' $HOME/.Xresources)\"/" "$dwm_dir/config.h"
 sed -i "s/char foreground2\[\]\s*=/& \"$(awk '/*.color0:/ {print $2}' $HOME/.Xresources)\"/" "$dwm_dir/config.h"
 sed -i "s/char border1\[\]\s*=/& \"$(awk '/*.color8:/ {print $2}' $HOME/.Xresources)\"/" "$dwm_dir/config.h"
 sed -i "s/char border2\[\]\s*=/& \"$(awk '/*.color13:/ {print $2}' $HOME/.Xresources)\"/" "$dwm_dir/config.h"
+
+# Append semicolons to lines without them.
 sed -i 's/"\s$/";/g' "$dwm_dir/config.h"
+
+# Build DWM
 builtin cd $dwm_dir
 make
 sudo make install
+if [[ -n "$(pgrep dwm)" ]]; then
+    killall dwm
+fi
+
+# Replace include in ST config then build ST
 sed -e "s/#include \"\/home\/jonathan\/.colors\/[a-z_]*.h\"/#include \"\/home\/jonathan\/.colors\/$1\.h\"/g" -i $st_dir/config.h
 builtin cd $st_dir
 make
+if [[ -n "$(pgrep st)" ]]; then
+    killall st
+fi
+
+# reload xresources
 builtin cd
 xrdb -merge ~/.Xresources  >/dev/null 2>&1
-i3-msg restart
+
+# If i3 is running, restart it.
+if [[ -a /tmp/i3-ipc.sock ]];
+then
+    i3-msg restart
+fi
