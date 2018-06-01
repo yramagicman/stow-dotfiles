@@ -12,9 +12,9 @@ junkfile = home + '/.config/mail/junk'
 
 froms = []
 new = re.compile(
-    r"^[0-9]{10}\.[0-9]{0,5}_[0-9]\.serenity$")
+    r"^[0-9]{10}\.[0-9]{0,5}_[0-9]\.observer$|^[0-9]{10}\.[0-9]{0,5}_[0-9]\.serenity$")
 seen = re.compile(
-    r"^[0-9]{10}\.[0-9]{0,5}_[0-9]\.serenity:2,$")
+    r"^[0-9]{10}\.[0-9]{0,5}_[0-9]\.observer:2,$|^[0-9]{10}\.[0-9]{0,5}_[0-9]\.serenity:2,$")
 e = re.compile('^From:')
 for mailfile in mailfiles:
     for m in listdir(mailfile):
