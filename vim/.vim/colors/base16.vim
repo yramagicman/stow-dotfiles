@@ -24,7 +24,7 @@ hi  Underlined    ctermfg=8
 hi  Visual        ctermfg=7 ctermbg=2
 hi  VisualNOS     ctermfg=8
 hi  WarningMsg    ctermfg=10
-hi  WildMenu      ctermfg=0   ctermbg=5
+hi  WildMenu      ctermfg=8
 hi  Title         ctermfg=14             cterm=none
 hi  Conceal       ctermfg=14  ctermbg=0
 hi  Cursor        ctermfg=0   ctermbg=5
@@ -32,7 +32,7 @@ hi  NonText       ctermfg=3
 hi  Normal        ctermfg=6   ctermbg=none
 hi  LineNr        ctermfg=3   ctermbg=none
 hi  SignColumn    ctermfg=3   ctermbg=1
-hi  StatusLine    ctermfg=6   ctermbg=1  cterm=none
+hi  StatusLine    ctermfg=6   ctermbg=2  cterm=none
 hi  StatusLineNC  ctermfg=3   ctermbg=none  cterm=none
 hi  VertSplit     ctermfg=2   ctermbg=2  cterm=none
 hi  ColorColumn   ctermfg=1              cterm=none

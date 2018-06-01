@@ -1,14 +1,13 @@
 " Vim color file
-" Maintainer:   Mikel Ward <mikel@mikelward.com>
 " Last Change:  2008 Jan 16
 
 " Remove all existing highlighting and set the defaults.
 highlight clear
 
 " Load the syntax highlighting defaults, if it's enabled.
-"if exists("syntax_on")
-"   syntax reset
-"endif
+if exists("syntax_on")
+   syntax reset
+endif
 
 let colors_name = "basicDark"
 
@@ -30,22 +29,22 @@ hi clear SpecialKey
 hi clear Directory
 
 " Set up some simple non-intrusive colors_name
-hi Normal ctermfg=253 ctermbg=233 guifg= #dadada guibg= #121212
-hi VertSplit guifg=#808080 guibg=#080808 gui=bold ctermfg=244 ctermbg=232   cterm=bold
-hi String term=underline cterm=NONE ctermfg=247 guifg=#9e9e9e gui=underline
+hi Normal ctermfg=15 ctermbg=NONE
+hi VertSplit ctermfg=244 ctermbg=NONE   cterm=bold
+hi String term=underline cterm=NONE ctermfg=247
 hi Comment term=bold cterm=NONE ctermfg=241 guifg=#626262
 hi Error term=reverse cterm=NONE ctermbg=Red guifg=Red
-hi LineNr term=bold cterm=NONE ctermfg=245 guifg=white
-hi NonText term=bold cterm=NONE ctermfg=238 guifg=#303030
-hi SpecialKey term=bold cterm=NONE ctermfg=238 guifg=#303030
-hi Search ctermbg=236 ctermfg=231 guibg=#303030 guifg= #ffffff
-hi CursorLine ctermbg=235   cterm=none guibg=#262626
-hi FoldColumn ctermbg=232 ctermfg=247 guifg=#465457 guibg=#000000
+hi LineNr term=bold cterm=NONE ctermfg=7
+hi NonText term=bold cterm=NONE ctermfg=238
+hi SpecialKey term=bold cterm=NONE ctermfg=238
+hi Search ctermbg=236 ctermfg=231
+hi CursorLine cterm=UNDERLINE
+hi FoldColumn ctermbg=NONE ctermfg=247 guifg=#465457 guibg=#000000
 hi Folded ctermbg=232 ctermfg=247 guifg=#465457 guibg=#000000
 hi VisualNOS ctermbg=238 guibg=#403D3D
 hi Visual ctermbg=240 guibg=#403D3D
-hi WildMenu guifg=#66D9EF guibg=#000000 ctermfg=81  ctermbg=16
-hi Pmenu ctermfg=81  ctermbg=16 guifg=#66D9EF guibg=#000000
+hi WildMenu ctermfg=15  ctermbg=0
+hi Pmenu ctermfg=81  ctermbg=16
 hi PmenuSel ctermbg=24 guibg=#333333
 hi PmenuSbar ctermbg=23 guibg=#333333
 hi def IndentGuides guibg=#303030 ctermbg=237

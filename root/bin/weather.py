@@ -19,7 +19,7 @@ if weather['cod'] != 200:
 
 try:
     display = ''
-    if hostname == 'geeko':
+    if hostname == 'geeko' or hostname == 'serenity':
         display = display + weather['weather'][0]['main']
         if weather['weather'][0]['main'] != weather['weather'][1]['main']:
             display = display + ' or '
@@ -27,7 +27,7 @@ try:
         display = display + ' '
 except:
     display = ''
-    if hostname == 'geeko':
+    if hostname == 'geeko' or hostname == 'serenity':
         display = display + weather['weather'][0]['main']
         display = display + ' '
 

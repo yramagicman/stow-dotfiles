@@ -15,7 +15,7 @@ function my_bat() {
     bat_stat=$( cat /sys/class/power_supply/BAT1/status )
     if [[ $(date +'%S') -eq 30 ]]
     then
-         if [[ $( echo "$bat_level < 20" | bc) -eq 1 && (  $notify_when -eq 0 )  ]]
+        if [[ $( echo "$bat_level < 20" | bc) -eq 1 && (  $notify_when -eq 0 ) && $status != 'Charging'  ]]
          then
              notify-send "Battery low " "$bat_level remaining"
          fi
@@ -30,7 +30,8 @@ function my_bat() {
 }
 
 function my_wifi(){
-    ssid=$( nmcli | head -n 1 | awk -F ' ' '{print $4}' )
+    # ssid=$( nmcli | head -n 1 | awk -F ' ' '{print $4}' )
+    ssid = ''
     ip=$($HOME/bin/tmuxip)
     strength=$(wifi_strength)
     if [[ $ssid = 'hide_yo_kids_hide_yo_wi-fi' ]]; then
@@ -46,23 +47,19 @@ function wifi_strength() {
 }
 
 function my_load() {
-    load=$(uptime)
-    average=("${(@s/ /)load}")
-    if [[ "$hn" == "k-nine" ]];
-    then
-        echo "R:$(free -mh | head -n2 | tail -n 1 | awk '{ print $4}')"
-    else
-        echo "L:$average[11,-1]"
-    fi
+    load=$( ps -eo cmd,%cpu --sort=-%cpu | awk -F ' ' '{sum += $(NF)} END {print sum/4}' | cut -d '.' -f 1 )
+    cmd=$( ps -eo cmd,%cpu --sort=-%cpu | awk -F ' ' '{print $1}' | head -n 2 | tail -n 1 )
+    temp=$(sensors | awk '/Package/ {print $4}')
+    echo "Top CMD:$(basename $cmd ) CPU:$load% TEMP:$temp"
 }
 
 
 function my_mail() {
-    mailmon
+    $HOME/bin/mailmon
 }
 
 function my_weather() {
-    if [[ ! "$(cat "$HOME/.cache/weather")" ]];
+    if [[ -z "$(cat "$HOME/.cache/weather")" ]];
     then
         $HOME/bin/weather.py > $HOME/.cache/weather
         weather=' W:'$(cat $HOME/.cache/weather)
@@ -82,23 +79,23 @@ function my_weather() {
 function my_update() {
     if [[ ! -e $HOME/.cache/updates ]];
     then
-        sudo zypper refresh > $HOME/.cache/update_log
-        zypper lu > $HOME/.cache/updates
+        cower -u > $HOME/.cache/u
+        checkupdates >> $HOME/.cache/u
+        sort -u $HOME/.cache/u > $HOME/.cache/updates
         updates=' U:'$(cat $HOME/.cache/updates | wc -l)
-        notify-send "$(cat $HOME/.cache/update_log)"
     fi
     mm=$(stat $HOME/.cache/updates | awk '/Modify/ {split($3, arr, ":"); print arr[2]}')
     if [[ "$(( $(date +"%H" ) % 2 ))" -eq 0 && "$(date +"%M")" -eq 15 && ! $mm  -eq 15 ]]
     then
-        sudo zypper refresh > $HOME/.cache/update_log
-        zypper lu > $HOME/.cache/updates
+        cower -u > $HOME/.cache/u
+        checkupdates >> $HOME/.cache/u
+        sort -u $HOME/.cache/u > $HOME/.cache/updates
+        rm $HOME/.cache/u
+        if [[ $( cat $HOME/.cache/updates | wc -l  ) -gt 10 ]]; then
+            msg="$(head -n 15 $HOME/.cache/updates) <br>with $(wc -l $HOME/.cache/updates | cut -d ' ' -f 1) total updates"
+            notify-send "$msg"
+        fi
     else
-        sed -e "s/Loading repository data...//g" -i $HOME/.cache/updates
-        sed -e "s/Reading installed packages...//g" -i $HOME/.cache/updates
-        sed -e "s/No updates found.//g" -i $HOME/.cache/updates
-        sed '/--+/d' -i $HOME/.cache/updates
-        sed '/Name/d' -i $HOME/.cache/updates
-        sed -e "/^$/d" -i $HOME/.cache/updates
         updates=' U:'$(cat -s $HOME/.cache/updates | wc -l )
     fi
     if [[ $( cat $HOME/.cache/updates | wc -l  ) -gt 10 ]]
@@ -112,13 +109,13 @@ function my_volume() {
 }
 
 function dbox() {
-    box="$(dropbox status)"
+    box="$(dropbox-cli status)"
     if [[ $box = "Dropbox isn't running!" ]]
     then
         message="off"
 
     else
-        message="$(echo "$box" | head -n1 )"
+        message="$(echo "$box" | head -n1 | cut -d ' ' -f 1)"
     fi
     if [[ $message == "Up to date" ]]
     then
@@ -127,16 +124,8 @@ function dbox() {
     echo "D:$message"
 }
 
-if [[ "$hn" == "k-nine" && -n $( cat $HOME/.cache/updates ) && -n $( mailmon ) ]]
-then
-    line="$(my_update)$(my_mail)"
-else
-    line="$(my_update)$(my_mail)$(my_weather)"
-fi
-if [[ "$hn" == "k-nine" || "$hn" == "serenity" ]];
-then
+line="$(my_update)$(my_mail)$(my_weather) $(my_load)"
 line="$line $(my_bat)"
-fi
 line="$line $(my_wifi) $(dbox) $(my_volume) $(my_date)"
 
 

@@ -74,9 +74,6 @@ set shell=zsh
 " Make backspace behave in a sane manner.
 set backspace=indent,eol,start
 
-" Switch syntax highlighting on
-syntax on
-
 " enable Omnicomplete
 set omnifunc=syntaxcomplete#Complete
 
@@ -90,6 +87,9 @@ endif
 
 set autoread
 set autowrite
+
+set lazyredraw
+set ttyfast
 
 " Centralize backups, swapfiles and undo history
 if exists("&backupdir")
@@ -128,7 +128,7 @@ endif
 
 set nojoinspaces
 
-set equalalways
+" set equalalways
 set splitbelow
 set splitright
 set scrolloff=2
@@ -137,6 +137,9 @@ set t_Co=256
 "Use os clipboard
 set clipboard^=unnamedplus,unnamed
 set incsearch
+set noerrorbells
+set novisualbell
+set hlsearch
 
 " Ignore case of searches
 set ignorecase
@@ -202,16 +205,17 @@ set statusline+=\ Column\ %2c
 set statusline+=\ \|
 
 set hidden
+set winheight=2
+set winminheight=2
 
-let s:dontwrite = ['!zsh']
 augroup defaults
     autocmd!
     autocmd InsertLeave * if filewritable( expand('%')) == 1 | silent w | endif
     autocmd CursorMoved * if filewritable( expand('%')) == 1 | silent w | endif
     autocmd BufWritePost $MYVIMRC source %
-    autocmd BufWritePre * :%s/\s\+$//e
+    autocmd BufWritePre,InsertLeave * :%s/\s\+$//e
     autocmd BufWritePre * silent! :%s#\($\n\s*\)\+\%$##
-    autocmd BufWritePre * silent! :retab!
+    autocmd BufWritePre,InsertLeave * silent! :retab!
     autocmd BufEnter * set cursorline
     autocmd BufLeave * set nocursorline
     autocmd BufEnter,BufWritePost,ShellCmdPost * let f=system('[[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && echo "*"')
@@ -227,6 +231,7 @@ augroup defaults
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
     autocmd FileType clojure setlocal omnifunc=clojurecomplete#Complete
     autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
+    autocmd BufRead,BufEnter .env :ALEDisableBuffer
 augroup end
 
 noremap <left>  <Nop>

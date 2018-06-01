@@ -1,67 +1,49 @@
-#!/bin/bash
-#
-# Sample .xinitrc for SuSE Linux
-# This script is called from 'startx' when you start an X session
-#
+#!/bin/sh
 
-#
-# In case everything goes wrong, we at least fall back to a plain xterm
-#
-if test "$(hostname)" = "serenity"; then
-    (cd $HOME/Gits/dots/; git checkout work)
-    exit
-fi
-failsafe="xterm -ls -T Failsafe -geometry 80x24-0-0"
-trap "exec $failsafe" EXIT SIGHUP SIGINT SIGPIPE SIGTERM SIGIO
+userresources=$HOME/.Xresources
+usermodmap=$HOME/.Xmodmap
+sysresources=/etc/X11/xinit/.Xresources
+sysmodmap=/etc/X11/xinit/.Xmodmap
 
-#
-# Some bash (1 and 2) settings to avoid trouble on a
-# failed program call.
-#
-set +e > /dev/null 2>&1
-set +u > /dev/null 2>&1
-set +o posix  > /dev/null 2>&1
-if type shopt > /dev/null 2>&1 ; then
-    shopt -s execfail
-else
-    no_exit_on_failed_exec=1
+# merge in defaults and keymaps
+
+if [ -f $sysresources ]; then
+
+    xrdb -merge $sysresources
+
 fi
 
-#
-# Source common code shared between the
-# X session and X init scripts
-#
-. /etc/X11/xinit/xinitrc.common
+if [ -f $sysmodmap ]; then
+    xmodmap $sysmodmap
+fi
 
-#
-# Special for twm
-#
-case "$WINDOWMANAGER" in
-    *twm) xsetroot -solid darkslateblue
-esac
+if [ -f "$userresources" ]; then
 
-#
-# Uncomment next lines to activate asking for ssh passphrase
-#
-# if test -S "$SSH_AUTH_SOCK" -a -x "$SSH_ASKPASS"; then
-#       ssh-add < /dev/null
-# fi
+    xrdb -merge "$userresources"
 
-#
-# Add your own lines here...
-#
+fi
+
+if [ -f "$usermodmap" ]; then
+    xmodmap "$usermodmap"
+fi
+
+# start some nice programs
+
+if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+ for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+  [ -x "$f" ] && . "$f"
+ done
+ unset f
+fi
 
 
-# day planer deamon
-# pland &
-
-if test "$( hostname )" = "k-nine"
+if test "$( hostname )" = "k-nine" || test "$( hostname )" = "serenity"
 then
     $HOME/bin/setmouse &
 fi
 setxkbmap -option compose:menu
 setxkbmap -option caps:none
-if stat $HOME/Gits/st/st > /dev/null; then
+if stat $HOME/Gits/st/st 2>&1 > /dev/null; then
     export TERMINAL="$HOME/Gits/st/st"
 elif which st > /dev/null; then
     export TERMINAL=st
@@ -74,12 +56,5 @@ elif which uxterm > /dev/null; then
 else
     export TERMINAL=xterm
 fi
-export MAN_POSIXLY_CORRECT=true
-#
-# finally start the window manager
-#
-unset WINDOW_MANAGER STARTUP
-exec $WINDOWMANAGER ${1+"$@"}
 
-# call failsafe
-exit 0
+exec $HOME/bin/dwmrestart

@@ -9,20 +9,20 @@ check_process(){
 
 }
 
-( /home/jonathan/.screenlayout/default.sh) &
+( /home/jonathan/.screenlayout/default.sh ) &
 if test "$( hostname )" == 'serenity'; then
-    if test "$(xrandr | awk '/HDMI-1/ {print $2}' )" == 'connected'; then
+    if test "$(xrandr | awk '/HDMI1/ {print $2}' )" == 'connected'; then
 
         ( /home/jonathan/.screenlayout/work.sh ) &
     fi
 fi
-( nitrogen --restore) &
+( feh --bg-scale --no-xinerama ~/Pictures/WallpaperFusion-spiral-Original-3840x1080.jpg ) &
 if test "$( hostname )" == 'geeko'; then
     node "$HOME/bin/statusline.js" &
 else
     "$HOME/bin/i3st" &
 fi
-# xsetroot -solid '#082F4E'
+xsetroot -solid '#83F4E'
 
 xset -dpms; xset s off &
 (sleep 1s && check_process compton -c) &
@@ -70,6 +70,10 @@ fi
 if  stat "$HOME/.config/new_mail" > /dev/null; then
     rm "$HOME/.config/new_mail"
 fi
+
+if  stat "$HOME/.cache/updates" > /dev/null; then
+    rm "$HOME/.cache/updates"
+fi
 if test "$( hostname )" = 'k-nine'; then
     if nmcli | grep 'hide_yo_kids'; then
         "$HOME/bin/get_remote_ip"
@@ -84,5 +88,7 @@ echo '' > "$HOME/.config/fetchmail.log"
 echo '' > "$HOME/.config/procmail.log"
 echo '' > "$HOME/.config/msmtp.log"
 echo '' > "$HOME/.mpd/mpdstate"
+rm "$HOME/slacklogs"
+rm "$HOME/nohup"
 
 exit

@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 sudo apachectl restart
-sudo systemctl restart mysql
+sudo systemctl restart mysqld
 
-if [[ -z "$(ip addr show | grep 10.0.1.16)" ]]; then
-    sudo ip addr add 10.0.1.16/24 broadcast 10.0.1.255 dev lo
-fi
+# if [[ -z "$(ip addr show | grep 10.0.1.16)" ]]; then
+#     sudo ip addr add 10.0.1.16/24 broadcast 10.0.1.255 dev lo
+# fi

@@ -19,8 +19,8 @@ fi
 # Editors
 #
 
-export EDITOR='/usr/local/bin/vim'
-export VISUAL='/usr/local/bin/vim'
+export EDITOR='/usr/bin/vim'
+export VISUAL='/usr/bin/vim'
 export PAGER='less'
 
 #
@@ -48,6 +48,7 @@ path=(
   $HOME/bin
   $HOME/.gem/ruby/2.4.0/bin
   $HOME/.config/composer/vendor/bin
+  /opt/php71/usr/bin
   /usr/local/{bin,sbin}
   $path
 )
