@@ -72,6 +72,7 @@ fi
 sed -e "s/#include \"\/home\/jonathan\/.colors\/[a-z_]*.h\"/#include \"\/home\/jonathan\/.colors\/$1\.h\"/g" -i $st_dir/config.h
 builtin cd $st_dir
 make
+sudo make install
 if [[ -n "$(pgrep st)" ]]; then
     killall st
 fi

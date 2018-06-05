@@ -125,7 +125,9 @@ function dbox() {
 }
 
 line="$(my_update)$(my_mail)$(my_weather) $(my_load)"
+if [[ -d /sys/class/power_supply/BAT1/ ]]; then
 line="$line $(my_bat)"
+fi
 line="$line $(my_wifi) $(dbox) $(my_volume) $(my_date)"
 
 
